@@ -101,6 +101,17 @@ Frank 与 Claire 的夺权之路，一切为了权力。
 
 财务顾问为毒枭洗钱，一家人在湖畔小镇越陷越深。
 
+## 曼达洛人 · The Mandalorian（Disney+，2019–2023，3 季）
+
+![《曼达洛人》海报](cover/mandalorian.jpg)
+
+- **人物：** 20 位
+- **网页版：** [曼达洛人人物关系图](archive/Mandalorian/%E6%9B%BC%E8%BE%BE%E6%B4%9B%E4%BA%BA%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html)
+- **关系图长图：** [mandalorian-relationship.png](archive/Mandalorian/mandalorian-relationship.png)
+- **文字版：** [mandalorian-relationship-text.md](archive/Mandalorian/mandalorian-relationship-text.md)
+
+赏金猎人与一个孩子的旅程，信条即道路。
+
 ---
 
 ## 目录结构
@@ -119,5 +130,6 @@ cinema-log/
     ├── House-of-Cards/ # 纸牌屋：网页版 HTML、关系图 PNG、文字版
     ├── Severance/      # 人生切割术：网页版 HTML、关系图 PNG、文字版
     ├── Billions/       # 亿万：网页版 HTML、关系图 PNG、文字版
-    └── Ozark/          # 黑钱胜地：网页版 HTML、关系图 PNG、文字版
+    ├── Ozark/          # 黑钱胜地：网页版 HTML、关系图 PNG、文字版
+    └── Mandalorian/    # 曼达洛人：网页版 HTML、关系图 PNG、文字版
 ```
