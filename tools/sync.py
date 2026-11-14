@@ -99,9 +99,9 @@ def render_cards(shows):
       <p class="meta"><b>{s['characters']}</b> 位人物 · {s['years']} · {s['seasons']} · <span class="rating">★ {s.get('douban', '—')}</span></p>
       <p class="desc">{s['desc']}</p>
 {genres_html}{quiz_tag}      <div class="links">
-        <a class="web" href="{html_url}">网页版</a>
-        <a class="alt" href="archive/{s['id']}/{s['png_file']}">关系图长图</a>
-        <a class="alt" href="archive/{s['id']}/{s['text_file']}">文字版</a>
+        <a class="web" href="{html_url}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></svg>网页版</a>
+        <a class="alt" href="archive/{s['id']}/{s['png_file']}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>关系图长图</a>
+        <a class="alt" href="archive/{s['id']}/{s['text_file']}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>文字版</a>
       </div>
     </div>
   </article>""")
@@ -474,24 +474,31 @@ INDEX_TEMPLATE = r"""<!DOCTYPE html>
   .desc { color: #c9d1de; font-size: 14px; line-height: 1.7; margin-top: 9px; flex: 1; }
   .links {
     display: flex;
-    gap: 8px;
     margin-top: 14px;
-    padding-top: 13px;
-    border-top: 1px solid var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface-2);
   }
   .links a {
     flex: 1;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     font-size: 13px;
-    padding: 7px 4px;
-    border-radius: 8px;
+    padding: 10px 4px;
     text-decoration: none;
     transition: all .15s ease;
+    white-space: nowrap;
   }
+  .links a svg { flex-shrink: 0; }
+  .links a + a { border-left: 1px solid var(--border); }
+  .links a:nth-child(2) { flex: 1.25; }
   .links a.web { background: var(--accent); color: #1a1405; font-weight: 600; }
-  .links a.web:hover { filter: brightness(1.1); }
-  .links a.alt { background: var(--surface-2); color: var(--muted); border: 1px solid var(--border); }
-  .links a.alt:hover { color: var(--text); border-color: var(--accent-2); }
+  .links a.web:hover { filter: brightness(1.12); }
+  .links a.alt { color: var(--muted); }
+  .links a.alt:hover { background: rgba(255, 255, 255, .05); color: var(--text); }
   .quiz-tag {
     display: inline-block;
     margin-top: 10px;
