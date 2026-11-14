@@ -79,6 +79,28 @@ Frank 与 Claire 的夺权之路，一切为了权力。
 
 切割手术把人生劈成里外两个人。
 
+## 亿万 · Billions（Showtime，2016–2023，7 季）
+
+![《亿万》海报](cover/billions.jpg)
+
+- **人物：** 22 位
+- **网页版：** [亿万人物关系图](archive/Billions/%E4%BA%BF%E4%B8%87%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html)
+- **关系图长图：** [billions-relationship.png](archive/Billions/billions-relationship.png)
+- **文字版：** [billions-relationship-text.md](archive/Billions/billions-relationship-text.md)
+
+对冲基金大佬与联邦检察官的金钱战争，财富即战争。
+
+## 黑钱胜地 · Ozark（Netflix，2017–2022，4 季）
+
+![《黑钱胜地》海报](cover/ozark.jpg)
+
+- **人物：** 21 位
+- **网页版：** [黑钱胜地人物关系图](archive/Ozark/%E9%BB%91%E9%92%B1%E8%83%9C%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html)
+- **关系图长图：** [ozark-relationship.png](archive/Ozark/ozark-relationship.png)
+- **文字版：** [ozark-relationship-text.md](archive/Ozark/ozark-relationship-text.md)
+
+财务顾问为毒枭洗钱，一家人在湖畔小镇越陷越深。
+
 ---
 
 ## 目录结构
@@ -95,5 +117,7 @@ cinema-log/
     ├── Game-of-Thrones/# 权利的游戏：网页版 HTML、关系图 PNG、文字版
     ├── Silicon-Valley/ # 硅谷：网页版 HTML、关系图 PNG、文字版
     ├── House-of-Cards/ # 纸牌屋：网页版 HTML、关系图 PNG、文字版
-    └── Severance/      # 人生切割术：网页版 HTML、关系图 PNG、文字版
+    ├── Severance/      # 人生切割术：网页版 HTML、关系图 PNG、文字版
+    ├── Billions/       # 亿万：网页版 HTML、关系图 PNG、文字版
+    └── Ozark/          # 黑钱胜地：网页版 HTML、关系图 PNG、文字版
 ```
