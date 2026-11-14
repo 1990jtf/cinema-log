@@ -6,7 +6,7 @@
 
 | 📺 剧集 | 👥 人物 | 🗓️ 跨度 |
 | --- | --- | --- |
-| **9 部** | **202 位** | 2011–2023 |
+| **10 部** | **224 位** | 2011–2024 |
 
 ---
 
@@ -23,6 +23,7 @@
 | <img src="cover/billions.jpg" width="54" alt="亿万"> | **亿万** · Billions | Showtime | 2016–2023 | 7 季 | 22 | [网页版](archive/Billions/%E4%BA%BF%E4%B8%87%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html) · [长图](archive/Billions/billions-relationship.png) · [文字版](archive/Billions/billions-relationship-text.md) |
 | <img src="cover/ozark.jpg" width="54" alt="黑钱胜地"> | **黑钱胜地** · Ozark | Netflix | 2017–2022 | 4 季 | 21 | [网页版](archive/Ozark/%E9%BB%91%E9%92%B1%E8%83%9C%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html) · [长图](archive/Ozark/ozark-relationship.png) · [文字版](archive/Ozark/ozark-relationship-text.md) |
 | <img src="cover/mandalorian.jpg" width="54" alt="曼达洛人"> | **曼达洛人** · The Mandalorian | Disney+ | 2019–2023 | 3 季 | 20 | [网页版](archive/Mandalorian/%E6%9B%BC%E8%BE%BE%E6%B4%9B%E4%BA%BA%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html) · [长图](archive/Mandalorian/mandalorian-relationship.png) · [文字版](archive/Mandalorian/mandalorian-relationship-text.md) |
+| <img src="cover/joy-of-life.jpg" width="54" alt="庆余年"> | **庆余年** · Joy of Life | 腾讯视频 | 2019–2024 | 2 季 | 22 | [网页版](archive/Joy-of-Life/%E5%BA%86%E4%BD%99%E5%B9%B4%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html) · [长图](archive/Joy-of-Life/joy-of-life-relationship.png) · [文字版](archive/Joy-of-Life/joy-of-life-relationship-text.md) |
 
 ---
 
@@ -37,6 +38,7 @@
 - **亿万** — 对冲基金大佬与联邦检察官的金钱战争，财富即战争。
 - **黑钱胜地** — 财务顾问为毒枭洗钱，一家人在湖畔小镇越陷越深。
 - **曼达洛人** — 赏金猎人与一个孩子的旅程，信条即道路。
+- **庆余年** — 范闲从儋州少年到京都权臣，查身世、斗权贵、揭开叶轻眉之死。
 
 ---
 
@@ -59,7 +61,8 @@ cinema-log/
     ├── Severance/ # 人生切割术：网页版 HTML、关系图 PNG、文字版
     ├── Billions/ # 亿万：网页版 HTML、关系图 PNG、文字版
     ├── Ozark/ # 黑钱胜地：网页版 HTML、关系图 PNG、文字版
-    └── Mandalorian/ # 曼达洛人：网页版 HTML、关系图 PNG、文字版
+    ├── Mandalorian/ # 曼达洛人：网页版 HTML、关系图 PNG、文字版
+    └── Joy-of-Life/ # 庆余年：网页版 HTML、关系图 PNG、文字版
 ```
 
 ## 新增一部剧

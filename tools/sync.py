@@ -39,6 +39,17 @@ def year_span(shows):
     return f"{min(starts)}–{max(ends)}"
 
 
+def span_years(shows):
+    starts, ends = [], []
+    for s in shows:
+        years = s["years"].replace("–", "-").replace("—", "-")
+        parts = years.split("-", 1)
+        starts.append(int(parts[0]))
+        if len(parts) > 1 and parts[1].strip():
+            ends.append(int(parts[1]))
+    return max(ends) - min(starts) + 1
+
+
 def check_files(shows):
     """校验每部剧引用的文件是否都存在，返回缺失列表。"""
     missing = []
@@ -107,6 +118,7 @@ def render_index(shows):
     tpl = tpl.replace("__STAT_CHARS__", str(total_chars))
     tpl = tpl.replace("__STAT_PLATFORMS__", str(len(platforms)))
     tpl = tpl.replace("__STAT_SPAN__", year_span(shows))
+    tpl = tpl.replace("__STAT_SPAN_YEARS__", str(span_years(shows)))
     tpl = tpl.replace("__CHIPS__", render_chips(shows))
     tpl = tpl.replace("__CARDS__", render_cards(shows))
     tpl = tpl.replace("__LATEST__", latest_line)
@@ -380,7 +392,7 @@ INDEX_TEMPLATE = r"""<!DOCTYPE html>
     <div class="stat"><b>__STAT_SHOWS__</b><span>部剧集</span></div>
     <div class="stat"><b>__STAT_CHARS__</b><span>位人物</span></div>
     <div class="stat"><b>__STAT_PLATFORMS__</b><span>个平台</span></div>
-    <div class="stat"><b>__STAT_SPAN__</b><span>跨度 13 年</span></div>
+    <div class="stat"><b>__STAT_SPAN__</b><span>跨度 __STAT_SPAN_YEARS__ 年</span></div>
   </div>
 </header>
 
