@@ -22,6 +22,9 @@ ROOT = Path(__file__).resolve().parent.parent
 # 筛选按钮里平台的固定顺序；shows.json 里出现的新平台会自动追加在后面。
 PLATFORM_ORDER = ["HBO", "Netflix", "Disney+", "Apple TV+", "AMC", "Showtime"]
 
+# 类型筛选按钮的固定顺序；shows.json 里出现的新类型会自动追加在后面。
+GENRE_ORDER = ["剧情", "喜剧", "科幻", "犯罪", "惊悚", "奇幻", "动画", "古装", "冒险", "动作", "战争"]
+
 
 def q(path: str) -> str:
     """把仓库相对路径转成 URL 编码形式（中文文件名在链接里需要编码）。"""
@@ -77,16 +80,25 @@ def render_cards(shows):
         quiz_tag = ""
         if s.get("quiz"):
             quiz_tag = f"      <span class=\"quiz-tag\">📝 {s['quiz']['label']}</span>\n"
-        cards.append(f"""  <article class="card" data-title="{search}" data-platform="{s['platform']}">
+        genres = s.get("genres", [])
+        genres_attr = " ".join(genres)
+        genres_html = ""
+        if genres:
+            tags = "".join(f"<span>{g}</span>" for g in genres)
+            genres_html = f"      <p class=\"genres\">{tags}</p>\n"
+        status = s.get("status", "已完结")
+        status_cls = "ongoing" if status == "追更中" else "done"
+        cards.append(f"""  <article class="card" data-title="{search}" data-platform="{s['platform']}" data-genres="{genres_attr}">
     <a class="poster" href="{html_url}">
       <img src="{cover}" alt="《{s['title_cn']}》海报" loading="lazy">
       <span class="platform">{s['platform']}</span>
+      <span class="status {status_cls}">{status}</span>
     </a>
     <div class="card-body">
       <h2>{s['title_cn']} <span>{s['title_en']}</span></h2>
-      <p class="meta"><b>{s['characters']}</b> 位人物 · {s['years']} · {s['seasons']}</p>
+      <p class="meta"><b>{s['characters']}</b> 位人物 · {s['years']} · {s['seasons']} · <span class="rating">★ {s.get('douban', '—')}</span></p>
       <p class="desc">{s['desc']}</p>
-{quiz_tag}      <div class="links">
+{genres_html}{quiz_tag}      <div class="links">
         <a class="web" href="{html_url}">网页版</a>
         <a class="alt" href="archive/{s['id']}/{s['png_file']}">关系图长图</a>
         <a class="alt" href="archive/{s['id']}/{s['text_file']}">文字版</a>
@@ -108,18 +120,33 @@ def render_chips(shows):
     return "\n".join(chips)
 
 
+def render_genre_chips(shows):
+    genres = []
+    for s in shows:
+        for g in s.get("genres", []):
+            if g not in genres:
+                genres.append(g)
+    genres.sort(key=lambda g: GENRE_ORDER.index(g) if g in GENRE_ORDER else len(GENRE_ORDER))
+    chips = ['    <button class="chip active" data-genre="all">全部类型</button>']
+    chips += [f'    <button class="chip" data-genre="{g}">{g}</button>' for g in genres]
+    return "\n".join(chips)
+
+
 def render_index(shows):
     total_chars = sum(s["characters"] for s in shows)
     platforms = {s["platform"] for s in shows}
+    ongoing = sum(1 for s in shows if s.get("status") == "追更中")
     latest = max(shows, key=lambda s: (s["added"], shows.index(s)))
     latest_line = f"持续更新中 · 最近新增《{latest['title_cn']}》（{latest['added']}）"
     tpl = INDEX_TEMPLATE
     tpl = tpl.replace("__STAT_SHOWS__", str(len(shows)))
     tpl = tpl.replace("__STAT_CHARS__", str(total_chars))
     tpl = tpl.replace("__STAT_PLATFORMS__", str(len(platforms)))
+    tpl = tpl.replace("__STAT_ONGOING__", str(ongoing))
     tpl = tpl.replace("__STAT_SPAN__", year_span(shows))
     tpl = tpl.replace("__STAT_SPAN_YEARS__", str(span_years(shows)))
     tpl = tpl.replace("__CHIPS__", render_chips(shows))
+    tpl = tpl.replace("__GENRE_CHIPS__", render_genre_chips(shows))
     tpl = tpl.replace("__CARDS__", render_cards(shows))
     tpl = tpl.replace("__LATEST__", latest_line)
     return tpl
@@ -140,8 +167,8 @@ def render_table_rows(shows):
             links += f" · [选择题测验]({quiz_url})"
         rows.append(
             f"| <img src=\"{cover}\" width=\"54\" alt=\"{s['title_cn']}\"> "
-            f"| **{s['title_cn']}** · {s['title_en']} | {s['platform']} "
-            f"| {s['years']} | {s['seasons']} | {s['characters']} | {links} |"
+            f"| **{s['title_cn']}** · {s['title_en']}<br>★ {s.get('douban', '—')} | {s['platform']} "
+            f"| {s['years']} | {s['seasons']} · {s.get('status', '已完结')} | {s['characters']} | {links} |"
         )
     return "\n".join(rows)
 
@@ -164,7 +191,11 @@ def render_readme(shows):
     tpl = tpl.replace("__YEAR_SPAN__", year_span(shows))
     tpl = tpl.replace("__TABLE_ROWS__", render_table_rows(shows))
     tpl = tpl.replace(
-        "__DESCS__", "\n".join(f"- **{s['title_cn']}** — {s['desc']}" for s in shows)
+        "__DESCS__",
+        "\n".join(
+            f"- **{s['title_cn']}**（{' / '.join(s.get('genres', []))}） — {s['desc']}"
+            for s in shows
+        ),
     )
     tpl = tpl.replace("__TREE__", render_tree(shows))
     return tpl
@@ -175,6 +206,8 @@ INDEX_TEMPLATE = r"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0e14">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <title>观影日志 · 人物关系图</title>
 <style>
   :root {
@@ -187,6 +220,7 @@ INDEX_TEMPLATE = r"""<!DOCTYPE html>
     --faint: #6b7794;
     --accent: #e8b64c;
     --accent-2: #5ea8ff;
+    --max-w: 1440px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -218,6 +252,8 @@ INDEX_TEMPLATE = r"""<!DOCTYPE html>
   }
   .hero h1 { font-size: 40px; letter-spacing: 4px; line-height: 1.25; }
   .hero h1 span { color: var(--accent); }
+  .logo { width: 64px; height: 64px; margin: 0 auto 18px; }
+  .logo svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 6px 16px rgba(0, 0, 0, .4)); }
   .hero p { color: var(--muted); max-width: 640px; margin: 14px auto 0; font-size: 15px; }
   .stats {
     display: flex;
@@ -238,7 +274,7 @@ INDEX_TEMPLATE = r"""<!DOCTYPE html>
 
   /* ---------- Toolbar ---------- */
   .toolbar {
-    max-width: 1120px;
+    max-width: var(--max-w);
     margin: 0 auto;
     padding: 28px 20px 8px;
     display: flex;
@@ -268,6 +304,7 @@ INDEX_TEMPLATE = r"""<!DOCTYPE html>
   }
   .search input::placeholder { color: var(--faint); }
   .filters { display: flex; flex-wrap: wrap; gap: 8px; }
+  .filter-rows { flex-basis: 100%; display: flex; flex-direction: column; gap: 8px; }
   .chip {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -281,15 +318,39 @@ INDEX_TEMPLATE = r"""<!DOCTYPE html>
   .chip:hover { border-color: var(--accent-2); color: var(--text); }
   .chip.active { background: var(--accent); border-color: var(--accent); color: #1a1405; font-weight: 600; }
   .count { color: var(--faint); font-size: 13px; }
+  .cols-control { display: flex; align-items: center; gap: 6px; }
+  .cols-control > span { color: var(--faint); font-size: 13px; }
+  .cols-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 8px;
+    padding: 6px 11px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .cols-btn:hover { border-color: var(--accent-2); color: var(--text); }
+  .cols-btn.active { background: var(--accent); border-color: var(--accent); color: #1a1405; font-weight: 600; }
 
   /* ---------- Grid ---------- */
   .grid {
-    max-width: 1120px;
+    max-width: var(--max-w);
     margin: 0 auto;
     padding: 20px 20px 30px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 24px;
+  }
+  .grid[data-cols="2"] { grid-template-columns: repeat(2, 1fr); }
+  .grid[data-cols="3"] { grid-template-columns: repeat(3, 1fr); }
+  .grid[data-cols="4"] { grid-template-columns: repeat(4, 1fr); }
+  .grid[data-cols="5"] { grid-template-columns: repeat(5, 1fr); }
+  @media (max-width: 1100px) {
+    .grid[data-cols="4"], .grid[data-cols="5"] { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .grid[data-cols="3"], .grid[data-cols="4"], .grid[data-cols="5"] { grid-template-columns: repeat(2, 1fr); }
   }
   .card {
     background: var(--surface);
@@ -317,6 +378,26 @@ INDEX_TEMPLATE = r"""<!DOCTYPE html>
     padding: 4px 11px;
     font-size: 12px;
     letter-spacing: .5px;
+  }
+  .status {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    border-radius: 999px;
+    padding: 4px 11px;
+    font-size: 12px;
+    letter-spacing: .5px;
+  }
+  .status.done { background: rgba(11, 14, 20, .82); backdrop-filter: blur(4px); border: 1px solid rgba(255, 255, 255, .18); color: var(--muted); }
+  .status.ongoing { background: var(--accent); border: 1px solid var(--accent); color: #1a1405; font-weight: 600; }
+  .rating { color: var(--accent); font-weight: 600; }
+  .genres { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .genres span {
+    font-size: 12px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 2px 10px;
   }
   .card-body { padding: 18px 18px 16px; display: flex; flex-direction: column; flex: 1; }
   .card-body h2 { font-size: 20px; line-height: 1.35; }
@@ -363,7 +444,7 @@ INDEX_TEMPLATE = r"""<!DOCTYPE html>
   }
 
   footer {
-    max-width: 1120px;
+    max-width: var(--max-w);
     margin: 0 auto;
     padding: 8px 20px 56px;
     color: var(--faint);
@@ -379,12 +460,24 @@ INDEX_TEMPLATE = r"""<!DOCTYPE html>
     .hero h1 { font-size: 29px; letter-spacing: 2px; }
     .stat { min-width: 96px; padding: 8px 14px; }
     .stat b { font-size: 20px; }
+    .grid[data-cols="2"], .grid[data-cols="3"], .grid[data-cols="4"], .grid[data-cols="5"] { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
 <header class="hero">
+  <div class="logo" aria-hidden="true">
+    <svg viewBox="0 0 64 64">
+      <rect width="64" height="64" rx="14" fill="#0b0e14"/>
+      <path d="M13 22 L17 11 H51 L47 22 Z" fill="#e8b64c"/>
+      <line x1="25" y1="11" x2="21" y2="22" stroke="#0b0e14" stroke-width="2.5"/>
+      <line x1="35" y1="11" x2="31" y2="22" stroke="#0b0e14" stroke-width="2.5"/>
+      <line x1="45" y1="11" x2="41" y2="22" stroke="#0b0e14" stroke-width="2.5"/>
+      <rect x="13" y="22" width="38" height="29" rx="4" fill="#1a2133" stroke="#e8b64c" stroke-width="2"/>
+      <polygon points="27,30 27,43 39,36.5" fill="#e8b64c"/>
+    </svg>
+  </div>
   <span class="kicker">CINEMA LOG · 观影日志</span>
   <h1>看过的剧，<span>人物关系</span>都在这里</h1>
   <p>每部剧一份可交互的网页版人物关系图、一张关系图长图、一份文字版。点海报进入网页版，卡片下方可直达长图与文字版。</p>
@@ -392,16 +485,30 @@ INDEX_TEMPLATE = r"""<!DOCTYPE html>
     <div class="stat"><b>__STAT_SHOWS__</b><span>部剧集</span></div>
     <div class="stat"><b>__STAT_CHARS__</b><span>位人物</span></div>
     <div class="stat"><b>__STAT_PLATFORMS__</b><span>个平台</span></div>
+    <div class="stat"><b>__STAT_ONGOING__</b><span>部追更中</span></div>
     <div class="stat"><b>__STAT_SPAN__</b><span>跨度 __STAT_SPAN_YEARS__ 年</span></div>
   </div>
 </header>
 
 <div class="toolbar">
   <label class="search">🔍 <input id="q" type="search" placeholder="搜剧名，如 曼达洛人 / Succession…" aria-label="搜索剧集"></label>
-  <div class="filters" id="filters">
-__CHIPS__
+  <div class="cols-control" id="cols-control">
+    <span>每行</span>
+    <button class="cols-btn active" data-cols="auto">自动</button>
+    <button class="cols-btn" data-cols="2">2</button>
+    <button class="cols-btn" data-cols="3">3</button>
+    <button class="cols-btn" data-cols="4">4</button>
+    <button class="cols-btn" data-cols="5">5</button>
   </div>
   <span class="count" id="count"></span>
+  <div class="filter-rows">
+    <div class="filters" id="filters">
+__CHIPS__
+    </div>
+    <div class="filters" id="genre-filters">
+__GENRE_CHIPS__
+    </div>
+  </div>
 </div>
 
 <main class="grid" id="grid">
@@ -414,6 +521,7 @@ __CARDS__
 <footer>
   <p>每部剧的完整资料在 <a href="https://github.com/1990jtf/cinema-log">cinema-log</a> 仓库的 archive 文件夹中：网页版 HTML、关系图长图 PNG、文字版 .md，海报在 cover 文件夹中。</p>
   <p>__LATEST__</p>
+  <p>豆瓣评分为第一季评分（豆瓣按季打分，无整部剧总分）。</p>
 </footer>
 
 <script>
@@ -422,14 +530,16 @@ __CARDS__
   const emptyEl = document.getElementById('empty');
   const qInput = document.getElementById('q');
   let platform = 'all';
+  let genre = 'all';
 
   function applyFilter() {
     const q = qInput.value.trim().toLowerCase();
     let shown = 0;
     for (const card of cards) {
       const okPlatform = platform === 'all' || card.dataset.platform === platform;
+      const okGenre = genre === 'all' || (card.dataset.genres || '').split(' ').includes(genre);
       const okQuery = !q || card.dataset.title.includes(q);
-      const show = okPlatform && okQuery;
+      const show = okPlatform && okGenre && okQuery;
       card.style.display = show ? '' : 'none';
       if (show) shown++;
     }
@@ -440,13 +550,35 @@ __CARDS__
   document.getElementById('filters').addEventListener('click', (e) => {
     const btn = e.target.closest('.chip');
     if (!btn) return;
-    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('#filters .chip').forEach(c => c.classList.remove('active'));
     btn.classList.add('active');
     platform = btn.dataset.platform;
     applyFilter();
   });
+  document.getElementById('genre-filters').addEventListener('click', (e) => {
+    const btn = e.target.closest('.chip');
+    if (!btn) return;
+    document.querySelectorAll('#genre-filters .chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    genre = btn.dataset.genre;
+    applyFilter();
+  });
   qInput.addEventListener('input', applyFilter);
   applyFilter();
+
+  const grid = document.getElementById('grid');
+  const colsControl = document.getElementById('cols-control');
+  function setCols(n) {
+    if (n === 'auto') { delete grid.dataset.cols; } else { grid.dataset.cols = n; }
+    colsControl.querySelectorAll('.cols-btn').forEach(b => b.classList.toggle('active', b.dataset.cols === n));
+    try { localStorage.setItem('cinema-log-cols', n); } catch (e) {}
+  }
+  colsControl.addEventListener('click', (e) => {
+    const btn = e.target.closest('.cols-btn');
+    if (!btn) return;
+    setCols(btn.dataset.cols);
+  });
+  try { const saved = localStorage.getItem('cinema-log-cols'); if (saved) setCols(saved); } catch (e) {}
 </script>
 </body>
 </html>
@@ -470,6 +602,8 @@ README_TEMPLATE = """# cinema-log · 观影日志
 | --- | --- | --- | --- | --- | --- | --- |
 __TABLE_ROWS__
 
+> 豆瓣评分为第一季评分（豆瓣按季打分，无整部剧总分）。
+
 ---
 
 ## 一句话简介
@@ -482,7 +616,8 @@ __DESCS__
 
 ```
 cinema-log/
-├── index.html          # 首页：海报卡片导航（GitHub Pages 入口），支持搜索与平台筛选
+├── index.html          # 首页：海报卡片导航（GitHub Pages 入口），支持搜索、平台与类型筛选
+├── favicon.svg         # 网站图标（场记板）
 ├── README.md           # 本文件
 ├── shows.json          # 各剧信息：唯一数据源，改这里再跑 tools/sync.py
 ├── tools/sync.py       # 同步脚本：由 shows.json 生成首页与 README
@@ -495,7 +630,7 @@ __TREE__
 ## 新增一部剧
 
 1. 在 `archive/<新剧>/` 放入网页版 HTML、关系图 PNG、文字版 `.md`，海报放进 `cover/`；
-2. 在 `shows.json` 里按已有格式加一行（剧名、平台、年份、季数、人物数、一句话简介、文件名、加入日期）；
+2. 在 `shows.json` 里按已有格式加一行（剧名、平台、年份、季数、人物数、一句话简介、文件名、加入日期、豆瓣评分、类型、追更状态）；
 3. 运行 `python3 tools/sync.py`，首页统计数字、卡片、筛选按钮与 README 表格会自动同步；
 4. 检查脚本输出的提示，确认没有缺失文件；
 5. 提交推送（或告诉 Muse 推送）。

@@ -11,7 +11,12 @@
     "text_file": "succession-relationship-text.md",
     "title_cn": "继承之战",
     "title_en": "Succession",
-    "years": "2018–2023"
+    "years": "2018–2023",
+    "douban": 8.4,
+    "genres": [
+      "剧情"
+    ],
+    "status": "已完结"
   },
   {
     "added": "2026-11-14",
@@ -29,7 +34,15 @@
     "text_file": "pantheon-relationship-text.md",
     "title_cn": "万神殿",
     "title_en": "Pantheon",
-    "years": "2022–2023"
+    "years": "2022–2023",
+    "douban": 8.8,
+    "genres": [
+      "剧情",
+      "动作",
+      "科幻",
+      "动画"
+    ],
+    "status": "已完结"
   },
   {
     "added": "2026-11-14",
@@ -43,7 +56,14 @@
     "text_file": "game-of-thrones-relationship-text.md",
     "title_cn": "权利的游戏",
     "title_en": "Game of Thrones",
-    "years": "2011–2019"
+    "years": "2011–2019",
+    "douban": 9.5,
+    "genres": [
+      "剧情",
+      "奇幻",
+      "冒险"
+    ],
+    "status": "已完结"
   },
   {
     "added": "2026-11-14",
@@ -57,7 +77,12 @@
     "text_file": "silicon-valley-relationship-text.md",
     "title_cn": "硅谷",
     "title_en": "Silicon Valley",
-    "years": "2014–2019"
+    "years": "2014–2019",
+    "douban": 9.1,
+    "genres": [
+      "喜剧"
+    ],
+    "status": "已完结"
   },
   {
     "added": "2026-11-14",
@@ -71,7 +96,13 @@
     "text_file": "house-of-cards-relationship-text.md",
     "title_cn": "纸牌屋",
     "title_en": "House of Cards",
-    "years": "2013–2018"
+    "years": "2013–2018",
+    "douban": 9.3,
+    "genres": [
+      "剧情",
+      "惊悚"
+    ],
+    "status": "已完结"
   },
   {
     "added": "2026-11-14",
@@ -85,7 +116,14 @@
     "text_file": "severance-relationship-text.md",
     "title_cn": "人生切割术",
     "title_en": "Severance",
-    "years": "2022–"
+    "years": "2022–",
+    "douban": 9.1,
+    "genres": [
+      "剧情",
+      "科幻",
+      "悬疑"
+    ],
+    "status": "追更中"
   },
   {
     "added": "2026-11-14",
@@ -99,7 +137,12 @@
     "text_file": "billions-relationship-text.md",
     "title_cn": "亿万",
     "title_en": "Billions",
-    "years": "2016–2023"
+    "years": "2016–2023",
+    "douban": 8.9,
+    "genres": [
+      "剧情"
+    ],
+    "status": "已完结"
   },
   {
     "added": "2026-11-14",
@@ -113,7 +156,14 @@
     "text_file": "ozark-relationship-text.md",
     "title_cn": "黑钱胜地",
     "title_en": "Ozark",
-    "years": "2017–2022"
+    "years": "2017–2022",
+    "douban": 8.4,
+    "genres": [
+      "剧情",
+      "惊悚",
+      "犯罪"
+    ],
+    "status": "已完结"
   },
   {
     "added": "2026-11-14",
@@ -127,7 +177,13 @@
     "text_file": "mandalorian-relationship-text.md",
     "title_cn": "曼达洛人",
     "title_en": "The Mandalorian",
-    "years": "2019–2023"
+    "years": "2019–2023",
+    "douban": 9.2,
+    "genres": [
+      "科幻",
+      "奇幻"
+    ],
+    "status": "已完结"
   },
   {
     "added": "2026-11-14",
@@ -141,6 +197,12 @@
     "text_file": "joy-of-life-relationship-text.md",
     "title_cn": "庆余年",
     "title_en": "Joy of Life",
-    "years": "2019–2024"
+    "years": "2019–2024",
+    "douban": 7.9,
+    "genres": [
+      "剧情",
+      "古装"
+    ],
+    "status": "追更中"
   }
 ]

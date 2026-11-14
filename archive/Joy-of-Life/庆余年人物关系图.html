@@ -65,6 +65,18 @@ section{margin-top:44px}
 .node[data-f="jian"]{border-color:var(--blue)} .node[data-f="beiqi"]{border-color:var(--plum)}
 .node[data-f="core"]{border-color:var(--red)}
 .node.dim{opacity:.28}.node.sel{outline:3px solid var(--red);outline-offset:2px}
+.node .av{width:30px;height:30px;border-radius:50%;object-fit:cover;flex:none;background:var(--surface2)}
+.node.center .av{width:38px;height:38px}
+.node .av-init{width:30px;height:30px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;background:var(--red-soft);color:var(--red);font-size:15px}
+.node.center .av-init{width:38px;height:38px;background:#fff;color:var(--red)}
+.detail-head{display:flex;gap:14px;align-items:center;margin-bottom:6px}
+.detail-head .av{width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--line)}
+.detail-head .av-init{width:64px;height:64px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;background:var(--red-soft);color:var(--red);font-family:"Noto Serif SC",serif;font-weight:900;font-size:28px}
+.detail-head h3{margin:0}
+.detail-head .actor{margin:0}
+.card-top{display:flex;gap:12px;align-items:center}
+.card-top .av{width:54px;height:54px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--line)}
+.card-top .av-init{width:54px;height:54px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;background:var(--red-soft);color:var(--red);font-family:"Noto Serif SC",serif;font-weight:900;font-size:24px}
 line.edge{stroke:var(--muted);stroke-width:1.4;opacity:.45}
 line.edge.fam{stroke:var(--red)} line.edge.foe{stroke:var(--gold);stroke-dasharray:5 4}
 line.edge.ally{stroke:var(--teal)} line.edge.dim{opacity:.06} line.edge.sel{opacity:1;stroke-width:2.6}
@@ -109,6 +121,8 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding-top:14px;font-si
   .poster img{width:100%}
   #graph{aspect-ratio:auto;height:620px}
   .node{font-size:12px;padding:5px 9px}
+  .node .av,.node .av-init{width:24px;height:24px}
+  .node.center .av,.node.center .av-init{width:30px;height:30px}
   .node small{display:none}
   .node.center{font-size:15px}
 }
@@ -289,6 +303,14 @@ var EDGES = [
  ["wuzhu","xiaoen","foe"],["fansizhe","erhuangzi","foe"],["dahuangzi","qingdi","fam"]
 ];
 var byId={}; PEOPLE.forEach(function(p){byId[p.id]=p;});
+/* 人物头像：真实剧照，存于 assets/avatars/<id>.jpg；叶轻眉剧中无常驻演员，用字标代替 */
+var NO_AVATAR={yeqingmei:1};
+function avInit(p){ return "<span class='av-init' aria-hidden='true'>"+p.name.charAt(0)+"</span>"; }
+function avErr(el){ var s=document.createElement("span"); s.className="av-init"; s.setAttribute("aria-hidden","true"); s.textContent=el.dataset.n||""; el.replaceWith(s); }
+function avatarHTML(p){
+  if(NO_AVATAR[p.id]) return avInit(p);
+  return "<img class='av' src='assets/avatars/"+p.id+".jpg' alt='"+p.name+"剧照（"+p.actor+" 饰）' data-n='"+p.name.charAt(0)+"' loading='lazy' onerror='avErr(this)'>";
+}
 var curFilter="all", selected="fanxian";
 
 var graph=document.getElementById('graph');
@@ -307,7 +329,7 @@ PEOPLE.forEach(function(p){
   var b=document.createElement("button");
   b.className="node"+(p.center?" center":""); b.dataset.f=p.f; b.dataset.id=p.id;
   b.style.left=p.x+"%"; b.style.top=p.y+"%";
-  b.innerHTML=p.name+(p.center?" <small>张若昀</small>":"");
+  b.innerHTML=avatarHTML(p)+"<span>"+p.name+"</span>"+(p.center?" <small>张若昀</small>":"");
   b.setAttribute("aria-label",p.name+"，"+p.fName);
   b.addEventListener("click",function(){ select(p.id,true); });
   graph.appendChild(b);
@@ -329,7 +351,7 @@ function select(id,scroll){
   });
   var p=byId[id];
   document.getElementById('detail').innerHTML =
-    "<h3>"+p.name+"</h3><p class='actor'>"+p.actor+" 饰 · "+p.fName+"</p><p style='margin:0'>"+p.desc+"</p><ul>"+
+    "<div class='detail-head'>"+avatarHTML(p)+"<div><h3>"+p.name+"</h3><p class='actor'>"+p.actor+" 饰 · "+p.fName+"</p></div></div><p style='margin:0'>"+p.desc+"</p><ul>"+
     p.rels.map(function(r){return "<li><b>"+r[0]+"</b> — "+r[1]+"</li>";}).join("")+"</ul>";
   renderCards();
   if(scroll && window.innerWidth<760){ /* keep position on mobile */ }
@@ -343,7 +365,7 @@ function renderCards(){
     if(q && (p.name+p.actor+p.fName).indexOf(q)===-1) return;
     n++;
     var c=document.createElement("button"); c.className="card";
-    c.innerHTML="<h3>"+p.name+"</h3><span class='tag t-"+p.f+"'>"+p.fName+"</span><div class='actor'>"+p.actor+" 饰</div><p>"+p.desc+"</p><div class='rel'>关键关系："+p.rels.slice(0,3).map(function(r){return "<b>"+r[0]+"</b>";}).join(" · ")+"</div>";
+    c.innerHTML="<div class='card-top'>"+avatarHTML(p)+"<div><h3>"+p.name+"</h3><span class='tag t-"+p.f+"'>"+p.fName+"</span><div class='actor'>"+p.actor+" 饰</div></div></div><p>"+p.desc+"</p><div class='rel'>关键关系："+p.rels.slice(0,3).map(function(r){return "<b>"+r[0]+"</b>";}).join(" · ")+"</div>";
     c.addEventListener("click",function(){ select(p.id,false); document.getElementById('graphsec').scrollIntoView({behavior:"smooth"}); });
     grid.appendChild(c);
   });
