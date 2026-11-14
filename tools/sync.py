@@ -132,12 +132,12 @@ def render_genre_chips(shows):
     return "\n".join(chips)
 
 
-def render_poster_rail(shows):
+def render_hero_bg(shows):
     imgs = "".join(
-        f'<img src="cover/{s["id"].lower()}.jpg" alt="《{s["title_cn"]}》海报" loading="lazy">'
+        f'<img src="cover/{s["id"].lower()}.jpg" alt="" loading="lazy">'
         for s in shows
     )
-    return f'<div class="poster-rail" aria-hidden="true">{imgs}</div>'
+    return f'<div class="hero-bg" aria-hidden="true">{imgs}</div>'
 
 
 def render_index(shows):
@@ -155,7 +155,7 @@ def render_index(shows):
     tpl = tpl.replace("__STAT_SPAN_YEARS__", str(span_years(shows)))
     tpl = tpl.replace("__CHIPS__", render_chips(shows))
     tpl = tpl.replace("__GENRE_CHIPS__", render_genre_chips(shows))
-    tpl = tpl.replace("__POSTER_RAIL__", render_poster_rail(shows))
+    tpl = tpl.replace("__HERO_BG__", render_hero_bg(shows))
     tpl = tpl.replace("__CARDS__", render_cards(shows))
     tpl = tpl.replace("__LATEST__", latest_line)
     return tpl
@@ -241,14 +241,38 @@ INDEX_TEMPLATE = r"""<!DOCTYPE html>
 
   /* ---------- Hero ---------- */
   .hero {
-    background:
-      radial-gradient(900px 340px at 18% -10%, rgba(232, 182, 76, .16), transparent 60%),
-      radial-gradient(800px 320px at 85% -20%, rgba(94, 168, 255, .14), transparent 60%),
-      linear-gradient(180deg, #101524 0%, var(--bg) 100%);
+    position: relative;
+    overflow: hidden;
+    background: var(--bg);
     border-bottom: 1px solid var(--border);
-    padding: 64px 20px 40px;
-    text-align: center;
+    padding: 72px 20px 44px;
   }
+  .hero-bg { position: absolute; inset: 0; display: flex; }
+  .hero-bg img {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 18%;
+    filter: saturate(.9) brightness(.8);
+  }
+  .hero-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(11, 14, 20, .9) 0%, rgba(11, 14, 20, .74) 50%, rgba(11, 14, 20, .95) 100%);
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: var(--max-w);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 48px;
+  }
+  .hero-copy { max-width: 660px; }
   .hero .kicker {
     display: inline-block;
     font-size: 12px;
@@ -259,53 +283,33 @@ INDEX_TEMPLATE = r"""<!DOCTYPE html>
     padding: 5px 14px;
     margin-bottom: 18px;
   }
-  .hero h1 { font-size: 48px; letter-spacing: 4px; line-height: 1.25; text-shadow: 0 2px 28px rgba(232, 182, 76, .18); }
+  .hero h1 { font-size: 44px; letter-spacing: 3px; line-height: 1.25; text-shadow: 0 2px 28px rgba(0, 0, 0, .6); }
   .hero h1 span {
     background: linear-gradient(135deg, #f6d47c, #e8b64c 45%, #c98f2b);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
-  .poster-rail {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 38px;
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-  }
-  .poster-rail img {
-    width: 86px;
-    aspect-ratio: 2 / 3;
-    object-fit: cover;
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, .14);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, .5);
-    transition: transform .25s ease;
-  }
-  .poster-rail img:nth-child(odd) { transform: rotate(-2deg); }
-  .poster-rail img:nth-child(even) { transform: rotate(2deg); }
-  .poster-rail img:hover { transform: rotate(0deg) translateY(-6px) scale(1.06); }
-  .logo { width: 64px; height: 64px; margin: 0 auto 18px; }
+  .logo { width: 64px; height: 64px; margin: 0 0 18px; }
   .logo svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 6px 16px rgba(0, 0, 0, .4)); }
-  .hero p { color: var(--muted); max-width: 640px; margin: 14px auto 0; font-size: 15px; }
+  .hero p { color: #c9d1de; max-width: 640px; margin: 14px 0 0; font-size: 15px; text-shadow: 0 1px 12px rgba(0, 0, 0, .85); }
   .stats {
     display: flex;
-    justify-content: center;
-    gap: 12px;
+    justify-content: flex-end;
+    gap: 8px;
     flex-wrap: wrap;
-    margin-top: 26px;
+    flex-shrink: 0;
   }
   .stat {
-    background: rgba(255, 255, 255, .04);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 10px 22px;
-    min-width: 120px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0 20px;
+    min-width: 0;
+    box-shadow: none;
+    text-align: center;
   }
-  .stat b { display: block; font-size: 24px; color: var(--accent); line-height: 1.2; }
+  .stat b { display: block; font-size: 34px; color: var(--accent); line-height: 1.15; text-shadow: 0 2px 16px rgba(0, 0, 0, .6); }
   .stat span { font-size: 12px; color: var(--muted); }
 
   /* ---------- Toolbar ---------- */
@@ -518,13 +522,15 @@ INDEX_TEMPLATE = r"""<!DOCTYPE html>
   footer a { color: var(--accent-2); text-decoration: none; }
   footer a:hover { text-decoration: underline; }
 
+  @media (max-width: 900px) {
+    .hero-inner { flex-direction: column; align-items: flex-start; gap: 30px; }
+    .stats { justify-content: flex-start; }
+  }
   @media (max-width: 560px) {
     .hero { padding: 44px 16px 32px; }
     .hero h1 { font-size: 29px; letter-spacing: 2px; }
-    .stat { min-width: 96px; padding: 8px 14px; }
-    .stat b { font-size: 20px; }
-    .poster-rail img { width: 54px; }
-    .poster-rail { gap: 6px; margin-top: 28px; }
+    .stat { padding: 0 12px; }
+    .stat b { font-size: 28px; }
     .grid[data-cols="2"], .grid[data-cols="3"], .grid[data-cols="4"], .grid[data-cols="5"] { grid-template-columns: 1fr; }
   }
 </style>
@@ -532,28 +538,32 @@ INDEX_TEMPLATE = r"""<!DOCTYPE html>
 <body>
 
 <header class="hero">
-  <div class="logo" aria-hidden="true">
-    <svg viewBox="0 0 64 64">
-      <rect width="64" height="64" rx="14" fill="#0b0e14"/>
-      <path d="M13 22 L17 11 H51 L47 22 Z" fill="#e8b64c"/>
-      <line x1="25" y1="11" x2="21" y2="22" stroke="#0b0e14" stroke-width="2.5"/>
-      <line x1="35" y1="11" x2="31" y2="22" stroke="#0b0e14" stroke-width="2.5"/>
-      <line x1="45" y1="11" x2="41" y2="22" stroke="#0b0e14" stroke-width="2.5"/>
-      <rect x="13" y="22" width="38" height="29" rx="4" fill="#1a2133" stroke="#e8b64c" stroke-width="2"/>
-      <polygon points="27,30 27,43 39,36.5" fill="#e8b64c"/>
-    </svg>
+__HERO_BG__
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 64 64">
+          <rect width="64" height="64" rx="14" fill="#0b0e14"/>
+          <path d="M13 22 L17 11 H51 L47 22 Z" fill="#e8b64c"/>
+          <line x1="25" y1="11" x2="21" y2="22" stroke="#0b0e14" stroke-width="2.5"/>
+          <line x1="35" y1="11" x2="31" y2="22" stroke="#0b0e14" stroke-width="2.5"/>
+          <line x1="45" y1="11" x2="41" y2="22" stroke="#0b0e14" stroke-width="2.5"/>
+          <rect x="13" y="22" width="38" height="29" rx="4" fill="#1a2133" stroke="#e8b64c" stroke-width="2"/>
+          <polygon points="27,30 27,43 39,36.5" fill="#e8b64c"/>
+        </svg>
+      </div>
+      <span class="kicker">CINEMA LOG · 观影日志</span>
+      <h1>看过的剧，<span>人物关系</span>都在这里</h1>
+      <p>每部剧一份可交互的网页版人物关系图、一张关系图长图、一份文字版。点海报进入网页版，卡片下方可直达长图与文字版。</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>__STAT_SHOWS__</b><span>部剧集</span></div>
+      <div class="stat"><b>__STAT_CHARS__</b><span>位人物</span></div>
+      <div class="stat"><b>__STAT_PLATFORMS__</b><span>个平台</span></div>
+      <div class="stat"><b>__STAT_ONGOING__</b><span>部追更中</span></div>
+      <div class="stat"><b>__STAT_SPAN__</b><span>跨度 __STAT_SPAN_YEARS__ 年</span></div>
+    </div>
   </div>
-  <span class="kicker">CINEMA LOG · 观影日志</span>
-  <h1>看过的剧，<span>人物关系</span>都在这里</h1>
-  <p>每部剧一份可交互的网页版人物关系图、一张关系图长图、一份文字版。点海报进入网页版，卡片下方可直达长图与文字版。</p>
-  <div class="stats">
-    <div class="stat"><b>__STAT_SHOWS__</b><span>部剧集</span></div>
-    <div class="stat"><b>__STAT_CHARS__</b><span>位人物</span></div>
-    <div class="stat"><b>__STAT_PLATFORMS__</b><span>个平台</span></div>
-    <div class="stat"><b>__STAT_ONGOING__</b><span>部追更中</span></div>
-    <div class="stat"><b>__STAT_SPAN__</b><span>跨度 __STAT_SPAN_YEARS__ 年</span></div>
-  </div>
-__POSTER_RAIL__
 </header>
 
 <div class="toolbar">
