@@ -46,24 +46,26 @@
 cinema-log/
 ├── index.html          # 首页：海报卡片导航（GitHub Pages 入口），支持搜索与平台筛选
 ├── README.md           # 本文件
+├── shows.json          # 各剧信息：唯一数据源，改这里再跑 tools/sync.py
+├── tools/sync.py       # 同步脚本：由 shows.json 生成首页与 README
 ├── cover/              # 各剧官方海报
 ├── .nojekyll           # GitHub Pages 配置：不使用 Jekyll
 └── archive/            # 各剧资料，每部剧一个文件夹
-    ├── Succession/     # 继承之战：网页版 HTML、关系图 PNG、文字版
-    ├── Pantheon/       # 万神殿：网页版 HTML、选择题测验、关系图 PNG、文字版
-    ├── Game-of-Thrones/# 权利的游戏：网页版 HTML、关系图 PNG、文字版
+    ├── Succession/ # 继承之战：网页版 HTML、关系图 PNG、文字版
+    ├── Pantheon/ # 万神殿：网页版 HTML、选择题测验、关系图 PNG、文字版
+    ├── Game-of-Thrones/ # 权利的游戏：网页版 HTML、关系图 PNG、文字版
     ├── Silicon-Valley/ # 硅谷：网页版 HTML、关系图 PNG、文字版
     ├── House-of-Cards/ # 纸牌屋：网页版 HTML、关系图 PNG、文字版
-    ├── Severance/      # 人生切割术：网页版 HTML、关系图 PNG、文字版
-    ├── Billions/       # 亿万：网页版 HTML、关系图 PNG、文字版
-    ├── Ozark/          # 黑钱胜地：网页版 HTML、关系图 PNG、文字版
-    └── Mandalorian/    # 曼达洛人：网页版 HTML、关系图 PNG、文字版
+    ├── Severance/ # 人生切割术：网页版 HTML、关系图 PNG、文字版
+    ├── Billions/ # 亿万：网页版 HTML、关系图 PNG、文字版
+    ├── Ozark/ # 黑钱胜地：网页版 HTML、关系图 PNG、文字版
+    └── Mandalorian/ # 曼达洛人：网页版 HTML、关系图 PNG、文字版
 ```
 
 ## 新增一部剧
 
-1. 在 `archive/<新剧>/` 放入网页版 HTML、关系图 PNG、文字版 `.md`；
-2. 海报放进 `cover/`；
-3. 在 `index.html` 按已有卡片格式加一张卡（`data-title` 写中英文名，`data-platform` 写平台）；
-4. 在上方「剧集一览」表里加一行，在「一句话简介」里加一句；
-5. 首页顶部的统计数字（剧集数、人物总数、平台数）同步更新。
+1. 在 `archive/<新剧>/` 放入网页版 HTML、关系图 PNG、文字版 `.md`，海报放进 `cover/`；
+2. 在 `shows.json` 里按已有格式加一行（剧名、平台、年份、季数、人物数、一句话简介、文件名、加入日期）；
+3. 运行 `python3 tools/sync.py`，首页统计数字、卡片、筛选按钮与 README 表格会自动同步；
+4. 检查脚本输出的提示，确认没有缺失文件；
+5. 提交推送（或告诉 Muse 推送）。
