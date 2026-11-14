@@ -6,7 +6,7 @@
 
 | 📺 剧集 | 👥 人物 | 🗓️ 跨度 |
 | --- | --- | --- |
-| **12 部** | **276 位** | 2011–2026 |
+| **12 部** | **287 位** | 2011–2026 |
 
 ---
 
@@ -25,7 +25,7 @@
 | <img src="cover/mandalorian.jpg" width="54" alt="曼达洛人"> | **曼达洛人** · The Mandalorian<br>★ 9.2 | Disney+ | 2019–2023 | 3 季 · 已完结 | 20 | [网页版](archive/Mandalorian/%E6%9B%BC%E8%BE%BE%E6%B4%9B%E4%BA%BA%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html) · [长图](archive/Mandalorian/mandalorian-relationship.png) · [文字版](archive/Mandalorian/mandalorian-relationship-text.md) |
 | <img src="cover/joy-of-life.jpg" width="54" alt="庆余年"> | **庆余年** · Joy of Life<br>★ 7.9 | 腾讯视频 | 2019–2024 | 2 季 · 追更中 | 22 | [网页版](archive/Joy-of-Life/%E5%BA%86%E4%BD%99%E5%B9%B4%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html) · [长图](archive/Joy-of-Life/joy-of-life-relationship.png) · [文字版](archive/Joy-of-Life/joy-of-life-relationship-text.md) |
 | <img src="cover/mobland.jpg" width="54" alt="黑帮领地"> | **黑帮领地** · MobLand<br>★ 7.6 | Paramount+ | 2025– | 已播 1 季 · 追更中 | 25 | [网页版](archive/MobLand/%E9%BB%91%E5%B8%AE%E9%A2%86%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html) · [长图](archive/MobLand/mobland-relationship.png) · [文字版](archive/MobLand/mobland-relationship-text.md) |
-| <img src="cover/silo.jpg" width="54" alt="末日地堡"> | **末日地堡** · Silo<br>★ 7.8 | Apple TV+ | 2023– | 已播 2 季 · 追更中 | 27 | [网页版](archive/Silo/%E6%9C%AB%E6%97%A5%E5%9C%B0%E5%A0%A1%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html) · [长图](archive/Silo/silo-relationship.png) · [文字版](archive/Silo/silo-relationship-text.md) |
+| <img src="cover/silo.jpg" width="54" alt="末日地堡"> | **末日地堡** · Silo<br>★ 7.8 | Apple TV+ | 2023– | 已播 3 季 · 追更中 | 38 | [网页版](archive/Silo/%E6%9C%AB%E6%97%A5%E5%9C%B0%E5%A0%A1%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html) · [长图](archive/Silo/silo-relationship.png) · [文字版](archive/Silo/silo-relationship-text.md) |
 
 > 豆瓣评分为第一季评分（豆瓣按季打分，无整部剧总分）。
 
@@ -44,7 +44,7 @@
 - **曼达洛人**（科幻 / 奇幻） — 赏金猎人与一个孩子的旅程，信条即道路。
 - **庆余年**（剧情 / 古装） — 范闲从儋州少年到京都权臣，查身世、斗权贵、揭开叶轻眉之死。
 - **黑帮领地**（剧情 / 犯罪） — 伦敦两大黑帮家族为芬太尼地盘开战，清道夫 Harry 在尸体与谎言之间替家族续命。
-- **末日地堡**（剧情 / 科幻） — 144 层地下地堡，工程师朱丽叶一路追查地堡真相，S2 末与伯纳德双双被困焚化炉。
+- **末日地堡**（剧情 / 科幻） — 144 层地下地堡，朱丽叶追查真相、当上市长，S3 前传线揭开地堡起源与 1 号地堡之谜。
 
 ---
 
