@@ -15,6 +15,7 @@
 import json
 import sys
 import urllib.parse
+from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -39,6 +40,9 @@ def year_span(shows):
         starts.append(int(parts[0]))
         if len(parts) > 1 and parts[1].strip():
             ends.append(int(parts[1]))
+        elif len(parts) > 1:
+            # 未完结（年份以 – 结尾）：跨度算到今年
+            ends.append(datetime.now().year)
     return f"{min(starts)}–{max(ends)}"
 
 
@@ -50,6 +54,8 @@ def span_years(shows):
         starts.append(int(parts[0]))
         if len(parts) > 1 and parts[1].strip():
             ends.append(int(parts[1]))
+        elif len(parts) > 1:
+            ends.append(datetime.now().year)
     return max(ends) - min(starts) + 1
 
 

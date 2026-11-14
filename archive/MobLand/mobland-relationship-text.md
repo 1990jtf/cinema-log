@@ -1,0 +1,129 @@
+# 《黑帮领地》MobLand —— 文字版人物关系图（第一季）
+
+Paramount+ 2025，第一季 10 集（2025-03-30 – 2025-06-01）。主创 Ronan Bennett，盖·里奇等执导。伦敦两大犯罪家族为芬太尼地盘开战，清道夫 Harry 夹在中间。含完整剧透。
+
+## 一句话看懂第一季
+
+伦敦两大犯罪家族为芬太尼地盘开战，导火索是哈里根家的孙子（实为儿子）Eddie 杀了史蒂文森家的独子 Tommy。而真正把战争烧到不可收拾的，是哈里根家的女主人 Maeve：她诬陷顾问、炸死对手之妻、出卖自己的继女。季终史蒂文森家覆灭，但哈里根家的权力也悄然换了人——从 Conrad 夫妇，换到 Kevin 与 Harry 手里。
+
+## 图例
+
+—— 家人 / 夫妻　→ 效忠 / 上下级　× 对手　～ 情愫　◇ 交易 / 利用　† 杀害 / 致死　背叛 / 暗通
+
+## 一、哈里根家族
+
+这个家的三重秘密：① Archie 是被 Maeve 诬陷的，真内鬼是律师 O'Hara，而 Maeve 本人也在暗通 Richie；② Eddie 的生父是 Conrad，Kevin 是他的兄长；③ 季终 Conrad 夫妇被栽赃入狱，Kevin 与 Harry 握有翻案录音却故意不放人。
+
+```
+Conrad Harrigan（族长）—— Maeve Harrigan（女主人）
+ │
+ ├─ Brendan Harrigan（长子；† S1E7 被 Jaime 处决）
+ ├─ Kevin Harrigan（次子）—— Bella Harrigan（妻）
+ │ └─ Eddie Harrigan（名义之子；实为 Conrad 与 Bella 所生）
+ ├─ Seraphina Harrigan（Conrad 之女，Maeve 的继女）
+ ├─ Archie Hammond（三十年顾问；† S1E1 被 Conrad 枪杀，实为被诬）
+ └─ O'Hara Delaney（家族律师，真内鬼；† S1E10）
+```
+
+## 二、哈里与自家人
+
+Harry 是全季的实际主角：埋尸、灭口、谈判、救人全是他。代价是他的婚姻——Jan 在治疗中被卧底 Alice 套情报，又被 Conrad 威胁封口，季终在崩溃中误刺 Harry 一刀。
+
+```
+Harry Da Souza（清道夫）—— Jan Da Souza（妻）
+ │
+ ├─ Gina Da Souza（女儿；～ Eddie）
+ ├─ Zosia（亲信助手）—— Kiko（搭档；† S1E10 战死）
+ └─ Paul O'Donnell（资深打手，季终炸弹伏击的执行者）
+```
+
+## 三、史蒂文森家族
+
+史蒂文森家输得最惨：先丧独子，再丧女主人，靠内鬼与警方内应一度扳倒 Conrad 夫妇，最后却中了 Harry 的反间计——两队人马死于炸弹，Richie 本人在自家酒吧被处决，家族覆灭。
+
+```
+Richie Stevenson（首领）—— Vron Stevenson（妻；† S1E5 汽车炸弹）
+ │
+ ├─ Tommy Stevenson（独子；† S1E1 被 Eddie 杀害分尸）
+ └─ Freddie Shaw（打手；† S1E8 被 Harry 推下楼灭口）
+```
+
+## 四、外部势力
+
+芬太尼货源在 Jaime 手里，两家争的其实是他的青睐。而站在 Jaime 背后的 Kat 才是更大的玩家：她救 Seraphina 不是行善，是给 Harry 记了一笔迟早要还的账。
+
+```
+Kat McAllister（国际犯罪掮客）◇ Harry（旧相识，季终招揽倒戈被拒）
+ │ 一通电话
+ └→ Jaime Lopez（墨西哥卡特尔头目，芬太尼货源）
+ ├─ † 处决 Brendan，扣押 Seraphina
+ └◇ 季终绕开 Richie，与哈里根家谈判
+```
+
+## 五、警方与旧账
+
+警方这条线全是黑的：卧底有栽赃前科，出山的老警司是对手的人。Fisk 与 Mukasa 死于自己人的算计，Alice 完成栽赃后被灭口——而她的录音偏偏能证明 Conrad 夫妇无罪，于是被新当家的人扣了下来。
+
+```
+DS Fisk — DC Mukasa（一线警探；† S1E8 被 Richie 枪杀）
+ ├─ Alice / Nicola（卧底；以治疗同伴身份接近 Jan；季终下落不明）
+ └× Colin Tattersall（退休警司，Richie 的内应；设局者）
+Alan Rusby（前狱警，少年时虐待 Kevin 与 Harry；† S1E9 被 Kevin 复仇杀死）
+```
+
+## 六、18 条核心关系（一句话版）
+
+1. Conrad —— Maeve：夫妻共治：他主外、她主谋，家族每一次失控都出自这对夫妻的合谋或内耗。
+2. Harry → Conrad：清道夫与主人：Harry 替家族处理一切脏活，忠诚却在季终开始重新标价。
+3. Harry × Kevin：少年同囚、生死搭档：全剧最稳固的关系，季终联手接管家族。
+4. Eddie † Tommy：一夜疯狂杀死对手之子并分尸——整场战争的导火索。
+5. Maeve † Vron：葬礼羞辱的回敬是一颗汽车炸弹，停火就此作废。
+6. Conrad † Archie：听信 Maeve 的诬陷，亲手枪杀三十年老友，事后证明杀错了人。
+7. O'Hara → Richie：家族律师暗中投靠对手，警方屡屡抢先一步的源头。
+8. Maeve → Richie：女主人暗通敌方，出卖继女的位置换长子平安，结果两个孩子一死一险。
+9. Conrad × Bella：公公与儿媳的旧情，生下了 Eddie——全家最深的一颗雷。
+10. Kevin × Eddie：名义父子、实际兄弟：Kevin 知情多年，独自咽下。
+11. Maeve → Eddie：奶奶（实为继母辈）的溺爱与操纵：宠他、纵他、最后用身世真相继续搅局。
+12. Eddie ～ Gina：避难时生出的少年情愫，招来双方长辈的警告。
+13. Harry × Kat：一通电话的人情债：她救了 Seraphina，开价却是 Harry 的倒戈。
+14. Jaime † Brendan：卡特尔头目当众处决长子并直播，是战争最惨烈的一幕。
+15. Tattersall † Fisk 与 Mukasa：退休警司借 Richie 的枪杀掉两名现役警探，再嫁祸哈里根。
+16. Alice → Jan：治疗小组里的「知心朋友」是警方卧底；事成之后，Alice 自己也被灭口。
+17. Kevin † Rusby：杀死少年时的施虐者，是 Kevin 从顺从儿子变成话事人的成人礼。
+18. Harry × Jan：季终她误刺他一刀：这段婚姻与这个家族，都被暴力磨到了尽头。
+
+## 七、季终局（S1E10《The Beast in Me》，2025-06-01）
+
+Kevin 对 Rusby 的尸体剖白身世；狱中向 Conrad 摊牌夺权；Maeve 在狱中把 Eddie 的身世捅破。Harry 利用 O'Hara 的假情报设局：Paul 的炸弹歼灭 Stevenson 两队人马，Zosia 与 Kiko 迎战（Kiko 战死），Kevin 与 Harry 攻入 Sinful Monkey 酒吧杀死 Richie 与 O'Hara。Kat 招揽 Harry 倒戈被拒。Conrad 在狱中受囚犯欢呼，短期内仍是狱中之王；但地面上的帝国，已经归 Kevin 与 Harry。最后一幕：Jan 在崩溃中误刺 Harry，黑屏。
+
+## 八、25 人名录总表
+
+| 人物 | 英文名 | 饰演者 | 身份 / 结局 |
+|---|---|---|---|
+| 哈里·达·索萨 | Harry Da Souza | 汤姆·哈迪 | 哈里根家的清道夫（fixer），家族真正的顶梁柱；季终拒绝 Kat 的招揽；回家后被 Jan 误刺一刀，倒地收尾 |
+| 康拉德·哈里根 | Conrad Harrigan | 皮尔斯·布鲁斯南 | 哈里根家族首领，人称「百枪康拉德」；季终与 Maeve 一同被栽赃逮捕入狱，狱中受囚犯欢呼 |
+| 梅芙·哈里根 | Maeve Harrigan | 海伦·米伦 | 家族女主人，真正的幕后操盘手；季终被捕入狱，狱中仍在布局 |
+| 凯文·哈里根 | Kevin Harrigan | 帕迪·康斯戴恩 | Conrad 与 Maeve 的次子，Harry 的搭档；季终完成夺权，成为家族实际话事人 |
+| 贝拉·哈里根 | Isabella “Bella” Harrigan | 劳拉·普沃 | Kevin 之妻，Eddie 之母，彭诺克勋爵之女；存活；与 Conrad 的旧事在季终摊牌 |
+| 埃迪·哈里根 | Eddie Harrigan | 安森·布恩 | 引爆战争的闯祸者，家族第三代；存活；季终从 Maeve 口中得知真实身世 |
+| 塞拉菲娜·哈里根 | Seraphina Harrigan | 曼蒂普·迪伦 | Conrad 之女，家族最能干的继承人；安特卫普获救存活；季终与 Kat 开始接触 |
+| 布兰登·哈里根 | Brendan Harrigan | 丹尼尔·贝茨 | Conrad 与 Maeve 的长子；† S1E7 在安特卫普被 Jaime 的人处决，全程直播给家人 |
+| 阿奇·哈蒙德 | Archie Hammond | 亚历克斯·詹宁斯 | Conrad 三十年的顾问与挚友；† S1E1 被 Maeve 诬为内鬼，遭 Conrad 亲手枪杀 |
+| 奥哈拉·德莱尼 | O'Hara Delaney | 丽莎·德万 | 家族律师，真内鬼；† S1E10 被 Harry 将计就计，与 Richie 同死于酒吧决战 |
+| 简·达·索萨 | Jan Da Souza | 琼安·弗洛加特 | Harry 之妻，Gina 之母；存活；季终争执中误刺 Harry |
+| 吉娜·达·索萨 | Gina Da Souza | 泰迪·艾伦 | Harry 与 Jan 的女儿；存活；与 Eddie 的关系成为隐患 |
+| 佐西娅 | Zosia | 贾思敏·乔布森 | Harry 的亲信助手；存活；季终伏击战主力 |
+| 基科 | Kiko | 安东尼奥·冈萨雷斯·格雷罗 | Harry 的亲信打手；† S1E10 在伏击 Stevenson 人马的战斗中身亡 |
+| 保罗·奥唐纳 | Paul O'Donnell | 埃米特·J·斯坎伦 | 哈里根家族资深打手；存活；季终以炸弹歼灭两支 Stevenson 人马 |
+| 里奇·史蒂文森 | Richie Stevenson | 杰夫·贝尔 | 史蒂文森家族首领，南伦敦黑帮老大；† S1E10 在自家酒吧 The Sinful Monkey 被 Kevin 与 Harry 处决 |
+| 弗朗·史蒂文森 | Vron Stevenson | 安妮·库珀 | Richie 之妻，Tommy 之母；† S1E5 葬礼次日被 Maeve 安排的汽车炸弹炸死 |
+| 汤米·史蒂文森 | Tommy Stevenson | 菲利克斯·爱德华兹 | Richie 与 Vron 之子；† S1E1 被 Eddie 杀害并分尸，尸体藏于夜总会衣箱 |
+| 弗雷迪·肖 | Freddie Shaw | 布拉德利·特纳 | Stevenson 家打手，Harry 的旧友；† S1E8 向 Harry 供出内鬼真相后，被 Harry 推下楼顶灭口 |
+| 凯特·麦卡利斯特 | Katherine “Kat” McAllister | 珍妮特·麦克蒂尔 | 国际犯罪掮客，站在卡特尔背后的女人；存活；招揽 Harry 被拒，成为第二季的大威胁 |
+| 海梅·洛佩斯 | Jaime Lopez | 霍尔迪·莫拉 | 墨西哥卡特尔头目，芬太尼货源的掌控者；存活；季终转而与哈里根家谈判，条件是交出内鬼 |
+| 科林·塔特索尔 | Colin Tattersall | 托比·琼斯 | 退休重案警司，警方里的内应；存活；接管调查，成为哈里根家的长期威胁 |
+| 爱丽丝（真名妮古拉） | Alice Barnes / Nicola | 艾米莉·巴伯 | 警方卧底，以「治疗同伴」身份接近 Jan；季终被 Tattersall 交给 Richie 的手下，下落不明（生死未卜） |
+| 费斯克与穆卡萨 | DS Ivan Fisk & DC Yvonne Mukasa | 卢克·梅布利 / 吉玛·奈特·琼斯 | 负责调查哈里根家的一线警探搭档；† S1E8 被 Tattersall 设局，遭 Richie 当场枪杀 |
+| 艾伦·拉斯比 | Alan Rusby | 奈杰尔·林赛 | 前狱警，Kevin 与 Harry 少年时的施虐者；† S1E9 被 Kevin 假扮司机杀死复仇 |
+
+未单独入图但在正文中提及：Valjon（夜总会老板，帮 Eddie 藏尸，S1E4 被 Harry 处决，饰演 Peter Ferdinando）、Hughie Campbell（被 Eddie 刺伤的夜总会客人，饰演 Ethan Moorhouse）、Lord Pennock（Bella 之父，饰演 Steven Pacey）、Antoine Arloud（法国商人，Bella 的交易对象，饰演 Grégoire Colin）、Donnie（Kat 的手下，饰演 Alex Fine）。

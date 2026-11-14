@@ -204,5 +204,25 @@
       "古装"
     ],
     "status": "追更中"
+  },
+  {
+    "added": "2026-11-14",
+    "characters": 25,
+    "desc": "伦敦两大黑帮家族为芬太尼地盘开战，清道夫 Harry 在尸体与谎言之间替家族续命。",
+    "html_file": "黑帮领地人物关系图.html",
+    "id": "MobLand",
+    "platform": "Paramount+",
+    "png_file": "mobland-relationship.png",
+    "seasons": "已播 1 季",
+    "text_file": "mobland-relationship-text.md",
+    "title_cn": "黑帮领地",
+    "title_en": "MobLand",
+    "years": "2025–",
+    "douban": 7.6,
+    "genres": [
+      "剧情",
+      "犯罪"
+    ],
+    "status": "追更中"
   }
 ]

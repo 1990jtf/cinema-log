@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>黑帮领地人物关系图 · MobLand S1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f0e9; --surface:#fffdf7; --surface2:#eae4d3; --ink:#1d1a16; --muted:#6f675a; --line:#d9d0ba;
+  --red:#a31621; --red-soft:#f2dcd6; --brass:#8f6b1d; --brass-soft:#efe3bd;
+  --slate:#5d5470; --slate-soft:#e2ddef; --teal:#226355; --teal-soft:#d5e8df; --blue:#2e5a74; --blue-soft:#d9e7ef;
+  --shadow:0 10px 30px rgba(29,26,22,.10);
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#14110e; --surface:#1f1a15; --surface2:#2a231b; --ink:#ede4d0; --muted:#ab9f8a; --line:#40382b;
+  --red:#e0655c; --red-soft:#40231f; --brass:#d8b25e; --brass-soft:#3a3018;
+  --slate:#b3a6d6; --slate-soft:#2e2a3f; --teal:#7fc7ad; --teal-soft:#1d332b; --blue:#8fb8d4; --blue-soft:#20333f;
+  --shadow:0 10px 30px rgba(0,0,0,.4);}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans SC",system-ui,sans-serif;line-height:1.65}
+h1,h2,h3,.serif{font-family:"Noto Serif SC",serif}
+button{min-height:44px}
+a{color:var(--red)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px 64px}
+
+/* hero */
+.hero{display:grid;grid-template-columns:290px 1fr;gap:30px;padding:30px 0 6px;align-items:start}
+.poster{border-radius:6px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);margin:0}
+.poster img{display:block;width:100%;height:auto}
+.poster figcaption{font-size:12px;color:var(--muted);padding:8px 10px;background:var(--surface)}
+.kicker{color:var(--red);font-weight:700;letter-spacing:.16em;font-size:13px;margin:8px 0 0}
+h1{font-size:clamp(40px,6vw,62px);font-weight:900;margin:4px 0 2px;line-height:1.12}
+h1 .en{font-size:.42em;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.sub{font-size:16.5px;color:var(--muted);margin:6px 0 4px;max-width:660px}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:9px 14px;min-width:100px}
+.stat b{display:block;font-size:21px;font-family:"Noto Serif SC",serif}
+.stat span{font-size:12px;color:var(--muted)}
+.spoiler{background:var(--brass-soft);border:1px solid var(--brass);border-radius:6px;padding:10px 14px;font-size:14px;max-width:680px}
+.factions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 15px;font-size:14px;cursor:pointer;color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.hero-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.btn{display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:9px 16px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;font-size:14.5px;cursor:pointer}
+.btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+.btn:hover{filter:brightness(1.05)}
+
+section{margin-top:46px}
+.sec-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:16px}
+.sec-head h2{font-size:27px;margin:0}
+.sec-head p{margin:0;color:var(--muted);font-size:14px}
+
+/* graph */
+.graph-box{background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:10px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px;color:var(--muted);padding:6px 8px 10px}
+.legend i{display:inline-block;width:26px;height:0;border-top:3px solid;vertical-align:middle;margin-right:5px}
+#graph{position:relative;width:100%;aspect-ratio:1080/820;min-height:520px}
+#graph svg{position:absolute;inset:0;width:100%;height:100%}
+#graph svg text{font-size:12.5px;fill:var(--muted);paint-order:stroke;stroke:var(--surface);stroke-width:3.5px;font-weight:500}
+.node{position:absolute;transform:translate(-50%,-50%);border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 11px;font-family:"Noto Serif SC",serif;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap;min-height:40px;display:flex;align-items:center;gap:6px;color:var(--ink);z-index:2}
+.node small{font-family:"Noto Sans SC",sans-serif;font-weight:400;font-size:11px;color:var(--muted)}
+.node.center{background:var(--red);border-color:var(--red);color:#fff;font-size:17px;padding:9px 16px}
+.node.center small{color:#ffd9d4}
+.node[data-f="core"]{border-color:var(--brass)} .node[data-f="team"]{border-color:var(--red)}
+.node[data-f="stev"]{border-color:var(--slate)} .node[data-f="ext"]{border-color:var(--teal)}
+.node[data-f="law"]{border-color:var(--blue)}
+.node.dim{opacity:.25}.node.sel{outline:3px solid var(--red);outline-offset:2px}
+.node .av{width:29px;height:29px;border-radius:50%;object-fit:cover;flex:none;background:var(--surface2)}
+.node.center .av{width:37px;height:37px}
+.node .av-init{width:29px;height:29px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;background:var(--blue-soft);color:var(--blue);font-size:14px;font-family:"Noto Serif SC",serif}
+.node.center .av-init{width:37px;height:37px}
+.node .dead{color:var(--red);font-weight:700}
+.detail{margin-top:14px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px 20px;display:grid;grid-template-columns:86px 1fr;gap:18px;box-shadow:var(--shadow)}
+.detail img{width:86px;height:86px;border-radius:50%;object-fit:cover;border:3px solid var(--brass)}
+.detail .av-init-lg{width:86px;height:86px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--blue-soft);color:var(--blue);font-size:34px;font-family:"Noto Serif SC",serif;border:3px solid var(--blue)}
+.detail h3{margin:0;font-size:23px}
+.detail h3 span{font-size:14px;color:var(--muted);font-family:"Noto Sans SC",sans-serif;font-weight:400}
+.detail .meta{font-size:13.5px;color:var(--muted);margin:2px 0 8px}
+.detail p{margin:0 0 8px;font-size:15px}
+.detail .rels{font-size:14px;background:var(--surface2);border-radius:6px;padding:10px 14px}
+.detail .rels b{color:var(--red)}
+
+/* cards */
+.fgroup{margin-top:26px}
+.fgroup h3{font-size:19px;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+.fgroup .fnote{font-size:13.5px;color:var(--muted);margin:0 0 12px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:14px}
+.pcard{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;text-align:left;cursor:pointer;color:var(--ink);font-family:inherit;width:100%}
+.pcard:hover{border-color:var(--brass)}
+.pcard .top{display:flex;gap:12px;align-items:center}
+.pcard img{width:58px;height:58px;border-radius:50%;object-fit:cover;flex:none}
+.pcard .av-init{width:58px;height:58px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;background:var(--blue-soft);color:var(--blue);font-size:24px;font-family:"Noto Serif SC",serif}
+.pcard h4{margin:0;font-size:16.8px;font-family:"Noto Serif SC",serif}
+.pcard h4 .dead{color:var(--red)}
+.pcard .en{font-size:12px;color:var(--muted)}
+.pcard .actor{font-size:13px;color:var(--brass);font-weight:700;margin-top:1px}
+.pcard .role{font-size:13.5px;margin:10px 0 0}
+.pcard .fate{font-size:13px;color:var(--muted);margin:5px 0 0}
+.pcard.dim{opacity:.3}
+
+/* relations list */
+.rellist{display:grid;grid-template-columns:1fr 1fr;gap:10px 26px;counter-reset:rel}
+.rellist div{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:11px 14px;font-size:14.5px}
+.rellist b{color:var(--red)}
+
+/* text version */
+.textver{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:26px 28px;box-shadow:var(--shadow)}
+.textver h3{font-size:20px;margin:26px 0 8px;border-left:5px solid var(--red);padding-left:10px}
+.textver h3:first-child{margin-top:0}
+.textver p,.textver li{font-size:15px}
+.textver .tree{background:var(--surface2);border-radius:6px;padding:14px 18px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px;line-height:1.75;overflow-x:auto;white-space:pre;margin:10px 0}
+.textver ul{padding-left:20px;margin:6px 0}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+
+/* timeline + table */
+.tl{display:grid;gap:12px}
+.tl div{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:13px 16px;font-size:14.5px}
+.tl b{color:var(--red)}
+.finale{background:var(--red-soft);border:1px solid var(--red);border-radius:8px;padding:18px 20px;font-size:15px;margin-top:14px}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:14px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--surface2);font-family:"Noto Serif SC",serif}
+tr:last-child td{border-bottom:none}
+.dead-t{color:var(--red);font-weight:700}
+footer{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 20px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:50}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (max-width:760px){
+  .textver .tree{white-space:pre-wrap;word-break:break-all;font-size:12.5px}
+  .pcard h4{font-size:16.5px}
+  .hero{grid-template-columns:1fr;gap:18px}
+  .poster{max-width:250px}
+  #graph{min-height:430px}
+  .node{font-size:11px;padding:4px 8px;min-height:34px}
+  .node .av,.node .av-init{width:22px;height:22px}
+  .node.center{font-size:13px;padding:6px 11px}
+  .node.center .av{width:27px;height:27px}
+  .node small{display:none}
+  .rellist{grid-template-columns:1fr}
+  .detail{grid-template-columns:64px 1fr;padding:14px}
+  .detail img,.detail .av-init-lg{width:64px;height:64px}
+  .textver{padding:18px 16px}
+  table,thead,tbody,tr,td{display:block}
+  thead{display:none}
+  tr{border-bottom:2px solid var(--line);padding:8px 4px}
+  td{border-bottom:none;padding:3px 12px}
+  td:first-child{font-family:"Noto Serif SC",serif;font-size:16px}
+}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} .toast{transition:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <figure class="poster">
+    <img src="assets/poster.jpg" alt="《黑帮领地》MobLand 官方海报：哈里、康拉德与梅芙三人并立">
+    <figcaption>官方海报（中文版）· Paramount+</figcaption>
+  </figure>
+  <div>
+    <p class="kicker">PARAMOUNT+ · 2025 · 第一季</p>
+    <h1>黑帮领地 <span class="en">MobLand</span></h1>
+    <p class="sub">伦敦两大犯罪家族——哈里根与史蒂文森——为芬太尼地盘全面开战。夹在中间的，是替哈里根家收拾一切残局的清道夫哈里·达·索萨：他要埋掉尸体、揪出内鬼、摆平警察，还得瞒住自己的妻子。</p>
+    <div class="stats">
+      <div class="stat"><b>10 集</b><span>第一季 · 2025-03-30 至 06-01</span></div>
+      <div class="stat"><b>25 位</b><span>入图人物</span></div>
+      <div class="stat"><b>7.6 / 8.3</b><span>豆瓣（S1）/ IMDb · 烂番茄 76%</span></div>
+      <div class="stat"><b>已续订</b><span>第二季 2026-09-18 开播</span></div>
+    </div>
+    <p class="spoiler">⚠️ <b>全页含第一季完整剧透</b>，包括全部死亡、内鬼身份与季终大结局；尚未看剧请先收藏。第二季内容不在本图范围内。</p>
+    <div class="factions" role="group" aria-label="按阵营筛选">
+      <button class="chip" data-filter="all" aria-pressed="true">全部阵营</button>
+      <button class="chip" data-filter="core" aria-pressed="false"><span class="dot" style="background:var(--brass)"></span>哈里根家族</button>
+      <button class="chip" data-filter="team" aria-pressed="false"><span class="dot" style="background:var(--red)"></span>哈里与自家人</button>
+      <button class="chip" data-filter="stev" aria-pressed="false"><span class="dot" style="background:var(--slate)"></span>史蒂文森家族</button>
+      <button class="chip" data-filter="ext" aria-pressed="false"><span class="dot" style="background:var(--teal)"></span>外部势力</button>
+      <button class="chip" data-filter="law" aria-pressed="false"><span class="dot" style="background:var(--blue)"></span>警方与旧账</button>
+    </div>
+    <div class="hero-links">
+      <a class="btn primary" href="https://1990jtf.github.io/cinema-log/archive/MobLand/mobland-relationship.png">关系图长图 PNG</a>
+      <a class="btn" href="https://1990jtf.github.io/cinema-log/archive/MobLand/mobland-relationship-text.md">文字版 .md</a>
+      <a class="btn" href="https://1990jtf.github.io/cinema-log/">← 回到 cinema-log 首页</a>
+    </div>
+  </div>
+</header>
+
+<section id="graphsec">
+  <div class="sec-head"><h2>关系图</h2><p>点任意人物看详情；阵营筛选会同步作用于图与下方人物卡。† = 第一季内死亡。</p></div>
+  <div class="graph-box">
+    <div class="legend">
+      <span><i style="border-color:var(--brass)"></i>家人 / 夫妻</span>
+      <span><i style="border-color:var(--teal)"></i>效忠 / 合作</span>
+      <span><i style="border-color:var(--red)"></i>杀害 / 致死</span>
+      <span><i style="border-color:var(--red);border-top-style:dashed"></i>背叛 / 暗通</span>
+      <span><i style="border-color:var(--blue)"></i>调查 / 对立</span>
+    </div>
+    <div id="graph" aria-label="黑帮领地第一季人物关系图"></div>
+  </div>
+  <div class="detail" id="detail" aria-live="polite"></div>
+</section>
+
+<section id="people">
+  <div class="sec-head"><h2>人物</h2><p>按阵营分组 · 点卡片在上方详情区查看完整关系</p></div>
+  <div id="cards"></div>
+</section>
+
+<section id="rels">
+  <div class="sec-head"><h2>核心关系速览</h2><p>18 条关系线，一句话看懂第一季</p></div>
+  <div class="rellist" id="rellist"></div>
+</section>
+
+<section id="story">
+  <div class="sec-head"><h2>五条剧情线与季终局</h2><p>S1E1《Stick or Twist》— S1E10《The Beast in Me》</p></div>
+  <div class="tl">
+    <div><b>战争线：</b>Eddie 在夜总会杀死 Tommy 并分尸藏尸 → Harry 逼夜总会老板 Valjon 顶罪、亲手处决他 → 葬礼上勉强停火 → Maeve 炸死 Vron 全面开战 → 安特卫普绑架事件 → 季终 Harry 设局反杀，Richie 与内鬼 O'Hara 同死，史蒂文森家覆灭。</div>
+    <div><b>内鬼线：</b>Maeve 诬陷顾问 Archie，Conrad 亲手杀了他 → 警方屡屡抢先一步，家族疑神疑鬼 → Freddie 临死供出 Archie 清白 → 真相有两层：律师 O'Hara 投靠了 Richie；而 Maeve 本人暗通 Richie、出卖继女 Seraphina 的位置。</div>
+    <div><b>身世线：</b>Bella 年轻时与 Conrad 有过一段，Eddie 实际是 Conrad 的儿子、Kevin 的弟弟——Kevin 早已知情，独自咽下多年。季终 Maeve 在狱中把身世捅给 Eddie，家族的血缘彻底乱套。</div>
+    <div><b>警方线：</b>警探 Fisk 与 Mukasa 布下卧底 Alice 接近 Jan → 退休警司 Tattersall「协助」办案，实为 Richie 的人：借 Richie 之手杀掉两名警探并嫁祸哈里根 → 胁迫 Alice 取走 Conrad 夫妇的 DNA 栽赃 → 两位族长入狱，Alice 事成后被灭口，下落不明。</div>
+    <div><b>夺权线：</b>Kevin 杀死少年时虐待他的前狱警 Rusby 完成复仇 → 狱中向 Conrad 摊牌「现在我说了算」→ 他与 Harry 明明握有能洗清 Conrad 夫妇的 Alice 录音，却故意拖延释放——先让老两口在里面待几周，新一代按自己的方式重组生意。</div>
+  </div>
+  <div class="finale"><b>季终局（S1E10）：</b>Richie 与 O'Hara 被杀、Kiko 战死，史蒂文森家覆灭；Kat 招揽 Harry 倒戈被拒，欠她的人情成了悬在头上的刀；Conrad 在狱中受囚犯欢呼，Maeve 在狱中布局挑动 Eddie；Harry 回家宣布「结束了」，长期紧绷的 Jan 在崩溃中误将厨房刀刺入他胸口——黑屏收尾。而哈里根家真正的权力，已经悄悄换到了 Kevin 与 Harry 手里。</div>
+</section>
+
+<section id="textver-sec">
+  <div class="sec-head"><h2>文字版</h2><p>与仓库中的 mobland-relationship-text.md 内容一致</p></div>
+  <div class="toolbar">
+    <button class="btn" id="copyText" type="button">复制文字版（Markdown）</button>
+    <a class="btn" href="https://1990jtf.github.io/cinema-log/archive/MobLand/mobland-relationship-text.md">打开 .md 原文件</a>
+  </div>
+  <article class="textver" id="textver"></article>
+</section>
+
+<section id="roster">
+  <div class="sec-head"><h2>25 人名录总表</h2><p>含饰演者、身份与第一季结局</p></div>
+  <div style="overflow-x:auto"><table id="rostertable"><thead><tr><th>人物</th><th>英文名</th><th>饰演者</th><th>身份 / 结局</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<footer>
+  <p>资料来源：<a href="https://en.wikipedia.org/wiki/MobLand_season_1">Wikipedia · MobLand season 1</a>（剧集与分集剧情）、<a href="https://www.paramountplus.com/sneak-peak/mobland-season-1-finale-explained/">Paramount+ 官方季终解析</a>；剧照来自 Paramount+ 官方物料与 Radio Times、TV Insider 等媒体剧照，海报为官方中文版海报。本页为个人观剧整理，与 Paramount+ 无关。本图同步收录于 <a href="https://1990jtf.github.io/cinema-log/">cinema-log</a>（第 11 部）。</p>
+</footer>
+</div>
+<div class="toast" id="toast">已复制</div>
+<script>
+var FNAME={core:"哈里根家族",team:"哈里与自家人",stev:"史蒂文森家族",ext:"外部势力",law:"警方与旧账"};
+var PEOPLE=[
+{id:"harry",cn:"哈里·达·索萨",en:"Harry Da Souza",actor:"汤姆·哈迪",f:"team",x:540,y:410,img:1,center:1,role:"哈里根家的清道夫（fixer），家族真正的顶梁柱",fate:"季终拒绝 Kat 的招揽；回家后被 Jan 误刺一刀，倒地收尾",bio:"替哈里根家埋尸、灭口、谈判、摆平警察，无所不包。与 Kevin 是少年同囚的生死交情，对 Conrad 忠心到近乎愚忠——但季终与 Kevin 联手拖延释放老两口，说明他的忠诚正在重新标价。Kat 的人情债与 Jan 的那一刀，是他第二季的两道悬案。",rels:["效忠 Conrad，却与 Kevin 一起谋划新秩序","妻子 Jan、女儿 Gina 是他唯一的软肋","欠 Kat McAllister 双倍人情，拒绝倒戈"]},
+{id:"conrad",cn:"康拉德·哈里根",en:"Conrad Harrigan",actor:"皮尔斯·布鲁斯南",f:"core",x:330,y:105,img:1,role:"哈里根家族首领，人称「百枪康拉德」",fate:"季终与 Maeve 一同被栽赃逮捕入狱，狱中受囚犯欢呼",bio:"靠暴力和魅力打下伦敦地盘的老派枭雄，如今冲动好战、不听劝谏。力主抢史蒂文森家的芬太尼生意，听信 Maeve 的挑唆亲手枪杀三十年老友 Archie。年轻时与儿媳 Bella 有过一段，Eddie 其实是他的儿子。",rels:["与 Maeve 共治家族，实则常被 Maeve 牵着走","亲手杀死被诬的顾问 Archie","Eddie 的生父（秘密，季终揭晓）"]},
+{id:"maeve",cn:"梅芙·哈里根",en:"Maeve Harrigan",actor:"海伦·米伦",f:"core",x:560,y:80,img:1,role:"家族女主人，真正的幕后操盘手",fate:"季终被捕入狱，狱中仍在布局",bio:"全剧最危险的人。诬陷 Archie 借刀杀人、下令汽车炸弹炸死 Vron、暗通 Richie 出卖继女 Seraphina 的位置换长子平安——每一步都在巩固自己对家族的控制。溺爱孙子（实为继子）Eddie，季终在狱中把 Eddie 的身世捅破，继续搅动棋局。",rels:["Conrad 之妻，家族实际的大脑","炸死 Vron，点燃全面战争","暗通 Richie，出卖 Seraphina 与 Brendan 的行踪"]},
+{id:"kevin",cn:"凯文·哈里根",en:"Kevin Harrigan",actor:"帕迪·康斯戴恩",f:"core",x:755,y:115,img:1,role:"Conrad 与 Maeve 的次子，Harry 的搭档",fate:"季终完成夺权，成为家族实际话事人",bio:"长期活在父亲的咆哮与母亲的算计之下，少年时在管教所遭狱警 Rusby 虐待，留下终身阴影。第一季是他的觉醒史：杀 Rusby 复仇、狱中向 Conrad 摊牌、与 Harry 故意扣下能救父母的录音。连妻子与 Conrad 的旧事、Eddie 的身世，他都早已知情，独自咽了很多年。",rels:["Harry 的少年狱友与生死搭档","名义上是 Eddie 的父亲，实际是兄长","杀死 Rusby 复仇，季终向 Conrad 夺权"]},
+{id:"bella",cn:"贝拉·哈里根",en:"Isabella “Bella” Harrigan",actor:"劳拉·普沃",f:"core",x:935,y:205,img:1,role:"Kevin 之妻，Eddie 之母，彭诺克勋爵之女",fate:"存活；与 Conrad 的旧事在季终摊牌",bio:"出身政界世家，却嫁进黑帮。她不甘只做花瓶，背着家族经法国商人 Antoine 做政治掮客生意，一再请 Harry 替她兜底。她最大的秘密是 Eddie 的生父——公公 Conrad。季终 Kevin 表明自己全都知道，夫妻关系进入未知水域。",rels:["Kevin 之妻，Eddie 之母","与 Conrad 的旧情是全家最深的雷","暗中与 Antoine 做交易，多次求助 Harry"]},
+{id:"eddie",cn:"埃迪·哈里根",en:"Eddie Harrigan",actor:"安森·布恩",f:"core",x:950,y:375,img:1,role:"引爆战争的闯祸者，家族第三代",fate:"存活；季终从 Maeve 口中得知真实身世",bio:"嗑药、刺人、杀人分尸——第一季的整场战争都源于他一夜的疯狂。被 Maeve 溺爱并操纵，被 Conrad 暗中偏爱（因为他是 Conrad 的儿子）。对 Gina 动了真情。季终得知喊了二十多年的「爷爷」其实是生父，世界观当场崩塌。",rels:["杀死 Tommy Stevenson，引爆两家战争","生父是 Conrad，Kevin 是他的兄长（名义父子）","与 Gina 相恋；被 Maeve 当作棋子宠溺操纵"]},
+{id:"seraphina",cn:"塞拉菲娜·哈里根",en:"Seraphina Harrigan",actor:"曼蒂普·迪伦",f:"core",x:765,y:285,img:1,role:"Conrad 之女，家族最能干的继承人",fate:"安特卫普获救存活；季终与 Kat 开始接触",bio:"Conrad 与前段关系所生、Maeve 的继女，也是兄弟姐妹里唯一有真本事做生意的人，执掌钻石交易。被 Maeve 出卖行踪后在安特卫普被 Jaime 扣押，靠 Harry 求 Kat 打电话才捡回一命——同行的哥哥 Brendan 没能回来。",rels:["Conrad 最偏爱的孩子，Maeve 的眼中钉","与 Brendan 搭档钻石生意，眼睁睁看他被处决","被 Maeve 出卖，被 Kat 的人情救下"]},
+{id:"brendan",cn:"布兰登·哈里根",en:"Brendan Harrigan",actor:"丹尼尔·贝茨",f:"core",x:170,y:290,img:1,dead:1,role:"Conrad 与 Maeve 的长子",fate:"† S1E7 在安特卫普被 Jaime 的人处决，全程直播给家人",bio:"身为长子却最不受待见，急于证明自己，拉着 Seraphina 去安特卫普做钻石交易。Maeve 向 Richie 泄露两人的位置想保他平安，Richie 却撕毁约定——他成了这场战争里哈里根家最惨烈的代价。",rels:["Conrad 与 Maeve 的长子，Kevin 的哥哥","与同父异母妹妹 Seraphina 搭档做钻石生意","被母亲 Maeve 的出卖间接害死"]},
+{id:"archie",cn:"阿奇·哈蒙德",en:"Archie Hammond",actor:"亚历克斯·詹宁斯",f:"core",x:115,y:150,img:1,dead:1,role:"Conrad 三十年的顾问与挚友",fate:"† S1E1 被 Maeve 诬为内鬼，遭 Conrad 亲手枪杀",bio:"家族的老臣，在家族会议上反对进军芬太尼——这一句逆耳忠言被 Maeve 利用，成了他的催命符。尸体被藏进他人棺材，又被警方挖出，成为全季「内鬼是谁」的悬念起点。直到 Freddie 临死才说出真相：Archie 从未背叛。",rels:["Conrad 的挚友与军师，反对芬太尼扩张","被 Maeve 诬陷，死后仍背着叛徒骂名","他的死是全季内鬼悬念的起点"]},
+{id:"ohara",cn:"奥哈拉·德莱尼",en:"O'Hara Delaney",actor:"丽莎·德万",f:"core",x:80,y:455,img:1,dead:1,role:"家族律师，真内鬼",fate:"† S1E10 被 Harry 将计就计，与 Richie 同死于酒吧决战",bio:"替家族打点法律事务多年，眼见 Conrad 日渐疯狂，暗中投靠 Richie 换取退路——警方每次抢先一步，源头都在她这里。季终她向 Harry 坦白求饶、供出 Richie 的伏击计划，却不知 Harry 早已布好炸弹与反伏击，她和 Richie 一起走进了陷阱。",rels:["表面是家族律师，暗中为 Richie 递送情报","她的背叛害死了 Kiko，也害死了自己","季终被 Harry 利用她的情报反杀 Richie"]},
+{id:"jan",cn:"简·达·索萨",en:"Jan Da Souza",actor:"琼安·弗洛加特",f:"team",x:325,y:620,img:1,role:"Harry 之妻，Gina 之母",fate:"存活；季终争执中误刺 Harry",bio:"受够了提心吊胆的黑帮家属生活，去做心理治疗，在那里结识了「同病相怜」的 Alice——那是警方卧底。她无意间向警方漏过行踪，又被 Conrad 当面威胁封口。季终 Harry 回家说「都结束了」，她积压整季的恐惧总爆发，推搡中厨房刀刺进了丈夫胸口。",rels:["与 Harry 的婚姻被帮派生活拖到悬崖边","被卧底 Alice 假意结交、套取情报","季终误刺 Harry，是全季最后一记重锤"]},
+{id:"gina",cn:"吉娜·达·索萨",en:"Gina Da Souza",actor:"泰迪·艾伦",f:"team",x:520,y:690,img:1,role:"Harry 与 Jan 的女儿",fate:"存活；与 Eddie 的关系成为隐患",bio:"十几岁的少女，厌恶笼罩全家的暴力，求母亲带她逃离。一家人避难科茨沃尔德期间与 Eddie 越走越近并接吻——这段关系先后招来 Harry 的警告与 Maeve 的嫉恨，是第二季埋好的火药。",rels:["Harry 与 Jan 的女儿，只想过普通生活","与 Eddie 相恋，身份上是 Eddie 的侄女辈","被 Maeve 警告远离 Eddie"]},
+{id:"zosia",cn:"佐西娅",en:"Zosia",actor:"贾思敏·乔布森",f:"team",x:660,y:600,img:1,role:"Harry 的亲信助手",fate:"存活；季终伏击战主力",bio:"Harry 手下最得力的人之一，与 Kiko 搭档行动：押送 Eddie、追踪人质、清理现场样样都干。季终在安全屋与 O'Hara 办公室两处伏击中冲在前面，亲眼送走搭档 Kiko。",rels:["与 Kiko 是固定搭档","Harry 的命令她从不打折扣","季终伏击战中与 Kiko 一同迎敌"]},
+{id:"kiko",cn:"基科",en:"Kiko",actor:"安东尼奥·冈萨雷斯·格雷罗",f:"team",x:785,y:685,img:1,dead:1,role:"Harry 的亲信打手",fate:"† S1E10 在伏击 Stevenson 人马的战斗中身亡",bio:"沉默可靠的行动派，与 Zosia 是 Harry 的左右手。从清理 Rusby 的血迹现场到季终的反伏击战，他始终在场——也是季终大战里哈里根一方唯一的阵亡者，提醒所有人这场「胜利」的价钱。",rels:["Zosia 的搭档，Harry 的亲信","季终为掩护同伴战死","他的死是决战胜利唯一的阴影"]},
+{id:"paul",cn:"保罗·奥唐纳",en:"Paul O'Donnell",actor:"埃米特·J·斯坎伦",f:"team",x:180,y:620,img:1,role:"哈里根家族资深打手",fate:"存活；季终以炸弹歼灭两支 Stevenson 人马",bio:"服役多年的家族打手，负责盯梢与脏活：Jan 私自去见 Alice 时是他出面把人带回庄园。季终决战中，提前埋好的炸弹由他引爆，Stevenson 派去安全屋与 O'Hara 办公室的两队人马全军覆没。",rels:["Conrad 与 Harry 都信任的老兵","负责监视 Jan 与 Alice 的会面","季终炸弹伏击的执行者"]},
+{id:"richie",cn:"里奇·史蒂文森",en:"Richie Stevenson",actor:"杰夫·贝尔",f:"stev",x:925,y:555,img:1,dead:1,role:"史蒂文森家族首领，南伦敦黑帮老大",fate:"† S1E10 在自家酒吧 The Sinful Monkey 被 Kevin 与 Harry 处决",bio:"盘踞南伦敦、握着芬太尼地盘的老对手。丧子之痛让他步步升级：绑架、伏击、与警方内应勾结扳倒 Conrad 夫妇，眼看就要赢下战争。但他错信了内鬼 O'Hara 递来的「情报」，把人马送进 Harry 的炸弹陷阱，自己也在酒吧里被堵个正着。",rels:["Tommy 之父，Vron 之夫，丧子后全面开战","买通律师 O'Hara 与警司 Tattersall","季终中了 Harry 的反间计，家族覆灭"]},
+{id:"vron",cn:"弗朗·史蒂文森",en:"Vron Stevenson",actor:"安妮·库珀",f:"stev",x:960,y:685,img:1,dead:1,role:"Richie 之妻，Tommy 之母",fate:"† S1E5 葬礼次日被 Maeve 安排的汽车炸弹炸死",bio:"在儿子 Tommy 的葬礼上当众羞辱 Maeve——这几乎是她最后的台词。次日汽车炸弹夺走她的命，短暂的停火就此作废，战争再无回头路。下令的人是 Maeve，对外则由 Conrad 替妻子认下。",rels:["Richie 之妻，Tommy 之母","葬礼上与 Maeve 结下死仇","她的死让停火彻底破裂"]},
+{id:"tommy",cn:"汤米·史蒂文森",en:"Tommy Stevenson",actor:"菲利克斯·爱德华兹",f:"stev",x:700,y:790,img:1,dead:1,role:"Richie 与 Vron 之子",fate:"† S1E1 被 Eddie 杀害并分尸，尸体藏于夜总会衣箱",bio:"与 Eddie 一起嗑药夜出，先目睹 Eddie 刺伤路人，随后自己被 Eddie 杀死。尸体被夜总会老板 Valjon 以一万英镑协助藏匿，S1E2 在行李箱中被发现——整场家族战争的导火索，就是这个没活过第一集的年轻人。",rels:["Richie 与 Vron 的独子","死在 Eddie 手里，点燃两家世仇","藏尸的 Valjon 后被灭口"]},
+{id:"freddie",cn:"弗雷迪·肖",en:"Freddie Shaw",actor:"布拉德利·特纳",f:"stev",x:560,y:775,img:1,dead:1,role:"Stevenson 家打手，Harry 的旧友",fate:"† S1E8 向 Harry 供出内鬼真相后，被 Harry 推下楼顶灭口",bio:"夹在两家之间的倒霉中间人：先被 Harry 胁迫为 Tommy 葬礼偷运武器，后又被套问芬太尼内情。他说出了最关键的真相——Archie 是清白的，并供出真内鬼的身份。知道得太多的人活不长：Harry 转身把他推下了楼。",rels:["Harry 的旧友，被迫替哈里根家运枪","临死供出 Archie 清白与真内鬼","被 Harry 灭口，死得最冤之一"]},
+{id:"kat",cn:"凯特·麦卡利斯特",en:"Katherine “Kat” McAllister",actor:"珍妮特·麦克蒂尔",f:"ext",x:105,y:745,img:1,role:"国际犯罪掮客，站在卡特尔背后的女人",fate:"存活；招揽 Harry 被拒，成为第二季的大威胁",bio:"Harry 的旧相识，势力横跨国界的犯罪掮客。安特卫普人质危机中，Harry 被迫向她求助，她一通电话就让 Jaime 停手——代价是 Harry 欠下双倍人情。季终她开出真正的价码：倒戈，跟她一起拆了哈里根帝国。Harry 拒绝了，但债还在。",rels:["通过手下 Donnie 与 Harry 联络","救 Seraphina 的人情成了 Harry 的枷锁","季终招揽倒戈被拒，梁子就此结下"]},
+{id:"jaime",cn:"海梅·洛佩斯",en:"Jaime Lopez",actor:"霍尔迪·莫拉",f:"ext",x:285,y:775,img:1,role:"墨西哥卡特尔头目，芬太尼货源的掌控者",fate:"存活；季终转而与哈里根家谈判，条件是交出内鬼",bio:"两家争夺的芬太尼货源握在他手里。受 Richie 之托扣押 Brendan 与 Seraphina，在视频通话里当众处决 Brendan。因 Kat 的面子与 Harry 的声望放过 Seraphina，之后干脆绕开日薄西山的 Richie，与哈里根家坐下来谈新秩序。",rels:["Richie 的货源盟友，后与哈里根谈判","处决 Brendan，向哈里根全家直播","卖 Kat 与 Harry 的面子放过 Seraphina"]},
+{id:"tattersall",cn:"科林·塔特索尔",en:"Colin Tattersall",actor:"托比·琼斯",f:"law",x:880,y:785,img:1,role:"退休重案警司，警方里的内应",fate:"存活；接管调查，成为哈里根家的长期威胁",bio:"以「退休老将出山协助办案」的身份登场，实则替 Richie 办事。他诱使 Fisk 与 Mukasa 去和 Richie 交易，眼看两人被枪杀；再嫁祸哈里根、胁迫卧底 Alice 取 DNA 栽赃送两位族长入狱；最后把知道太多的 Alice 交出去灭口。每一步都合法外衣、毒辣内核。",rels:["设局害死 Fisk 与 Mukasa 并嫁祸哈里根","胁迫 Alice 栽赃 DNA，送 Conrad 夫妇入狱","季终把 Alice 交到 Richie 手下手里"]},
+{id:"alice",cn:"爱丽丝（真名妮古拉）",en:"Alice Barnes / Nicola",actor:"艾米莉·巴伯",f:"law",x:55,y:590,img:1,role:"警方卧底，以「治疗同伴」身份接近 Jan",fate:"季终被 Tattersall 交给 Richie 的手下，下落不明（生死未卜）",bio:"在心理治疗小组里与 Jan 成为密友，一点点套取哈里根家的内情。她有栽赃前科，被 Tattersall 拿捏着取走 Conrad 夫妇的 DNA 完成陷害。讽刺的是，她留下的录音本可证明族长夫妇清白——Harry 与 Kevin 却故意扣着不放。她本人则在事成后被当作弃子处理掉。",rels:["Fisk 布下的卧底，假意结交 Jan","被 Tattersall 胁迫栽赃，也被他灭口","她的录音是 Conrad 夫妇翻案的钥匙"]},
+{id:"fisk",cn:"费斯克与穆卡萨",en:"DS Ivan Fisk & DC Yvonne Mukasa",actor:"卢克·梅布利 / 吉玛·奈特·琼斯",f:"law",x:975,y:95,img:0,dead:1,role:"负责调查哈里根家的一线警探搭档",fate:"† S1E8 被 Tattersall 设局，遭 Richie 当场枪杀",bio:"全季追着哈里根家查的两个人：逮捕审讯 Harry、放长线布下卧底 Alice、追踪家族行踪。眼看收网在即，却被「自己人」Tattersall 劝去与 Richie 谈交易——Richie 掏枪的时候，他们才明白谁是猎人谁是猎物。他们的死被栽赃给哈里根家，成了逮捕族长夫妇的导火索。",rels:["上线是他们，卧底 Alice 由他们布下","被 Tattersall 出卖，死在 Richie 枪下","两人的死被用来嫁祸 Conrad 与 Maeve"]},
+{id:"rusby",cn:"艾伦·拉斯比",en:"Alan Rusby",actor:"奈杰尔·林赛",f:"law",x:420,y:785,img:0,dead:1,role:"前狱警，Kevin 与 Harry 少年时的施虐者",fate:"† S1E9 被 Kevin 假扮司机杀死复仇",bio:"Kevin 与 Harry 少年被关押时，Rusby 是虐待他们的看守，这段阴影跟了两人一辈子。Harry 在养老院偶遇晚年的 Rusby 后，Kevin 循迹而至，假扮司机将他杀死，并对着尸体说出压在心里几十年的话——包括 Eddie 的身世。他的死，是 Kevin 夺权之路的成人礼。",rels:["虐待过少年 Kevin 与 Harry","被 Kevin 复仇杀死","Kevin 对他的尸体剖白了家族最大的秘密"]}
+];
+var EDGES=[
+["harry","conrad","ally","效忠"],["conrad","maeve","fam","夫妻共治"],["harry","kevin","ally","挚友搭档"],
+["conrad","kevin","fam",""],["maeve","kevin","fam",""],["kevin","bella","fam","夫妻"],
+["bella","eddie","fam","母子"],["conrad","eddie","betray","生父子 · 秘密"],["kevin","eddie","fam","名义父子"],
+["conrad","seraphina","fam","父女"],["maeve","seraphina","betray","出卖"],["conrad","brendan","fam",""],
+["seraphina","brendan","ally","姐弟搭档"],["conrad","archie","kill","† 枪杀"],["maeve","archie","betray","诬陷"],
+["conrad","ohara","ally",""],["ohara","richie","betray","内鬼投靠"],["maeve","richie","betray",""],
+["harry","ohara","kill","† 处决"],["richie","vron","fam","夫妻"],["richie","tommy","fam",""],
+["vron","tommy","fam",""],["eddie","tommy","kill","† 杀害分尸"],["maeve","vron","kill",""],
+["conrad","richie","foe","世仇"],["richie","freddie","ally",""],["harry","freddie","kill","旧友 · † 灭口"],
+["harry","jan","fam","夫妻"],["harry","gina","fam",""],["jan","gina","fam",""],
+["eddie","gina","love","情愫"],["harry","zosia","ally","亲信"],["harry","kiko","ally",""],
+["zosia","kiko","ally","搭档"],["harry","paul","ally",""],["bella","harry","ally","秘密求助"],
+["harry","kat","betray","欠人情 · 招揽"],["kat","jaime","ally","一通电话"],["jaime","seraphina","kill","绑架"],
+["jaime","conrad","ally","转而谈判"],["richie","jaime","ally","货源"],["fisk","harry","foe","调查"],
+["fisk","alice","ally","上线"],["alice","jan","betray","假友情"],["tattersall","fisk","kill",""],
+["tattersall","richie","betray","勾结"],["tattersall","alice","betray","胁迫灭口"],["kevin","rusby","kill","† 复仇"],
+["harry","rusby","foe","少年旧账"],["harry","richie","kill","† 决战酒吧"],["harry","seraphina","ally","救援"],
+["conrad","bella","betray","旧情"],["paul","alice","foe",""]
+];
+var ECOLOR={fam:"var(--brass)",ally:"var(--teal)",kill:"var(--red)",betray:"var(--red)",foe:"var(--blue)",love:"var(--slate)"};
+var RELS=[
+["Conrad —— Maeve","夫妻共治：他主外、她主谋，家族每一次失控都出自这对夫妻的合谋或内耗。"],
+["Harry → Conrad","清道夫与主人：Harry 替家族处理一切脏活，忠诚却在季终开始重新标价。"],
+["Harry × Kevin","少年同囚、生死搭档：全剧最稳固的关系，季终联手接管家族。"],
+["Eddie † Tommy","一夜疯狂杀死对手之子并分尸——整场战争的导火索。"],
+["Maeve † Vron","葬礼羞辱的回敬是一颗汽车炸弹，停火就此作废。"],
+["Conrad † Archie","听信 Maeve 的诬陷，亲手枪杀三十年老友，事后证明杀错了人。"],
+["O'Hara → Richie","家族律师暗中投靠对手，警方屡屡抢先一步的源头。"],
+["Maeve → Richie","女主人暗通敌方，出卖继女的位置换长子平安，结果两个孩子一死一险。"],
+["Conrad × Bella","公公与儿媳的旧情，生下了 Eddie——全家最深的一颗雷。"],
+["Kevin × Eddie","名义父子、实际兄弟：Kevin 知情多年，独自咽下。"],
+["Maeve → Eddie","奶奶（实为继母辈）的溺爱与操纵：宠他、纵他、最后用身世真相继续搅局。"],
+["Eddie ～ Gina","避难时生出的少年情愫，招来双方长辈的警告。"],
+["Harry × Kat","一通电话的人情债：她救了 Seraphina，开价却是 Harry 的倒戈。"],
+["Jaime † Brendan","卡特尔头目当众处决长子并直播，是战争最惨烈的一幕。"],
+["Tattersall † Fisk 与 Mukasa","退休警司借 Richie 的枪杀掉两名现役警探，再嫁祸哈里根。"],
+["Alice → Jan","治疗小组里的「知心朋友」是警方卧底；事成之后，Alice 自己也被灭口。"],
+["Kevin † Rusby","杀死少年时的施虐者，是 Kevin 从顺从儿子变成话事人的成人礼。"],
+["Harry × Jan","季终她误刺他一刀：这段婚姻与这个家族，都被暴力磨到了尽头。"]
+];
+</script>
+<script>
+var TV=[
+{h:"一句话看懂第一季",p:"伦敦两大犯罪家族为芬太尼地盘开战，导火索是哈里根家的孙子（实为儿子）Eddie 杀了史蒂文森家的独子 Tommy。而真正把战争烧到不可收拾的，是哈里根家的女主人 Maeve：她诬陷顾问、炸死对手之妻、出卖自己的继女。季终史蒂文森家覆灭，但哈里根家的权力也悄然换了人——从 Conrad 夫妇，换到 Kevin 与 Harry 手里。"},
+{h:"图例",p:"—— 家人 / 夫妻　→ 效忠 / 上下级　× 对手　～ 情愫　◇ 交易 / 利用　† 杀害 / 致死　背叛 / 暗通"},
+{h:"一、哈里根家族",tree:"Conrad Harrigan（族长）—— Maeve Harrigan（女主人）\n │\n ├─ Brendan Harrigan（长子；† S1E7 被 Jaime 处决）\n ├─ Kevin Harrigan（次子）—— Bella Harrigan（妻）\n │ └─ Eddie Harrigan（名义之子；实为 Conrad 与 Bella 所生）\n ├─ Seraphina Harrigan（Conrad 之女，Maeve 的继女）\n ├─ Archie Hammond（三十年顾问；† S1E1 被 Conrad 枪杀，实为被诬）\n └─ O'Hara Delaney（家族律师，真内鬼；† S1E10）",p:"这个家的三重秘密：① Archie 是被 Maeve 诬陷的，真内鬼是律师 O'Hara，而 Maeve 本人也在暗通 Richie；② Eddie 的生父是 Conrad，Kevin 是他的兄长；③ 季终 Conrad 夫妇被栽赃入狱，Kevin 与 Harry 握有翻案录音却故意不放人。"},
+{h:"二、哈里与自家人",tree:"Harry Da Souza（清道夫）—— Jan Da Souza（妻）\n │\n ├─ Gina Da Souza（女儿；～ Eddie）\n ├─ Zosia（亲信助手）—— Kiko（搭档；† S1E10 战死）\n └─ Paul O'Donnell（资深打手，季终炸弹伏击的执行者）",p:"Harry 是全季的实际主角：埋尸、灭口、谈判、救人全是他。代价是他的婚姻——Jan 在治疗中被卧底 Alice 套情报，又被 Conrad 威胁封口，季终在崩溃中误刺 Harry 一刀。"},
+{h:"三、史蒂文森家族",tree:"Richie Stevenson（首领）—— Vron Stevenson（妻；† S1E5 汽车炸弹）\n │\n ├─ Tommy Stevenson（独子；† S1E1 被 Eddie 杀害分尸）\n └─ Freddie Shaw（打手；† S1E8 被 Harry 推下楼灭口）",p:"史蒂文森家输得最惨：先丧独子，再丧女主人，靠内鬼与警方内应一度扳倒 Conrad 夫妇，最后却中了 Harry 的反间计——两队人马死于炸弹，Richie 本人在自家酒吧被处决，家族覆灭。"},
+{h:"四、外部势力",tree:"Kat McAllister（国际犯罪掮客）◇ Harry（旧相识，季终招揽倒戈被拒）\n │ 一通电话\n └→ Jaime Lopez（墨西哥卡特尔头目，芬太尼货源）\n ├─ † 处决 Brendan，扣押 Seraphina\n └◇ 季终绕开 Richie，与哈里根家谈判",p:"芬太尼货源在 Jaime 手里，两家争的其实是他的青睐。而站在 Jaime 背后的 Kat 才是更大的玩家：她救 Seraphina 不是行善，是给 Harry 记了一笔迟早要还的账。"},
+{h:"五、警方与旧账",tree:"DS Fisk — DC Mukasa（一线警探；† S1E8 被 Richie 枪杀）\n ├─ Alice / Nicola（卧底；以治疗同伴身份接近 Jan；季终下落不明）\n └× Colin Tattersall（退休警司，Richie 的内应；设局者）\nAlan Rusby（前狱警，少年时虐待 Kevin 与 Harry；† S1E9 被 Kevin 复仇杀死）",p:"警方这条线全是黑的：卧底有栽赃前科，出山的老警司是对手的人。Fisk 与 Mukasa 死于自己人的算计，Alice 完成栽赃后被灭口——而她的录音偏偏能证明 Conrad 夫妇无罪，于是被新当家的人扣了下来。"},
+{h:"六、18 条核心关系（一句话版）",ul:RELS.map(function(r){return r[0]+"："+r[1];})},
+{h:"七、季终局（S1E10《The Beast in Me》，2025-06-01）",p:"Kevin 对 Rusby 的尸体剖白身世；狱中向 Conrad 摊牌夺权；Maeve 在狱中把 Eddie 的身世捅破。Harry 利用 O'Hara 的假情报设局：Paul 的炸弹歼灭 Stevenson 两队人马，Zosia 与 Kiko 迎战（Kiko 战死），Kevin 与 Harry 攻入 Sinful Monkey 酒吧杀死 Richie 与 O'Hara。Kat 招揽 Harry 倒戈被拒。Conrad 在狱中受囚犯欢呼，短期内仍是狱中之王；但地面上的帝国，已经归 Kevin 与 Harry。最后一幕：Jan 在崩溃中误刺 Harry，黑屏。"}
+];
+function byId(id){for(var i=0;i<PEOPLE.length;i++)if(PEOPLE[i].id===id)return PEOPLE[i];return null;}
+var graph=document.getElementById("graph");
+var NS="http://www.w3.org/2000/svg";
+var svg=document.createElementNS(NS,"svg");
+svg.setAttribute("viewBox","0 0 1080 820");svg.setAttribute("preserveAspectRatio","xMidYMid meet");
+EDGES.forEach(function(e){
+var a=byId(e[0]),b=byId(e[1]);if(!a||!b)return;
+var ln=document.createElementNS(NS,"line");
+ln.setAttribute("x1",a.x);ln.setAttribute("y1",a.y);ln.setAttribute("x2",b.x);ln.setAttribute("y2",b.y);
+ln.setAttribute("stroke",ECOLOR[e[2]].replace("var(--","").replace(")",""));
+ln.style.stroke="";ln.setAttribute("class","edge");ln.dataset.a=e[0];ln.dataset.b=e[1];ln.dataset.t=e[2];
+ln.setAttribute("stroke-width",e[2]==="kill"?2.6:1.6);
+if(e[2]==="betray")ln.setAttribute("stroke-dasharray","6 5");
+svg.appendChild(ln);
+if(e[3]){
+var t=document.createElementNS(NS,"text");
+t.setAttribute("x",(a.x+b.x)/2);t.setAttribute("y",(a.y+b.y)/2-5);t.setAttribute("text-anchor","middle");
+t.textContent=e[3];t.dataset.a=e[0];t.dataset.b=e[1];svg.appendChild(t);
+}
+});
+graph.appendChild(svg);
+/* fix edge colors via CSS variables at runtime */
+Array.prototype.forEach.call(svg.querySelectorAll("line"),function(ln){
+var t=ln.dataset.t;var c={fam:"#8f6b1d",ally:"#226355",kill:"#a31621",betray:"#a31621",foe:"#2e5a74",love:"#5d5470"}[t];
+ln.setAttribute("stroke",c);ln.setAttribute("opacity",".55");
+});
+var nodes={};
+PEOPLE.forEach(function(p){
+var b=document.createElement("button");
+b.className="node"+(p.center?" center":"");b.dataset.f=p.f;b.dataset.id=p.id;b.type="button";
+b.style.left=(p.x/1080*100)+"%";b.style.top=(p.y/820*100)+"%";
+var av=p.img?'<img class="av" src="assets/avatars/'+p.id+'.jpg" alt="">':'<span class="av-init">'+p.cn.charAt(0)+'</span>';
+var short={rusby:"拉斯比",alice:"爱丽丝",tattersall:"塔特索尔",fisk:"费斯克与穆卡萨"}[p.id]||p.cn.split("·")[0].replace("哈里根","").replace("史蒂文森","");
+  b.innerHTML=av+"<span>"+short+(p.dead?' <span class="dead">†</span>':"")+" <small>"+p.en.split(" ")[0]+"</small></span>";
+b.setAttribute("aria-label",p.cn+"，"+p.role);
+b.addEventListener("click",function(){select(p.id,true);});
+graph.appendChild(b);nodes[p.id]=b;
+});
+function avHTML(p,lg){
+if(p.img)return '<img src="assets/avatars/'+p.id+'.jpg" alt="'+p.cn+'剧照">';
+return '<span class="'+(lg?"av-init-lg":"av-init")+'">'+p.cn.charAt(0)+'</span>';
+}
+function select(id,scroll){
+var p=byId(id);if(!p)return;
+PEOPLE.forEach(function(q){nodes[q.id].classList.toggle("sel",q.id===id);});
+var d=document.getElementById("detail");
+d.innerHTML=avHTML(p,true)+"<div><h3>"+p.cn+(p.dead?' <span class="dead-t">† 第一季死亡</span>':"")+" <span>"+p.en+"</span></h3>"+
+'<p class="meta">'+FNAME[p.f]+" · 饰演："+p.actor+"</p>"+
+"<p><b>"+p.role+"。</b>"+p.bio+"</p>"+
+'<p class="meta" style="margin-bottom:6px">结局：'+p.fate+"</p>"+
+'<div class="rels"><b>关键关系</b>　'+p.rels.join("；")+"</div></div>";
+if(scroll)d.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+/* cards */
+var FORDER=["core","team","stev","ext","law"];
+var FNOTE={core:"伦敦老牌犯罪家族：族长好战、女主人主谋、第三代闯祸，帝国的裂缝全在家里。",team:"Harry 是替家族收拾残局的人；他的妻女与手下，是这条暴力链上最无辜的一群。",stev:"南伦敦的对手家族，握着芬太尼地盘——第一季结束时已被连根拔起。",ext:"卡特尔与国际掮客：两家争的地盘和货源，其实都攥在他们手里。",law:"调查哈里根的警察、卧底与旧日仇人——这一方里没有一个干净人。"};
+var cardsBox=document.getElementById("cards");
+FORDER.forEach(function(f){
+var g=document.createElement("div");g.className="fgroup";g.dataset.f=f;
+var html='<h3><span class="dot" style="background:'+({core:"var(--brass)",team:"var(--red)",stev:"var(--slate)",ext:"var(--teal)",law:"var(--blue)"})[f]+')"></span>'+FNAME[f]+'</h3><p class="fnote">'+FNOTE[f]+'</p><div class="cards">';
+PEOPLE.filter(function(p){return p.f===f;}).forEach(function(p){
+html+='<button type="button" class="pcard" data-id="'+p.id+'" data-f="'+p.f+'"><span class="top">'+avHTML(p)+'<span><h4>'+p.cn+(p.dead?' <span class="dead">†</span>':"")+'</h4><span class="en">'+p.en+'</span><div class="actor">'+p.actor+' 饰</div></span></span><p class="role">'+p.role+'</p><p class="fate">'+p.fate+'</p></button>';
+});
+g.innerHTML=html+"</div>";cardsBox.appendChild(g);
+});
+Array.prototype.forEach.call(document.querySelectorAll(".pcard"),function(c){
+c.addEventListener("click",function(){select(c.dataset.id,false);document.getElementById("graphsec").scrollIntoView({behavior:"smooth"});});
+});
+/* rel list */
+document.getElementById("rellist").innerHTML=RELS.map(function(r,i){return "<div><b>"+(i+1)+". "+r[0]+"</b> — "+r[1]+"</div>";}).join("");
+/* roster */
+document.querySelector("#rostertable tbody").innerHTML=PEOPLE.map(function(p){
+return "<tr><td>"+p.cn+(p.dead?' <span class="dead-t">†</span>':"")+"</td><td>"+p.en+"</td><td>"+p.actor+"</td><td>"+p.role+"；"+p.fate+"</td></tr>";
+}).join("");
+/* text version */
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+var tvHTML="",md="# 《黑帮领地》MobLand —— 文字版人物关系图（第一季）\n\nParamount+ 2025，第一季 10 集（2025-03-30 – 2025-06-01）。主创 Ronan Bennett，盖·里奇等执导。伦敦两大犯罪家族为芬太尼地盘开战，清道夫 Harry 夹在中间。含完整剧透。\n";
+TV.forEach(function(b){
+tvHTML+="<h3>"+esc(b.h)+"</h3>";md+="\n## "+b.h+"\n";
+if(b.p){tvHTML+="<p>"+esc(b.p)+"</p>";md+="\n"+b.p+"\n";}
+if(b.tree){tvHTML+='<div class="tree">'+esc(b.tree)+"</div>";md+="\n```\n"+b.tree+"\n```\n";}
+if(b.ul){tvHTML+="<ul>"+b.ul.map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+"</ul>";md+="\n"+b.ul.map(function(x,i){return (i+1)+". "+x;}).join("\n")+"\n";}
+});
+md+="\n## 八、25 人名录总表\n\n| 人物 | 英文名 | 饰演者 | 身份 / 结局 |\n|---|---|---|---|\n";
+PEOPLE.forEach(function(p){md+="| "+p.cn+" | "+p.en+" | "+p.actor+" | "+p.role+"；"+p.fate+" |\n";});
+md+="\n未单独入图但在正文中提及：Valjon（夜总会老板，帮 Eddie 藏尸，S1E4 被 Harry 处决，饰演 Peter Ferdinando）、Hughie Campbell（被 Eddie 刺伤的夜总会客人，饰演 Ethan Moorhouse）、Lord Pennock（Bella 之父，饰演 Steven Pacey）、Antoine Arloud（法国商人，Bella 的交易对象，饰演 Grégoire Colin）、Donnie（Kat 的手下，饰演 Alex Fine）。\n";
+document.getElementById("textver").innerHTML=tvHTML;
+document.getElementById("copyText").addEventListener("click",function(){
+function done(){var t=document.getElementById("toast");t.classList.add("show");setTimeout(function(){t.classList.remove("show");},1800);}
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(md).then(done,done);}
+else{var ta=document.createElement("textarea");ta.value=md;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");}catch(e){}document.body.removeChild(ta);done();}
+});
+/* filter */
+var chips=document.querySelectorAll(".chip[data-filter]");
+function applyFilter(f){
+chips.forEach(function(c){c.setAttribute("aria-pressed",c.dataset.filter===f?"true":"false");});
+PEOPLE.forEach(function(p){
+var on=(f==="all"||p.f===f);
+nodes[p.id].classList.toggle("dim",!on);
+var card=document.querySelector('.pcard[data-id="'+p.id+'"]');if(card)card.classList.toggle("dim",!on);
+});
+Array.prototype.forEach.call(svg.querySelectorAll("line,text"),function(el){
+var a=byId(el.dataset.a),b=byId(el.dataset.b);
+var on=(f==="all"||(a&&b&&a.f===f&&b.f===f));
+el.style.opacity=on?"":"0.07";
+});
+}
+chips.forEach(function(c){c.addEventListener("click",function(){applyFilter(c.dataset.filter);});});
+select("harry",false);
+</script>
+</body>
+</html>

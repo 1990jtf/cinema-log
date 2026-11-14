@@ -6,7 +6,7 @@
 
 | 📺 剧集 | 👥 人物 | 🗓️ 跨度 |
 | --- | --- | --- |
-| **10 部** | **224 位** | 2011–2024 |
+| **11 部** | **249 位** | 2011–2026 |
 
 ---
 
@@ -24,6 +24,7 @@
 | <img src="cover/ozark.jpg" width="54" alt="黑钱胜地"> | **黑钱胜地** · Ozark<br>★ 8.4 | Netflix | 2017–2022 | 4 季 · 已完结 | 21 | [网页版](archive/Ozark/%E9%BB%91%E9%92%B1%E8%83%9C%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html) · [长图](archive/Ozark/ozark-relationship.png) · [文字版](archive/Ozark/ozark-relationship-text.md) |
 | <img src="cover/mandalorian.jpg" width="54" alt="曼达洛人"> | **曼达洛人** · The Mandalorian<br>★ 9.2 | Disney+ | 2019–2023 | 3 季 · 已完结 | 20 | [网页版](archive/Mandalorian/%E6%9B%BC%E8%BE%BE%E6%B4%9B%E4%BA%BA%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html) · [长图](archive/Mandalorian/mandalorian-relationship.png) · [文字版](archive/Mandalorian/mandalorian-relationship-text.md) |
 | <img src="cover/joy-of-life.jpg" width="54" alt="庆余年"> | **庆余年** · Joy of Life<br>★ 7.9 | 腾讯视频 | 2019–2024 | 2 季 · 追更中 | 22 | [网页版](archive/Joy-of-Life/%E5%BA%86%E4%BD%99%E5%B9%B4%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html) · [长图](archive/Joy-of-Life/joy-of-life-relationship.png) · [文字版](archive/Joy-of-Life/joy-of-life-relationship-text.md) |
+| <img src="cover/mobland.jpg" width="54" alt="黑帮领地"> | **黑帮领地** · MobLand<br>★ 7.6 | Paramount+ | 2025– | 已播 1 季 · 追更中 | 25 | [网页版](archive/MobLand/%E9%BB%91%E5%B8%AE%E9%A2%86%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html) · [长图](archive/MobLand/mobland-relationship.png) · [文字版](archive/MobLand/mobland-relationship-text.md) |
 
 > 豆瓣评分为第一季评分（豆瓣按季打分，无整部剧总分）。
 
@@ -41,6 +42,7 @@
 - **黑钱胜地**（剧情 / 惊悚 / 犯罪） — 财务顾问为毒枭洗钱，一家人在湖畔小镇越陷越深。
 - **曼达洛人**（科幻 / 奇幻） — 赏金猎人与一个孩子的旅程，信条即道路。
 - **庆余年**（剧情 / 古装） — 范闲从儋州少年到京都权臣，查身世、斗权贵、揭开叶轻眉之死。
+- **黑帮领地**（剧情 / 犯罪） — 伦敦两大黑帮家族为芬太尼地盘开战，清道夫 Harry 在尸体与谎言之间替家族续命。
 
 ---
 
@@ -65,7 +67,8 @@ cinema-log/
     ├── Billions/ # 亿万：网页版 HTML、关系图 PNG、文字版
     ├── Ozark/ # 黑钱胜地：网页版 HTML、关系图 PNG、文字版
     ├── Mandalorian/ # 曼达洛人：网页版 HTML、关系图 PNG、文字版
-    └── Joy-of-Life/ # 庆余年：网页版 HTML、关系图 PNG、文字版
+    ├── Joy-of-Life/ # 庆余年：网页版 HTML、关系图 PNG、文字版
+    └── MobLand/ # 黑帮领地：网页版 HTML、关系图 PNG、文字版
 ```
 
 ## 新增一部剧
