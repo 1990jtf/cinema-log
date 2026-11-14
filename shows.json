@@ -224,5 +224,25 @@
       "犯罪"
     ],
     "status": "追更中"
+  },
+  {
+    "added": "2026-11-14",
+    "characters": 27,
+    "desc": "144 层地下地堡，工程师朱丽叶一路追查地堡真相，S2 末与伯纳德双双被困焚化炉。",
+    "html_file": "末日地堡人物关系图.html",
+    "id": "Silo",
+    "platform": "Apple TV+",
+    "png_file": "silo-relationship.png",
+    "seasons": "已播 2 季",
+    "text_file": "silo-relationship-text.md",
+    "title_cn": "末日地堡",
+    "title_en": "Silo",
+    "years": "2023–",
+    "douban": 7.8,
+    "genres": [
+      "剧情",
+      "科幻"
+    ],
+    "status": "追更中"
   }
 ]
