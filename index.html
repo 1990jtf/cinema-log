@@ -47,8 +47,34 @@
     padding: 5px 14px;
     margin-bottom: 18px;
   }
-  .hero h1 { font-size: 40px; letter-spacing: 4px; line-height: 1.25; }
-  .hero h1 span { color: var(--accent); }
+  .hero h1 { font-size: 48px; letter-spacing: 4px; line-height: 1.25; text-shadow: 0 2px 28px rgba(232, 182, 76, .18); }
+  .hero h1 span {
+    background: linear-gradient(135deg, #f6d47c, #e8b64c 45%, #c98f2b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .poster-rail {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 38px;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  }
+  .poster-rail img {
+    width: 86px;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, .14);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, .5);
+    transition: transform .25s ease;
+  }
+  .poster-rail img:nth-child(odd) { transform: rotate(-2deg); }
+  .poster-rail img:nth-child(even) { transform: rotate(2deg); }
+  .poster-rail img:hover { transform: rotate(0deg) translateY(-6px) scale(1.06); }
   .logo { width: 64px; height: 64px; margin: 0 auto 18px; }
   .logo svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 6px 16px rgba(0, 0, 0, .4)); }
   .hero p { color: var(--muted); max-width: 640px; margin: 14px auto 0; font-size: 15px; }
@@ -65,6 +91,7 @@
     border-radius: 12px;
     padding: 10px 22px;
     min-width: 120px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
   }
   .stat b { display: block; font-size: 24px; color: var(--accent); line-height: 1.2; }
   .stat span { font-size: 12px; color: var(--muted); }
@@ -75,22 +102,29 @@
     margin: 0 auto;
     padding: 28px 20px 8px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
+    flex-direction: column;
+    gap: 14px;
+    align-items: stretch;
+  }
+  .toolbar-top {
+    display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
   }
   .search {
-    flex: 1 1 260px;
-    max-width: 360px;
+    flex: 0 1 380px;
+    height: 44px;
     display: flex;
     align-items: center;
     gap: 8px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 999px;
-    padding: 9px 16px;
+    padding: 0 18px;
+    transition: border-color .15s ease, box-shadow .15s ease;
   }
+  .search:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(232, 182, 76, .18); }
   .search input {
     flex: 1;
     background: transparent;
@@ -98,16 +132,21 @@
     outline: none;
     color: var(--text);
     font-size: 14px;
+    height: 100%;
   }
   .search input::placeholder { color: var(--faint); }
-  .filters { display: flex; flex-wrap: wrap; gap: 8px; }
-  .filter-rows { flex-basis: 100%; display: flex; flex-direction: column; gap: 8px; }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .filter-rows { display: flex; flex-direction: column; gap: 10px; }
+  .filter-label { color: var(--faint); font-size: 13px; flex-shrink: 0; width: 34px; }
   .chip {
     background: var(--surface);
     border: 1px solid var(--border);
     color: var(--muted);
     border-radius: 999px;
-    padding: 7px 15px;
+    padding: 0 15px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
     font-size: 13px;
     cursor: pointer;
     transition: all .15s ease;
@@ -159,11 +198,26 @@
     text-decoration: none;
     color: inherit;
     transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    animation: fadeUp .55s cubic-bezier(.22, .61, .36, 1) backwards;
+  }
+  .card:nth-child(2) { animation-delay: .04s; }
+  .card:nth-child(3) { animation-delay: .08s; }
+  .card:nth-child(4) { animation-delay: .12s; }
+  .card:nth-child(5) { animation-delay: .16s; }
+  .card:nth-child(6) { animation-delay: .20s; }
+  .card:nth-child(7) { animation-delay: .24s; }
+  .card:nth-child(8) { animation-delay: .28s; }
+  .card:nth-child(9) { animation-delay: .32s; }
+  .card:nth-child(10) { animation-delay: .36s; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
   }
   .card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 16px 36px rgba(0, 0, 0, .45); }
-  .poster { position: relative; color: var(--text); }
+  .poster { position: relative; color: var(--text); overflow: hidden; }
   .poster:visited { color: var(--text); }
-  .poster img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; background: #0d1117; }
+  .poster img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; background: #0d1117; transition: transform .35s ease; }
+  .card:hover .poster img { transform: scale(1.06); }
   .platform {
     position: absolute;
     top: 12px;
@@ -257,6 +311,8 @@
     .hero h1 { font-size: 29px; letter-spacing: 2px; }
     .stat { min-width: 96px; padding: 8px 14px; }
     .stat b { font-size: 20px; }
+    .poster-rail img { width: 54px; }
+    .poster-rail { gap: 6px; margin-top: 28px; }
     .grid[data-cols="2"], .grid[data-cols="3"], .grid[data-cols="4"], .grid[data-cols="5"] { grid-template-columns: 1fr; }
   }
 </style>
@@ -285,21 +341,25 @@
     <div class="stat"><b>2</b><span>部追更中</span></div>
     <div class="stat"><b>2011–2024</b><span>跨度 14 年</span></div>
   </div>
+<div class="poster-rail" aria-hidden="true"><img src="cover/succession.jpg" alt="《继承之战》海报" loading="lazy"><img src="cover/pantheon.jpg" alt="《万神殿》海报" loading="lazy"><img src="cover/game-of-thrones.jpg" alt="《权利的游戏》海报" loading="lazy"><img src="cover/silicon-valley.jpg" alt="《硅谷》海报" loading="lazy"><img src="cover/house-of-cards.jpg" alt="《纸牌屋》海报" loading="lazy"><img src="cover/severance.jpg" alt="《人生切割术》海报" loading="lazy"><img src="cover/billions.jpg" alt="《亿万》海报" loading="lazy"><img src="cover/ozark.jpg" alt="《黑钱胜地》海报" loading="lazy"><img src="cover/mandalorian.jpg" alt="《曼达洛人》海报" loading="lazy"><img src="cover/joy-of-life.jpg" alt="《庆余年》海报" loading="lazy"></div>
 </header>
 
 <div class="toolbar">
-  <label class="search">🔍 <input id="q" type="search" placeholder="搜剧名，如 曼达洛人 / Succession…" aria-label="搜索剧集"></label>
-  <div class="cols-control" id="cols-control">
-    <span>每行</span>
-    <button class="cols-btn active" data-cols="auto">自动</button>
-    <button class="cols-btn" data-cols="2">2</button>
-    <button class="cols-btn" data-cols="3">3</button>
-    <button class="cols-btn" data-cols="4">4</button>
-    <button class="cols-btn" data-cols="5">5</button>
+  <div class="toolbar-top">
+    <label class="search">🔍 <input id="q" type="search" placeholder="搜剧名，如 曼达洛人 / Succession…" aria-label="搜索剧集"></label>
+    <div class="cols-control" id="cols-control">
+      <span>每行</span>
+      <button class="cols-btn active" data-cols="auto">自动</button>
+      <button class="cols-btn" data-cols="2">2</button>
+      <button class="cols-btn" data-cols="3">3</button>
+      <button class="cols-btn" data-cols="4">4</button>
+      <button class="cols-btn" data-cols="5">5</button>
+    </div>
+    <span class="count" id="count"></span>
   </div>
-  <span class="count" id="count"></span>
   <div class="filter-rows">
     <div class="filters" id="filters">
+      <span class="filter-label">平台</span>
     <button class="chip active" data-platform="all">全部</button>
     <button class="chip" data-platform="HBO">HBO</button>
     <button class="chip" data-platform="Netflix">Netflix</button>
@@ -310,6 +370,7 @@
     <button class="chip" data-platform="腾讯视频">腾讯视频</button>
     </div>
     <div class="filters" id="genre-filters">
+      <span class="filter-label">类型</span>
     <button class="chip active" data-genre="all">全部类型</button>
     <button class="chip" data-genre="剧情">剧情</button>
     <button class="chip" data-genre="喜剧">喜剧</button>
