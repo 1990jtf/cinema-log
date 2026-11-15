@@ -60,12 +60,13 @@
   .btn-icon:hover{background:rgba(255,255,255,.16)}
 
   /* ---------- cast row ---------- */
-  .cast-row{display:flex;gap:18px;overflow-x:auto;padding:8px 2px 14px;
+  .cast-row{display:flex;gap:18px;overflow-x:auto;padding:8px 2px 14px;align-items:flex-start;
     scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .cast-row::-webkit-scrollbar{display:none}
-  .cast-item{flex:0 0 112px;scroll-snap-align:start;background:none;border:0;padding:0;
-    cursor:pointer;color:inherit;font-family:inherit;text-align:left;min-height:0}
-  .cast-item img{width:72px;height:72px;aspect-ratio:1;border-radius:50%;object-fit:cover;object-position:center;
+  .cast-item{flex:0 0 118px;scroll-snap-align:start;background:none;border:0;padding:0;
+    cursor:pointer;color:inherit;font-family:inherit;text-align:left;min-height:0;
+    display:flex;flex-direction:column;align-items:flex-start;align-self:flex-start}
+  .cast-item img{width:86px;height:86px;aspect-ratio:1;flex:none;border-radius:50%;object-fit:cover;object-position:center;
     display:block;border:2px solid var(--line);filter:brightness(1.2) contrast(1.05);background:#26262A}
   .cast-item.selected img{border-color:var(--gold);box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--gold)}
   .cast-name{margin-top:9px;font-size:14px;font-weight:600;color:#fff;line-height:1.35}
