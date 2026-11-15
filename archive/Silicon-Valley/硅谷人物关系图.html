@@ -53,9 +53,9 @@
   .secttl .hint{font-size:13px;font-weight:400;color:var(--muted);margin-left:10px}
   .lead{font-size:14px;line-height:1.6;color:var(--body);margin:6px 0 0;max-width:46em}
   /* cast row */
-  .castrow{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:14px 24px 12px 2px;scrollbar-width:thin}
-  .cast{flex:0 0 106px;scroll-snap-align:start;background:none;border:0;padding:0;text-align:left;cursor:pointer;color:var(--ink);font:inherit}
-  .cast img{width:72px;height:72px;aspect-ratio:1;border-radius:50%;object-fit:cover;object-position:center;display:block;
+  .castrow{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:14px 24px 12px 2px;scrollbar-width:thin;align-items:flex-start}
+  .cast{flex:0 0 110px;scroll-snap-align:start;background:none;border:0;padding:0;text-align:left;cursor:pointer;color:var(--ink);font:inherit;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;align-self:flex-start}
+  .cast img{width:86px;height:86px;min-width:86px;min-height:86px;max-width:86px;max-height:86px;flex:0 0 86px;aspect-ratio:1;border-radius:50%;object-fit:cover;object-position:center;display:block;
     filter:var(--bright);border:2px solid var(--line);background:var(--panel2)}
   .cast.sel img{border-color:var(--gold)}
   .cast .cn{font-size:14px;font-weight:600;color:#fff;line-height:1.35;margin-top:8px}
