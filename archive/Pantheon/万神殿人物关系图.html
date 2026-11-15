@@ -291,10 +291,12 @@
 
   /* ---------- 主演横滑 ---------- */
   .cast-row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;
+    align-items:flex-start;
     padding:6px 4px 14px;scrollbar-width:thin;scrollbar-color:#2B2B2B transparent}
   .cast-item{flex:0 0 112px;scroll-snap-align:start;background:none;border:0;padding:0;
+    display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;
     text-align:left;cursor:pointer;font-family:inherit;color:var(--ink-2)}
-  .cast-item img{width:72px;height:72px;aspect-ratio:1;border-radius:50%;object-fit:cover;
+  .cast-item img{width:86px;height:86px;aspect-ratio:1;flex:none;border-radius:50%;object-fit:cover;
     object-position:center 22%;display:block;background:#26262A;
     box-shadow:0 0 0 2px #2B2B2B;filter:brightness(1.2) contrast(1.05)}
   .cast-item[aria-pressed="true"] img{box-shadow:0 0 0 2px #0B0B0D,0 0 0 4.5px #FFFFFF}
