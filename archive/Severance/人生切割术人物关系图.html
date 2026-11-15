@@ -61,11 +61,12 @@
   .sec-title{font-size:24px;font-weight:700;margin:0 0 14px;color:var(--ink)}
   section.block{margin-top:48px}
   /* cast row */
-  .cast-row{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;
+  .cast-row{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;align-items:flex-start;
     margin:0 -16px;padding:2px 16px 14px;scrollbar-width:thin}
-  .cast-card{scroll-snap-align:start;flex:0 0 106px;background:none;border:0;padding:0;cursor:pointer;
-    text-align:left;font-family:inherit;color:var(--body)}
-  .cast-card img{width:72px;height:72px;aspect-ratio:1/1;border-radius:50%;object-fit:cover;object-position:center;
+  .cast-card{scroll-snap-align:start;flex:0 0 118px;background:none;border:0;padding:0;cursor:pointer;
+    text-align:left;font-family:inherit;color:var(--body);
+    display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start}
+  .cast-card img{width:86px;height:86px;aspect-ratio:1/1;border-radius:50%;object-fit:cover;object-position:center;
     display:block;flex:0 0 auto;border:2px solid var(--line);background:var(--surface2)}
   .cast-card img.still{filter:brightness(1.2) contrast(1.06) saturate(1.04)}
   .cast-card:hover img,.cast-card:focus-visible img{border-color:#8A8A92}
