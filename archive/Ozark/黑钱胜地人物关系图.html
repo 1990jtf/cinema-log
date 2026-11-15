@@ -60,11 +60,12 @@
       .sec-head h2{font-size:24px;font-weight:700;margin:0}
       .sec-head .hint{color:var(--body);font-size:13px}
       /* ---------- cast carousel ---------- */
-      .cast-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 28px 12px 2px;
+      .cast-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 28px 12px 2px;align-items:flex-start;
         scrollbar-width:thin;scrollbar-color:#3a3a3a transparent}
-      .cast-item{flex:0 0 104px;scroll-snap-align:start;background:none;border:none;padding:0;cursor:pointer;text-align:left;color:inherit;font:inherit}
-      .cast-item .av{display:block;width:72px;height:72px;border-radius:50%;overflow:hidden;border:2px solid var(--line);margin-bottom:9px;transition:border-color .15s ease}
-      .cast-item .av img{width:72px;height:72px;aspect-ratio:1;object-fit:cover;object-position:center 22%;display:block;filter:brightness(1.2) contrast(1.05)}
+      .cast-item{flex:0 0 124px;scroll-snap-align:start;background:none;border:none;padding:0;cursor:pointer;text-align:left;color:inherit;font:inherit;
+        display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;align-self:flex-start}
+      .cast-item .av{display:block;flex:0 0 auto;width:86px;height:86px;border-radius:50%;overflow:hidden;border:2px solid var(--line);margin-bottom:9px;transition:border-color .15s ease}
+      .cast-item .av img{width:86px;height:86px;aspect-ratio:1;object-fit:cover;object-position:center 22%;display:block;filter:brightness(1.2) contrast(1.05)}
       .cast-item:hover .av{border-color:#6b6b6b}
       .cast-item.sel .av{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
       .cast-item .cnm{display:block;color:#fff;font-size:14px;font-weight:600;line-height:1.35}
