@@ -192,10 +192,10 @@ section.block{background:transparent;border:none;box-shadow:none;border-radius:0
 .hero-btn-icon:hover{border-color:#fff}
 /* cast row */
 .cast-block{margin:36px 0 48px}
-.cast-row{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 4px 12px;margin-top:8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.cast-row{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 4px 12px;margin-top:8px;scrollbar-width:none;-webkit-overflow-scrolling:touch;align-items:flex-start}
 .cast-row::-webkit-scrollbar{display:none}
-.cast-item{flex:0 0 108px;scroll-snap-align:start;background:none;border:none;padding:0;text-align:left;cursor:pointer;font-family:inherit;color:var(--ink);display:flex;flex-direction:column}
-.cast-ava{width:72px;height:72px;flex:0 0 72px;border-radius:50%;overflow:hidden;border:2px solid #3a3a3e;background:#222}
+.cast-item{flex:0 0 130px;scroll-snap-align:start;background:none;border:none;padding:0;text-align:left;cursor:pointer;font-family:inherit;color:var(--ink);display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;align-self:flex-start}
+.cast-ava{width:86px;height:86px;flex:0 0 86px;aspect-ratio:1/1;border-radius:50%;overflow:hidden;border:2px solid #3a3a3e;background:#222}
 .cast-ava img{width:100%;height:100%;aspect-ratio:1;object-fit:cover;display:block;filter:brightness(1.2) contrast(1.05)}
 .cast-item.sel .cast-ava{border-color:var(--gold)}
 .cast-name{font-size:14px;font-weight:600;color:#fff;margin-top:9px;line-height:1.35}
