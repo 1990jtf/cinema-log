@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111319">
+  <meta name="description" content="浏览观影日志收藏的剧集，查找可交互的人物关系图、高清长图和文字资料。">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/index.css">
+  <script src="assets/index.js" defer></script>
+  <title>观影日志 · Cinema Log</title>
+</head>
+<body>
+  <header class="masthead wrap">
+    <a class="brand" href="./">
+      <img src="favicon.svg" width="32" height="32" alt="">
+      <span lang="en">Cinema Log</span>
+    </a>
+    <nav aria-label="主导航">
+      <a href="#catalog">剧集目录</a>
+      <a href="https://github.com/1990jtf/cinema-log">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero" aria-labelledby="page-title">
+      <img class="hero-image" src="__FEATURE_BACKDROP__" alt="" fetchpriority="high">
+      <div class="hero-copy">
+        <h1 id="page-title">观影日志</h1>
+        <p>剧集里的人物、阵营与关系。<br>收录可交互的关系图、高清长图和文字版。</p>
+        <a class="hero-button" href="#catalog">浏览剧集 <span aria-hidden="true">↓</span></a>
+        <dl class="stats">
+          <div><dt>收录剧集</dt><dd>__STAT_SHOWS__</dd></div>
+          <div><dt>剧中人物</dt><dd>__STAT_CHARS__</dd></div>
+          <div><dt>年份跨度</dt><dd>__STAT_SPAN__</dd></div>
+        </dl>
+      </div>
+      <a class="featured" href="__FEATURE_LINK__">
+        <span>
+          <span class="featured-label">最近收录</span>
+          <strong>__FEATURE_TITLE__</strong> <span class="featured-en" lang="en">__FEATURE_EN__</span>
+        </span>
+        <span class="featured-arrow" aria-hidden="true">↗</span>
+      </a>
+    </section>
+
+    <section class="catalog" id="catalog" aria-labelledby="catalog-title">
+      <header class="catalog-heading">
+        <div>
+          <h2 id="catalog-title">剧集目录</h2>
+          <p class="results" id="results" role="status">共 __STAT_SHOWS__ 部剧集</p>
+        </div>
+        <label class="layout" id="layout" hidden>
+          <span>每行</span>
+          <select id="columns">
+            <option value="auto">自动</option>
+            <option value="2">2 列</option>
+            <option value="3">3 列</option>
+            <option value="4">4 列</option>
+            <option value="5">5 列</option>
+          </select>
+        </label>
+      </header>
+
+      <form class="toolbar" id="filters" aria-label="筛选剧集" hidden>
+        <label class="search">
+          <span class="search-icon" aria-hidden="true"></span>
+          <input id="q" name="q" type="search" placeholder="搜索中文或英文剧名" aria-label="搜索剧名" autocomplete="off">
+        </label>
+        <select name="platform" aria-label="播出平台">
+          <option value="">全部平台</option>
+__PLATFORM_OPTIONS__
+        </select>
+        <select name="genre" aria-label="剧集类型">
+          <option value="">全部类型</option>
+__GENRE_OPTIONS__
+        </select>
+        <select name="status" aria-label="追更状态">
+          <option value="">全部状态</option>
+__STATUS_OPTIONS__
+        </select>
+      </form>
+
+      <div class="grid" id="grid">
+__CARDS__
+      </div>
+      <div class="empty" id="empty" hidden>
+        <p>没有找到符合条件的剧集。</p>
+        <button id="reset" type="button">清除搜索和筛选</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    <p>豆瓣评分取自各剧第一季。</p>
+    <a href="https://github.com/1990jtf/cinema-log">查看项目仓库 <span aria-hidden="true">↗</span></a>
+  </footer>
+</body>
+</html>

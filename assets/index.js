@@ -1,0 +1,93 @@
+const grid = document.getElementById('grid');
+const filters = document.getElementById('filters');
+const [search, platform, genre, status] = ['q', 'platform', 'genre', 'status']
+  .map(name => filters.elements.namedItem(name));
+const controls = [search, platform, genre, status];
+const columns = document.getElementById('columns');
+const results = document.getElementById('results');
+const empty = document.getElementById('empty');
+
+function normalize(text) {
+  return text.normalize('NFKC').toLowerCase().trim();
+}
+
+const cards = [...grid.querySelectorAll('.card')].map(element => ({
+  element,
+  title: normalize(element.dataset.title),
+  platform: element.dataset.platform,
+  genres: JSON.parse(element.dataset.genres),
+  status: element.dataset.status,
+}));
+
+function applyFilters() {
+  const words = normalize(search.value).split(/\s+/).filter(Boolean);
+  let shown = 0;
+
+  for (const card of cards) {
+    const matches = (!platform.value || card.platform === platform.value)
+      && (!genre.value || card.genres.includes(genre.value))
+      && (!status.value || card.status === status.value)
+      && words.every(word => card.title.includes(word));
+    card.element.hidden = !matches;
+    if (matches) shown++;
+  }
+
+  const message = shown === cards.length ? `共 ${shown} 部剧集` : `显示 ${shown} / ${cards.length} 部剧集`;
+  if (results.textContent !== message) results.textContent = message;
+  empty.hidden = shown > 0;
+}
+
+function restoreFilters() {
+  const params = new URLSearchParams(location.search);
+  for (const control of controls) {
+    control.value = params.get(control.name) ?? '';
+    if (control instanceof HTMLSelectElement && control.selectedIndex === -1) control.value = '';
+  }
+  applyFilters();
+}
+
+function updateFilters() {
+  applyFilters();
+  const url = new URL(location.href);
+  for (const control of controls) {
+    const value = control.value.trim();
+    if (value) {
+      url.searchParams.set(control.name, value);
+    } else {
+      url.searchParams.delete(control.name);
+    }
+  }
+  if (url.href !== location.href) history.replaceState(history.state, '', url);
+}
+
+filters.addEventListener('submit', event => {
+  event.preventDefault();
+  updateFilters();
+});
+search.addEventListener('input', updateFilters);
+for (const select of [platform, genre, status]) select.addEventListener('change', updateFilters);
+document.getElementById('reset').addEventListener('click', () => {
+  filters.reset();
+  updateFilters();
+  search.focus();
+});
+window.addEventListener('popstate', restoreFilters);
+restoreFilters();
+filters.hidden = false;
+
+try {
+  const saved = localStorage.getItem('cinema-log-cols');
+  if ([...columns.options].some(option => option.value === saved)) columns.value = saved;
+} catch {
+  // The layout control also works when storage is unavailable.
+}
+grid.dataset.columns = columns.value;
+columns.addEventListener('change', () => {
+  grid.dataset.columns = columns.value;
+  try {
+    localStorage.setItem('cinema-log-cols', columns.value);
+  } catch {
+    // Keep the chosen layout for this visit.
+  }
+});
+document.getElementById('layout').hidden = false;

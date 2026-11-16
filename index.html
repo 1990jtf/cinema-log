@@ -1,705 +1,356 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b0e14">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<title>观影日志 · 人物关系图</title>
-<style>
-  :root {
-    --bg: #0b0e14;
-    --surface: #141926;
-    --surface-2: #1a2133;
-    --border: #262f45;
-    --text: #eef1f8;
-    --muted: #9aa6bf;
-    --faint: #6b7794;
-    --accent: #e8b64c;
-    --accent-2: #5ea8ff;
-    --max-w: 1440px;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-    line-height: 1.6;
-  }
-
-  /* ---------- Hero ---------- */
-  .hero {
-    position: relative;
-    overflow: hidden;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    padding: 72px 20px 44px;
-  }
-  .hero-bg { position: absolute; inset: 0; display: flex; }
-  .hero-bg img {
-    flex: 1 1 0;
-    min-width: 0;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 18%;
-    filter: saturate(.9) brightness(.8);
-  }
-  .hero-bg::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(11, 14, 20, .9) 0%, rgba(11, 14, 20, .74) 50%, rgba(11, 14, 20, .95) 100%);
-  }
-  .hero-inner {
-    position: relative;
-    z-index: 1;
-    max-width: var(--max-w);
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 48px;
-  }
-  .hero-copy { max-width: 660px; }
-  .hero .kicker {
-    display: inline-block;
-    font-size: 12px;
-    letter-spacing: 4px;
-    color: var(--accent);
-    border: 1px solid rgba(232, 182, 76, .45);
-    border-radius: 999px;
-    padding: 5px 14px;
-    margin-bottom: 18px;
-  }
-  .hero h1 { font-size: 44px; letter-spacing: 3px; line-height: 1.25; text-shadow: 0 2px 28px rgba(0, 0, 0, .6); }
-  .hero h1 span {
-    background: linear-gradient(135deg, #f6d47c, #e8b64c 45%, #c98f2b);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .logo { width: 64px; height: 64px; margin: 0 0 18px; }
-  .logo svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 6px 16px rgba(0, 0, 0, .4)); }
-  .hero p { color: #c9d1de; max-width: 640px; margin: 14px 0 0; font-size: 15px; text-shadow: 0 1px 12px rgba(0, 0, 0, .85); }
-  .stats {
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-    flex-wrap: wrap;
-    flex-shrink: 0;
-  }
-  .stat {
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    padding: 0 20px;
-    min-width: 0;
-    box-shadow: none;
-    text-align: center;
-  }
-  .stat b { display: block; font-size: 34px; color: var(--accent); line-height: 1.15; text-shadow: 0 2px 16px rgba(0, 0, 0, .6); }
-  .stat span { font-size: 12px; color: var(--muted); }
-
-  /* ---------- Toolbar ---------- */
-  .toolbar {
-    max-width: var(--max-w);
-    margin: 0 auto;
-    padding: 28px 20px 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    align-items: stretch;
-  }
-  .toolbar-top {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .search {
-    flex: 0 1 380px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 0 18px;
-    transition: border-color .15s ease, box-shadow .15s ease;
-  }
-  .search:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(232, 182, 76, .18); }
-  .search input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: var(--text);
-    font-size: 14px;
-    height: 100%;
-  }
-  .search input::placeholder { color: var(--faint); }
-  .filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-  .filter-rows { display: flex; flex-direction: column; gap: 10px; }
-  .filter-label { color: var(--faint); font-size: 13px; flex-shrink: 0; width: 34px; }
-  .chip {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    border-radius: 999px;
-    padding: 0 15px;
-    height: 36px;
-    display: inline-flex;
-    align-items: center;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all .15s ease;
-  }
-  .chip:hover { border-color: var(--accent-2); color: var(--text); }
-  .chip.active { background: var(--accent); border-color: var(--accent); color: #1a1405; font-weight: 600; }
-  .count { color: var(--faint); font-size: 13px; }
-  .cols-control { display: flex; align-items: center; gap: 6px; }
-  .cols-control > span { color: var(--faint); font-size: 13px; }
-  .cols-btn {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    border-radius: 8px;
-    padding: 6px 11px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all .15s ease;
-  }
-  .cols-btn:hover { border-color: var(--accent-2); color: var(--text); }
-  .cols-btn.active { background: var(--accent); border-color: var(--accent); color: #1a1405; font-weight: 600; }
-
-  /* ---------- Grid ---------- */
-  .grid {
-    max-width: var(--max-w);
-    margin: 0 auto;
-    padding: 20px 20px 30px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 24px;
-  }
-  .grid[data-cols="2"] { grid-template-columns: repeat(2, 1fr); }
-  .grid[data-cols="3"] { grid-template-columns: repeat(3, 1fr); }
-  .grid[data-cols="4"] { grid-template-columns: repeat(4, 1fr); }
-  .grid[data-cols="5"] { grid-template-columns: repeat(5, 1fr); }
-  @media (max-width: 1100px) {
-    .grid[data-cols="4"], .grid[data-cols="5"] { grid-template-columns: repeat(3, 1fr); }
-  }
-  @media (max-width: 900px) {
-    .grid[data-cols="3"], .grid[data-cols="4"], .grid[data-cols="5"] { grid-template-columns: repeat(2, 1fr); }
-  }
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    color: inherit;
-    transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
-    animation: fadeUp .55s cubic-bezier(.22, .61, .36, 1) backwards;
-  }
-  .card:nth-child(2) { animation-delay: .04s; }
-  .card:nth-child(3) { animation-delay: .08s; }
-  .card:nth-child(4) { animation-delay: .12s; }
-  .card:nth-child(5) { animation-delay: .16s; }
-  .card:nth-child(6) { animation-delay: .20s; }
-  .card:nth-child(7) { animation-delay: .24s; }
-  .card:nth-child(8) { animation-delay: .28s; }
-  .card:nth-child(9) { animation-delay: .32s; }
-  .card:nth-child(10) { animation-delay: .36s; }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(14px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 16px 36px rgba(0, 0, 0, .45); }
-  .poster { position: relative; color: var(--text); overflow: hidden; }
-  .poster:visited { color: var(--text); }
-  .poster img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; background: #0d1117; transition: transform .35s ease; }
-  .card:hover .poster img { transform: scale(1.06); }
-  .platform {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    background: rgba(11, 14, 20, .82);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, .18);
-    border-radius: 999px;
-    padding: 4px 11px;
-    font-size: 12px;
-    letter-spacing: .5px;
-  }
-  .status {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    border-radius: 999px;
-    padding: 4px 11px;
-    font-size: 12px;
-    letter-spacing: .5px;
-  }
-  .status.done { background: rgba(11, 14, 20, .82); backdrop-filter: blur(4px); border: 1px solid rgba(255, 255, 255, .18); color: var(--muted); }
-  .status.ongoing { background: var(--accent); border: 1px solid var(--accent); color: #1a1405; font-weight: 600; }
-  .rating { color: var(--accent); font-weight: 600; }
-  .genres { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-  .genres span {
-    font-size: 12px;
-    color: var(--muted);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 2px 10px;
-  }
-  .card-body { padding: 18px 18px 16px; display: flex; flex-direction: column; flex: 1; }
-  .card-body h2 { font-size: 20px; line-height: 1.35; }
-  .card-body h2 span { color: var(--muted); font-size: 13px; font-weight: 400; margin-left: 6px; }
-  .meta { color: var(--muted); font-size: 13px; margin-top: 6px; }
-  .meta b { color: var(--accent); font-weight: 600; }
-  .desc { color: #c9d1de; font-size: 14px; line-height: 1.7; margin-top: 9px; flex: 1; }
-  .links {
-    display: flex;
-    margin-top: 14px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    background: var(--surface-2);
-  }
-  .links a {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    font-size: 13px;
-    padding: 10px 4px;
-    text-decoration: none;
-    transition: all .15s ease;
-    white-space: nowrap;
-  }
-  .links a svg { flex-shrink: 0; }
-  .links a + a { border-left: 1px solid var(--border); }
-  .links a:nth-child(2) { flex: 1.25; }
-  .links a.web { background: var(--accent); color: #1a1405; font-weight: 600; }
-  .links a.web:hover { filter: brightness(1.12); }
-  .links a.alt { color: var(--muted); }
-  .links a.alt:hover { background: rgba(255, 255, 255, .05); color: var(--text); }
-  .quiz-tag {
-    display: inline-block;
-    margin-top: 10px;
-    font-size: 12px;
-    color: var(--accent-2);
-    border: 1px solid var(--accent-2);
-    border-radius: 999px;
-    padding: 3px 10px;
-    align-self: flex-start;
-  }
-  .empty {
-    grid-column: 1 / -1;
-    text-align: center;
-    color: var(--faint);
-    padding: 48px 0;
-    font-size: 15px;
-  }
-
-  footer {
-    max-width: var(--max-w);
-    margin: 0 auto;
-    padding: 8px 20px 56px;
-    color: var(--faint);
-    font-size: 13px;
-    line-height: 1.9;
-    text-align: center;
-  }
-  footer a { color: var(--accent-2); text-decoration: none; }
-  footer a:hover { text-decoration: underline; }
-
-  @media (max-width: 900px) {
-    .hero-inner { flex-direction: column; align-items: flex-start; gap: 30px; }
-    .stats { justify-content: flex-start; }
-  }
-  @media (max-width: 560px) {
-    .hero { padding: 44px 16px 32px; }
-    .hero h1 { font-size: 29px; letter-spacing: 2px; }
-    .stat { padding: 0 12px; }
-    .stat b { font-size: 28px; }
-    .grid[data-cols="2"], .grid[data-cols="3"], .grid[data-cols="4"], .grid[data-cols="5"] { grid-template-columns: 1fr; }
-  }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111319">
+  <meta name="description" content="浏览观影日志收藏的剧集，查找可交互的人物关系图、高清长图和文字资料。">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/index.css">
+  <script src="assets/index.js" defer></script>
+  <title>观影日志 · Cinema Log</title>
 </head>
 <body>
-
-<header class="hero">
-<div class="hero-bg" aria-hidden="true"><img src="cover/succession.jpg" alt="" loading="lazy"><img src="cover/pantheon.jpg" alt="" loading="lazy"><img src="cover/game-of-thrones.jpg" alt="" loading="lazy"><img src="cover/silicon-valley.jpg" alt="" loading="lazy"><img src="cover/house-of-cards.jpg" alt="" loading="lazy"><img src="cover/severance.jpg" alt="" loading="lazy"><img src="cover/billions.jpg" alt="" loading="lazy"><img src="cover/ozark.jpg" alt="" loading="lazy"><img src="cover/mandalorian.jpg" alt="" loading="lazy"><img src="cover/joy-of-life.jpg" alt="" loading="lazy"><img src="cover/mobland.jpg" alt="" loading="lazy"><img src="cover/silo.jpg" alt="" loading="lazy"></div>
-  <div class="hero-inner">
-    <div class="hero-copy">
-      <div class="logo" aria-hidden="true">
-        <svg viewBox="0 0 64 64">
-          <rect width="64" height="64" rx="14" fill="#0b0e14"/>
-          <path d="M13 22 L17 11 H51 L47 22 Z" fill="#e8b64c"/>
-          <line x1="25" y1="11" x2="21" y2="22" stroke="#0b0e14" stroke-width="2.5"/>
-          <line x1="35" y1="11" x2="31" y2="22" stroke="#0b0e14" stroke-width="2.5"/>
-          <line x1="45" y1="11" x2="41" y2="22" stroke="#0b0e14" stroke-width="2.5"/>
-          <rect x="13" y="22" width="38" height="29" rx="4" fill="#1a2133" stroke="#e8b64c" stroke-width="2"/>
-          <polygon points="27,30 27,43 39,36.5" fill="#e8b64c"/>
-        </svg>
-      </div>
-      <span class="kicker">CINEMA LOG · 观影日志</span>
-      <h1>看过的剧，<span>人物关系</span>都在这里</h1>
-      <p>每部剧一份可交互的网页版人物关系图、一张关系图长图、一份文字版。点海报进入网页版，卡片下方可直达长图与文字版。</p>
-    </div>
-    <div class="stats">
-      <div class="stat"><b>12</b><span>部剧集</span></div>
-      <div class="stat"><b>287</b><span>位人物</span></div>
-      <div class="stat"><b>8</b><span>个平台</span></div>
-      <div class="stat"><b>4</b><span>部追更中</span></div>
-      <div class="stat"><b>2011–2026</b><span>跨度 16 年</span></div>
-    </div>
-  </div>
-</header>
-
-<div class="toolbar">
-  <div class="toolbar-top">
-    <label class="search">🔍 <input id="q" type="search" placeholder="搜剧名，如 曼达洛人 / Succession…" aria-label="搜索剧集"></label>
-    <div class="cols-control" id="cols-control">
-      <span>每行</span>
-      <button class="cols-btn active" data-cols="auto">自动</button>
-      <button class="cols-btn" data-cols="2">2</button>
-      <button class="cols-btn" data-cols="3">3</button>
-      <button class="cols-btn" data-cols="4">4</button>
-      <button class="cols-btn" data-cols="5">5</button>
-    </div>
-    <span class="count" id="count"></span>
-  </div>
-  <div class="filter-rows">
-    <div class="filters" id="filters">
-      <span class="filter-label">平台</span>
-    <button class="chip active" data-platform="all">全部</button>
-    <button class="chip" data-platform="HBO">HBO</button>
-    <button class="chip" data-platform="Netflix">Netflix</button>
-    <button class="chip" data-platform="Disney+">Disney+</button>
-    <button class="chip" data-platform="Apple TV+">Apple TV+</button>
-    <button class="chip" data-platform="AMC">AMC</button>
-    <button class="chip" data-platform="Showtime">Showtime</button>
-    <button class="chip" data-platform="腾讯视频">腾讯视频</button>
-    <button class="chip" data-platform="Paramount+">Paramount+</button>
-    </div>
-    <div class="filters" id="genre-filters">
-      <span class="filter-label">类型</span>
-    <button class="chip active" data-genre="all">全部类型</button>
-    <button class="chip" data-genre="剧情">剧情</button>
-    <button class="chip" data-genre="喜剧">喜剧</button>
-    <button class="chip" data-genre="科幻">科幻</button>
-    <button class="chip" data-genre="犯罪">犯罪</button>
-    <button class="chip" data-genre="惊悚">惊悚</button>
-    <button class="chip" data-genre="奇幻">奇幻</button>
-    <button class="chip" data-genre="动画">动画</button>
-    <button class="chip" data-genre="古装">古装</button>
-    <button class="chip" data-genre="冒险">冒险</button>
-    <button class="chip" data-genre="动作">动作</button>
-    <button class="chip" data-genre="悬疑">悬疑</button>
-    </div>
-  </div>
-</div>
-
-<main class="grid" id="grid">
-
-  <article class="card" data-title="继承之战 succession" data-platform="HBO" data-genres="剧情">
-    <a class="poster" href="archive/Succession/%E7%BB%A7%E6%89%BF%E4%B9%8B%E6%88%98%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">
-      <img src="cover/succession.jpg" alt="《继承之战》海报" loading="lazy">
-      <span class="platform">HBO</span>
-      <span class="status done">已完结</span>
+  <header class="masthead wrap">
+    <a class="brand" href="./">
+      <img src="favicon.svg" width="32" height="32" alt="">
+      <span lang="en">Cinema Log</span>
     </a>
-    <div class="card-body">
-      <h2>继承之战 <span>Succession</span></h2>
-      <p class="meta"><b>23</b> 位人物 · 2018–2023 · 4 季 · <span class="rating">★ 8.4</span></p>
-      <p class="desc">传媒帝国 Roy 家族的继承权争夺，权力的游戏没有赢家。</p>
-      <p class="genres"><span>剧情</span></p>
-      <div class="links">
-        <a class="web" href="archive/Succession/%E7%BB%A7%E6%89%BF%E4%B9%8B%E6%88%98%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></svg>网页版</a>
-        <a class="alt" href="archive/Succession/succession-relationship.png"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>关系图长图</a>
-        <a class="alt" href="archive/Succession/succession-relationship-text.md"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>文字版</a>
+    <nav aria-label="主导航">
+      <a href="#catalog">剧集目录</a>
+      <a href="https://github.com/1990jtf/cinema-log">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero" aria-labelledby="page-title">
+      <img class="hero-image" src="archive/Silo/assets/backdrop.jpg" alt="" fetchpriority="high">
+      <div class="hero-copy">
+        <h1 id="page-title">观影日志</h1>
+        <p>剧集里的人物、阵营与关系。<br>收录可交互的关系图、高清长图和文字版。</p>
+        <a class="hero-button" href="#catalog">浏览剧集 <span aria-hidden="true">↓</span></a>
+        <dl class="stats">
+          <div><dt>收录剧集</dt><dd>12</dd></div>
+          <div><dt>剧中人物</dt><dd>287</dd></div>
+          <div><dt>年份跨度</dt><dd>2011–2026</dd></div>
+        </dl>
       </div>
-    </div>
-  </article>
+      <a class="featured" href="archive/Silo/%E6%9C%AB%E6%97%A5%E5%9C%B0%E5%A0%A1%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">
+        <span>
+          <span class="featured-label">最近收录</span>
+          <strong>末日地堡</strong> <span class="featured-en" lang="en">Silo</span>
+        </span>
+        <span class="featured-arrow" aria-hidden="true">↗</span>
+      </a>
+    </section>
 
-  <article class="card" data-title="万神殿 pantheon" data-platform="AMC" data-genres="剧情 动作 科幻 动画">
-    <a class="poster" href="archive/Pantheon/%E4%B8%87%E7%A5%9E%E6%AE%BF%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">
-      <img src="cover/pantheon.jpg" alt="《万神殿》海报" loading="lazy">
-      <span class="platform">AMC</span>
-      <span class="status done">已完结</span>
-    </a>
-    <div class="card-body">
-      <h2>万神殿 <span>Pantheon</span></h2>
-      <p class="meta"><b>23</b> 位人物 · 2022–2023 · 2 季 · <span class="rating">★ 8.8</span></p>
-      <p class="desc">意识上传成 AI 之后，人还是人吗？</p>
-      <p class="genres"><span>剧情</span><span>动作</span><span>科幻</span><span>动画</span></p>
-      <span class="quiz-tag">📝 选择题测验 · 20 道</span>
-      <div class="links">
-        <a class="web" href="archive/Pantheon/%E4%B8%87%E7%A5%9E%E6%AE%BF%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></svg>网页版</a>
-        <a class="alt" href="archive/Pantheon/pantheon-relationship.png"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>关系图长图</a>
-        <a class="alt" href="archive/Pantheon/pantheon-relationship-text.md"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>文字版</a>
+    <section class="catalog" id="catalog" aria-labelledby="catalog-title">
+      <header class="catalog-heading">
+        <div>
+          <h2 id="catalog-title">剧集目录</h2>
+          <p class="results" id="results" role="status">共 12 部剧集</p>
+        </div>
+        <label class="layout" id="layout" hidden>
+          <span>每行</span>
+          <select id="columns">
+            <option value="auto">自动</option>
+            <option value="2">2 列</option>
+            <option value="3">3 列</option>
+            <option value="4">4 列</option>
+            <option value="5">5 列</option>
+          </select>
+        </label>
+      </header>
+
+      <form class="toolbar" id="filters" aria-label="筛选剧集" hidden>
+        <label class="search">
+          <span class="search-icon" aria-hidden="true"></span>
+          <input id="q" name="q" type="search" placeholder="搜索中文或英文剧名" aria-label="搜索剧名" autocomplete="off">
+        </label>
+        <select name="platform" aria-label="播出平台">
+          <option value="">全部平台</option>
+          <option value="HBO">HBO</option>
+          <option value="Netflix">Netflix</option>
+          <option value="Disney+">Disney+</option>
+          <option value="Apple TV+">Apple TV+</option>
+          <option value="AMC">AMC</option>
+          <option value="Showtime">Showtime</option>
+          <option value="腾讯视频">腾讯视频</option>
+          <option value="Paramount+">Paramount+</option>
+        </select>
+        <select name="genre" aria-label="剧集类型">
+          <option value="">全部类型</option>
+          <option value="剧情">剧情</option>
+          <option value="喜剧">喜剧</option>
+          <option value="科幻">科幻</option>
+          <option value="犯罪">犯罪</option>
+          <option value="惊悚">惊悚</option>
+          <option value="奇幻">奇幻</option>
+          <option value="动画">动画</option>
+          <option value="古装">古装</option>
+          <option value="冒险">冒险</option>
+          <option value="动作">动作</option>
+          <option value="悬疑">悬疑</option>
+        </select>
+        <select name="status" aria-label="追更状态">
+          <option value="">全部状态</option>
+          <option value="已完结">已完结</option>
+          <option value="追更中">追更中</option>
+        </select>
+      </form>
+
+      <div class="grid" id="grid">
+    <article class="card" data-title="继承之战 Succession" data-platform="HBO" data-genres="[&quot;剧情&quot;]" data-status="已完结">
+      <a class="poster" href="archive/Succession/%E7%BB%A7%E6%89%BF%E4%B9%8B%E6%88%98%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《继承之战》人物关系图">
+        <img src="cover/succession.jpg" width="500" height="750" alt="" loading="lazy" decoding="async">
+        <span class="rating" aria-label="第一季豆瓣评分 8.4"><span aria-hidden="true">★</span> 8.4</span>
+      </a>
+      <div class="card-body">
+        <p class="card-meta"><span>HBO</span><span>2018–2023</span><span>4 季</span></p>
+        <h3>继承之战</h3>
+        <p class="english-title" lang="en">Succession</p>
+        <p class="description">传媒帝国 Roy 家族的继承权争夺，权力的游戏没有赢家。</p>
+        <p class="card-details"><span>剧情</span><span>23 位人物</span></p>
+        <p class="status">已完结</p>
+        <div class="card-links" aria-label="《继承之战》资料">
+          <a class="chart-link" href="archive/Succession/%E7%BB%A7%E6%89%BF%E4%B9%8B%E6%88%98%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
+          <a href="archive/Succession/succession-relationship.png">长图</a>
+          <a href="archive/Succession/succession-relationship-text.md">文字版</a>
+        </div>
       </div>
-    </div>
-  </article>
+    </article>
 
-  <article class="card" data-title="权利的游戏 game of thrones" data-platform="HBO" data-genres="剧情 奇幻 冒险">
-    <a class="poster" href="archive/Game-of-Thrones/%E6%9D%83%E5%88%A9%E7%9A%84%E6%B8%B8%E6%88%8F%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">
-      <img src="cover/game-of-thrones.jpg" alt="《权利的游戏》海报" loading="lazy">
-      <span class="platform">HBO</span>
-      <span class="status done">已完结</span>
-    </a>
-    <div class="card-body">
-      <h2>权利的游戏 <span>Game of Thrones</span></h2>
-      <p class="meta"><b>27</b> 位人物 · 2011–2019 · 8 季 · <span class="rating">★ 9.5</span></p>
-      <p class="desc">七大家族争夺铁王座，凛冬将至。</p>
-      <p class="genres"><span>剧情</span><span>奇幻</span><span>冒险</span></p>
-      <div class="links">
-        <a class="web" href="archive/Game-of-Thrones/%E6%9D%83%E5%88%A9%E7%9A%84%E6%B8%B8%E6%88%8F%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></svg>网页版</a>
-        <a class="alt" href="archive/Game-of-Thrones/game-of-thrones-relationship.png"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>关系图长图</a>
-        <a class="alt" href="archive/Game-of-Thrones/game-of-thrones-relationship-text.md"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>文字版</a>
+    <article class="card" data-title="万神殿 Pantheon" data-platform="AMC" data-genres="[&quot;剧情&quot;, &quot;动作&quot;, &quot;科幻&quot;, &quot;动画&quot;]" data-status="已完结">
+      <a class="poster" href="archive/Pantheon/%E4%B8%87%E7%A5%9E%E6%AE%BF%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《万神殿》人物关系图">
+        <img src="cover/pantheon.jpg" width="500" height="750" alt="" loading="lazy" decoding="async">
+        <span class="rating" aria-label="第一季豆瓣评分 8.8"><span aria-hidden="true">★</span> 8.8</span>
+      </a>
+      <div class="card-body">
+        <p class="card-meta"><span>AMC</span><span>2022–2023</span><span>2 季</span></p>
+        <h3>万神殿</h3>
+        <p class="english-title" lang="en">Pantheon</p>
+        <p class="description">意识上传成 AI 之后，人还是人吗？</p>
+        <p class="card-details"><span>剧情 · 动作 · 科幻 · 动画</span><span>23 位人物</span></p>
+        <p class="status">已完结</p>
+        <div class="card-links" aria-label="《万神殿》资料">
+          <a class="chart-link" href="archive/Pantheon/%E4%B8%87%E7%A5%9E%E6%AE%BF%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
+          <a href="archive/Pantheon/pantheon-relationship.png">长图</a>
+          <a href="archive/Pantheon/pantheon-relationship-text.md">文字版</a>
+        </div>
+      <a class="quiz-link" href="archive/Pantheon/%E4%B8%87%E7%A5%9E%E6%AE%BF%E9%80%89%E6%8B%A9%E9%A2%98%E6%B5%8B%E9%AA%8C.html">选择题测验 · 20 道 <span aria-hidden="true">↗</span></a>
       </div>
-    </div>
-  </article>
+    </article>
 
-  <article class="card" data-title="硅谷 silicon valley" data-platform="HBO" data-genres="喜剧">
-    <a class="poster" href="archive/Silicon-Valley/%E7%A1%85%E8%B0%B7%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">
-      <img src="cover/silicon-valley.jpg" alt="《硅谷》海报" loading="lazy">
-      <span class="platform">HBO</span>
-      <span class="status done">已完结</span>
-    </a>
-    <div class="card-body">
-      <h2>硅谷 <span>Silicon Valley</span></h2>
-      <p class="meta"><b>20</b> 位人物 · 2014–2019 · 6 季 · <span class="rating">★ 9.1</span></p>
-      <p class="desc">Pied Piper 创业团队的荒诞创业路。</p>
-      <p class="genres"><span>喜剧</span></p>
-      <div class="links">
-        <a class="web" href="archive/Silicon-Valley/%E7%A1%85%E8%B0%B7%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></svg>网页版</a>
-        <a class="alt" href="archive/Silicon-Valley/silicon-valley-relationship.png"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>关系图长图</a>
-        <a class="alt" href="archive/Silicon-Valley/silicon-valley-relationship-text.md"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>文字版</a>
+    <article class="card" data-title="权利的游戏 Game of Thrones" data-platform="HBO" data-genres="[&quot;剧情&quot;, &quot;奇幻&quot;, &quot;冒险&quot;]" data-status="已完结">
+      <a class="poster" href="archive/Game-of-Thrones/%E6%9D%83%E5%88%A9%E7%9A%84%E6%B8%B8%E6%88%8F%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《权利的游戏》人物关系图">
+        <img src="cover/game-of-thrones.jpg" width="500" height="750" alt="" loading="lazy" decoding="async">
+        <span class="rating" aria-label="第一季豆瓣评分 9.5"><span aria-hidden="true">★</span> 9.5</span>
+      </a>
+      <div class="card-body">
+        <p class="card-meta"><span>HBO</span><span>2011–2019</span><span>8 季</span></p>
+        <h3>权利的游戏</h3>
+        <p class="english-title" lang="en">Game of Thrones</p>
+        <p class="description">七大家族争夺铁王座，凛冬将至。</p>
+        <p class="card-details"><span>剧情 · 奇幻 · 冒险</span><span>27 位人物</span></p>
+        <p class="status">已完结</p>
+        <div class="card-links" aria-label="《权利的游戏》资料">
+          <a class="chart-link" href="archive/Game-of-Thrones/%E6%9D%83%E5%88%A9%E7%9A%84%E6%B8%B8%E6%88%8F%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
+          <a href="archive/Game-of-Thrones/game-of-thrones-relationship.png">长图</a>
+          <a href="archive/Game-of-Thrones/game-of-thrones-relationship-text.md">文字版</a>
+        </div>
       </div>
-    </div>
-  </article>
+    </article>
 
-  <article class="card" data-title="纸牌屋 house of cards" data-platform="Netflix" data-genres="剧情 惊悚">
-    <a class="poster" href="archive/House-of-Cards/%E7%BA%B8%E7%89%8C%E5%B1%8B%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">
-      <img src="cover/house-of-cards.jpg" alt="《纸牌屋》海报" loading="lazy">
-      <span class="platform">Netflix</span>
-      <span class="status done">已完结</span>
-    </a>
-    <div class="card-body">
-      <h2>纸牌屋 <span>House of Cards</span></h2>
-      <p class="meta"><b>26</b> 位人物 · 2013–2018 · 6 季 · <span class="rating">★ 9.3</span></p>
-      <p class="desc">Frank 与 Claire 的夺权之路，一切为了权力。</p>
-      <p class="genres"><span>剧情</span><span>惊悚</span></p>
-      <div class="links">
-        <a class="web" href="archive/House-of-Cards/%E7%BA%B8%E7%89%8C%E5%B1%8B%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></svg>网页版</a>
-        <a class="alt" href="archive/House-of-Cards/house-of-cards-relationship.png"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>关系图长图</a>
-        <a class="alt" href="archive/House-of-Cards/house-of-cards-relationship-text.md"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>文字版</a>
+    <article class="card" data-title="硅谷 Silicon Valley" data-platform="HBO" data-genres="[&quot;喜剧&quot;]" data-status="已完结">
+      <a class="poster" href="archive/Silicon-Valley/%E7%A1%85%E8%B0%B7%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《硅谷》人物关系图">
+        <img src="cover/silicon-valley.jpg" width="500" height="750" alt="" loading="lazy" decoding="async">
+        <span class="rating" aria-label="第一季豆瓣评分 9.1"><span aria-hidden="true">★</span> 9.1</span>
+      </a>
+      <div class="card-body">
+        <p class="card-meta"><span>HBO</span><span>2014–2019</span><span>6 季</span></p>
+        <h3>硅谷</h3>
+        <p class="english-title" lang="en">Silicon Valley</p>
+        <p class="description">Pied Piper 创业团队的荒诞创业路。</p>
+        <p class="card-details"><span>喜剧</span><span>20 位人物</span></p>
+        <p class="status">已完结</p>
+        <div class="card-links" aria-label="《硅谷》资料">
+          <a class="chart-link" href="archive/Silicon-Valley/%E7%A1%85%E8%B0%B7%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
+          <a href="archive/Silicon-Valley/silicon-valley-relationship.png">长图</a>
+          <a href="archive/Silicon-Valley/silicon-valley-relationship-text.md">文字版</a>
+        </div>
       </div>
-    </div>
-  </article>
+    </article>
 
-  <article class="card" data-title="人生切割术 severance" data-platform="Apple TV+" data-genres="剧情 科幻 悬疑">
-    <a class="poster" href="archive/Severance/%E4%BA%BA%E7%94%9F%E5%88%87%E5%89%B2%E6%9C%AF%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">
-      <img src="cover/severance.jpg" alt="《人生切割术》海报" loading="lazy">
-      <span class="platform">Apple TV+</span>
-      <span class="status ongoing">追更中</span>
-    </a>
-    <div class="card-body">
-      <h2>人生切割术 <span>Severance</span></h2>
-      <p class="meta"><b>20</b> 位人物 · 2022– · 已播 2 季 · <span class="rating">★ 9.1</span></p>
-      <p class="desc">切割手术把人生劈成里外两个人。</p>
-      <p class="genres"><span>剧情</span><span>科幻</span><span>悬疑</span></p>
-      <div class="links">
-        <a class="web" href="archive/Severance/%E4%BA%BA%E7%94%9F%E5%88%87%E5%89%B2%E6%9C%AF%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></svg>网页版</a>
-        <a class="alt" href="archive/Severance/severance-relationship.png"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>关系图长图</a>
-        <a class="alt" href="archive/Severance/severance-relationship-text.md"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>文字版</a>
+    <article class="card" data-title="纸牌屋 House of Cards" data-platform="Netflix" data-genres="[&quot;剧情&quot;, &quot;惊悚&quot;]" data-status="已完结">
+      <a class="poster" href="archive/House-of-Cards/%E7%BA%B8%E7%89%8C%E5%B1%8B%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《纸牌屋》人物关系图">
+        <img src="cover/house-of-cards.jpg" width="500" height="750" alt="" loading="lazy" decoding="async">
+        <span class="rating" aria-label="第一季豆瓣评分 9.3"><span aria-hidden="true">★</span> 9.3</span>
+      </a>
+      <div class="card-body">
+        <p class="card-meta"><span>Netflix</span><span>2013–2018</span><span>6 季</span></p>
+        <h3>纸牌屋</h3>
+        <p class="english-title" lang="en">House of Cards</p>
+        <p class="description">Frank 与 Claire 的夺权之路，一切为了权力。</p>
+        <p class="card-details"><span>剧情 · 惊悚</span><span>26 位人物</span></p>
+        <p class="status">已完结</p>
+        <div class="card-links" aria-label="《纸牌屋》资料">
+          <a class="chart-link" href="archive/House-of-Cards/%E7%BA%B8%E7%89%8C%E5%B1%8B%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
+          <a href="archive/House-of-Cards/house-of-cards-relationship.png">长图</a>
+          <a href="archive/House-of-Cards/house-of-cards-relationship-text.md">文字版</a>
+        </div>
       </div>
-    </div>
-  </article>
+    </article>
 
-  <article class="card" data-title="亿万 billions" data-platform="Showtime" data-genres="剧情">
-    <a class="poster" href="archive/Billions/%E4%BA%BF%E4%B8%87%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">
-      <img src="cover/billions.jpg" alt="《亿万》海报" loading="lazy">
-      <span class="platform">Showtime</span>
-      <span class="status done">已完结</span>
-    </a>
-    <div class="card-body">
-      <h2>亿万 <span>Billions</span></h2>
-      <p class="meta"><b>22</b> 位人物 · 2016–2023 · 7 季 · <span class="rating">★ 8.9</span></p>
-      <p class="desc">对冲基金大佬与联邦检察官的金钱战争，财富即战争。</p>
-      <p class="genres"><span>剧情</span></p>
-      <div class="links">
-        <a class="web" href="archive/Billions/%E4%BA%BF%E4%B8%87%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></svg>网页版</a>
-        <a class="alt" href="archive/Billions/billions-relationship.png"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>关系图长图</a>
-        <a class="alt" href="archive/Billions/billions-relationship-text.md"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>文字版</a>
+    <article class="card" data-title="人生切割术 Severance" data-platform="Apple TV+" data-genres="[&quot;剧情&quot;, &quot;科幻&quot;, &quot;悬疑&quot;]" data-status="追更中">
+      <a class="poster" href="archive/Severance/%E4%BA%BA%E7%94%9F%E5%88%87%E5%89%B2%E6%9C%AF%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《人生切割术》人物关系图">
+        <img src="cover/severance.jpg" width="500" height="750" alt="" loading="lazy" decoding="async">
+        <span class="rating" aria-label="第一季豆瓣评分 9.1"><span aria-hidden="true">★</span> 9.1</span>
+      </a>
+      <div class="card-body">
+        <p class="card-meta"><span>Apple TV+</span><span>2022–</span><span>已播 2 季</span></p>
+        <h3>人生切割术</h3>
+        <p class="english-title" lang="en">Severance</p>
+        <p class="description">切割手术把人生劈成里外两个人。</p>
+        <p class="card-details"><span>剧情 · 科幻 · 悬疑</span><span>20 位人物</span></p>
+        <p class="status">追更中</p>
+        <div class="card-links" aria-label="《人生切割术》资料">
+          <a class="chart-link" href="archive/Severance/%E4%BA%BA%E7%94%9F%E5%88%87%E5%89%B2%E6%9C%AF%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
+          <a href="archive/Severance/severance-relationship.png">长图</a>
+          <a href="archive/Severance/severance-relationship-text.md">文字版</a>
+        </div>
       </div>
-    </div>
-  </article>
+    </article>
 
-  <article class="card" data-title="黑钱胜地 ozark" data-platform="Netflix" data-genres="剧情 惊悚 犯罪">
-    <a class="poster" href="archive/Ozark/%E9%BB%91%E9%92%B1%E8%83%9C%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">
-      <img src="cover/ozark.jpg" alt="《黑钱胜地》海报" loading="lazy">
-      <span class="platform">Netflix</span>
-      <span class="status done">已完结</span>
-    </a>
-    <div class="card-body">
-      <h2>黑钱胜地 <span>Ozark</span></h2>
-      <p class="meta"><b>21</b> 位人物 · 2017–2022 · 4 季 · <span class="rating">★ 8.4</span></p>
-      <p class="desc">财务顾问为毒枭洗钱，一家人在湖畔小镇越陷越深。</p>
-      <p class="genres"><span>剧情</span><span>惊悚</span><span>犯罪</span></p>
-      <div class="links">
-        <a class="web" href="archive/Ozark/%E9%BB%91%E9%92%B1%E8%83%9C%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></svg>网页版</a>
-        <a class="alt" href="archive/Ozark/ozark-relationship.png"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>关系图长图</a>
-        <a class="alt" href="archive/Ozark/ozark-relationship-text.md"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>文字版</a>
+    <article class="card" data-title="亿万 Billions" data-platform="Showtime" data-genres="[&quot;剧情&quot;]" data-status="已完结">
+      <a class="poster" href="archive/Billions/%E4%BA%BF%E4%B8%87%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《亿万》人物关系图">
+        <img src="cover/billions.jpg" width="500" height="750" alt="" loading="lazy" decoding="async">
+        <span class="rating" aria-label="第一季豆瓣评分 8.9"><span aria-hidden="true">★</span> 8.9</span>
+      </a>
+      <div class="card-body">
+        <p class="card-meta"><span>Showtime</span><span>2016–2023</span><span>7 季</span></p>
+        <h3>亿万</h3>
+        <p class="english-title" lang="en">Billions</p>
+        <p class="description">对冲基金大佬与联邦检察官的金钱战争，财富即战争。</p>
+        <p class="card-details"><span>剧情</span><span>22 位人物</span></p>
+        <p class="status">已完结</p>
+        <div class="card-links" aria-label="《亿万》资料">
+          <a class="chart-link" href="archive/Billions/%E4%BA%BF%E4%B8%87%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
+          <a href="archive/Billions/billions-relationship.png">长图</a>
+          <a href="archive/Billions/billions-relationship-text.md">文字版</a>
+        </div>
       </div>
-    </div>
-  </article>
+    </article>
 
-  <article class="card" data-title="曼达洛人 the mandalorian" data-platform="Disney+" data-genres="科幻 奇幻">
-    <a class="poster" href="archive/Mandalorian/%E6%9B%BC%E8%BE%BE%E6%B4%9B%E4%BA%BA%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">
-      <img src="cover/mandalorian.jpg" alt="《曼达洛人》海报" loading="lazy">
-      <span class="platform">Disney+</span>
-      <span class="status done">已完结</span>
-    </a>
-    <div class="card-body">
-      <h2>曼达洛人 <span>The Mandalorian</span></h2>
-      <p class="meta"><b>20</b> 位人物 · 2019–2023 · 3 季 · <span class="rating">★ 9.2</span></p>
-      <p class="desc">赏金猎人与一个孩子的旅程，信条即道路。</p>
-      <p class="genres"><span>科幻</span><span>奇幻</span></p>
-      <div class="links">
-        <a class="web" href="archive/Mandalorian/%E6%9B%BC%E8%BE%BE%E6%B4%9B%E4%BA%BA%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></svg>网页版</a>
-        <a class="alt" href="archive/Mandalorian/mandalorian-relationship.png"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>关系图长图</a>
-        <a class="alt" href="archive/Mandalorian/mandalorian-relationship-text.md"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>文字版</a>
+    <article class="card" data-title="黑钱胜地 Ozark" data-platform="Netflix" data-genres="[&quot;剧情&quot;, &quot;惊悚&quot;, &quot;犯罪&quot;]" data-status="已完结">
+      <a class="poster" href="archive/Ozark/%E9%BB%91%E9%92%B1%E8%83%9C%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《黑钱胜地》人物关系图">
+        <img src="cover/ozark.jpg" width="500" height="750" alt="" loading="lazy" decoding="async">
+        <span class="rating" aria-label="第一季豆瓣评分 8.4"><span aria-hidden="true">★</span> 8.4</span>
+      </a>
+      <div class="card-body">
+        <p class="card-meta"><span>Netflix</span><span>2017–2022</span><span>4 季</span></p>
+        <h3>黑钱胜地</h3>
+        <p class="english-title" lang="en">Ozark</p>
+        <p class="description">财务顾问为毒枭洗钱，一家人在湖畔小镇越陷越深。</p>
+        <p class="card-details"><span>剧情 · 惊悚 · 犯罪</span><span>21 位人物</span></p>
+        <p class="status">已完结</p>
+        <div class="card-links" aria-label="《黑钱胜地》资料">
+          <a class="chart-link" href="archive/Ozark/%E9%BB%91%E9%92%B1%E8%83%9C%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
+          <a href="archive/Ozark/ozark-relationship.png">长图</a>
+          <a href="archive/Ozark/ozark-relationship-text.md">文字版</a>
+        </div>
       </div>
-    </div>
-  </article>
+    </article>
 
-  <article class="card" data-title="庆余年 joy of life" data-platform="腾讯视频" data-genres="剧情 古装">
-    <a class="poster" href="archive/Joy-of-Life/%E5%BA%86%E4%BD%99%E5%B9%B4%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">
-      <img src="cover/joy-of-life.jpg" alt="《庆余年》海报" loading="lazy">
-      <span class="platform">腾讯视频</span>
-      <span class="status ongoing">追更中</span>
-    </a>
-    <div class="card-body">
-      <h2>庆余年 <span>Joy of Life</span></h2>
-      <p class="meta"><b>22</b> 位人物 · 2019–2024 · 2 季 · <span class="rating">★ 7.9</span></p>
-      <p class="desc">范闲从儋州少年到京都权臣，查身世、斗权贵、揭开叶轻眉之死。</p>
-      <p class="genres"><span>剧情</span><span>古装</span></p>
-      <div class="links">
-        <a class="web" href="archive/Joy-of-Life/%E5%BA%86%E4%BD%99%E5%B9%B4%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></svg>网页版</a>
-        <a class="alt" href="archive/Joy-of-Life/joy-of-life-relationship.png"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>关系图长图</a>
-        <a class="alt" href="archive/Joy-of-Life/joy-of-life-relationship-text.md"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>文字版</a>
+    <article class="card" data-title="曼达洛人 The Mandalorian" data-platform="Disney+" data-genres="[&quot;科幻&quot;, &quot;奇幻&quot;]" data-status="已完结">
+      <a class="poster" href="archive/Mandalorian/%E6%9B%BC%E8%BE%BE%E6%B4%9B%E4%BA%BA%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《曼达洛人》人物关系图">
+        <img src="cover/mandalorian.jpg" width="500" height="750" alt="" loading="lazy" decoding="async">
+        <span class="rating" aria-label="第一季豆瓣评分 9.2"><span aria-hidden="true">★</span> 9.2</span>
+      </a>
+      <div class="card-body">
+        <p class="card-meta"><span>Disney+</span><span>2019–2023</span><span>3 季</span></p>
+        <h3>曼达洛人</h3>
+        <p class="english-title" lang="en">The Mandalorian</p>
+        <p class="description">赏金猎人与一个孩子的旅程，信条即道路。</p>
+        <p class="card-details"><span>科幻 · 奇幻</span><span>20 位人物</span></p>
+        <p class="status">已完结</p>
+        <div class="card-links" aria-label="《曼达洛人》资料">
+          <a class="chart-link" href="archive/Mandalorian/%E6%9B%BC%E8%BE%BE%E6%B4%9B%E4%BA%BA%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
+          <a href="archive/Mandalorian/mandalorian-relationship.png">长图</a>
+          <a href="archive/Mandalorian/mandalorian-relationship-text.md">文字版</a>
+        </div>
       </div>
-    </div>
-  </article>
+    </article>
 
-  <article class="card" data-title="黑帮领地 mobland" data-platform="Paramount+" data-genres="剧情 犯罪">
-    <a class="poster" href="archive/MobLand/%E9%BB%91%E5%B8%AE%E9%A2%86%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">
-      <img src="cover/mobland.jpg" alt="《黑帮领地》海报" loading="lazy">
-      <span class="platform">Paramount+</span>
-      <span class="status ongoing">追更中</span>
-    </a>
-    <div class="card-body">
-      <h2>黑帮领地 <span>MobLand</span></h2>
-      <p class="meta"><b>25</b> 位人物 · 2025– · 已播 1 季 · <span class="rating">★ 7.6</span></p>
-      <p class="desc">伦敦两大黑帮家族为芬太尼地盘开战，清道夫 Harry 在尸体与谎言之间替家族续命。</p>
-      <p class="genres"><span>剧情</span><span>犯罪</span></p>
-      <div class="links">
-        <a class="web" href="archive/MobLand/%E9%BB%91%E5%B8%AE%E9%A2%86%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></svg>网页版</a>
-        <a class="alt" href="archive/MobLand/mobland-relationship.png"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>关系图长图</a>
-        <a class="alt" href="archive/MobLand/mobland-relationship-text.md"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>文字版</a>
+    <article class="card" data-title="庆余年 Joy of Life" data-platform="腾讯视频" data-genres="[&quot;剧情&quot;, &quot;古装&quot;]" data-status="追更中">
+      <a class="poster" href="archive/Joy-of-Life/%E5%BA%86%E4%BD%99%E5%B9%B4%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《庆余年》人物关系图">
+        <img src="cover/joy-of-life.jpg" width="500" height="750" alt="" loading="lazy" decoding="async">
+        <span class="rating" aria-label="第一季豆瓣评分 7.9"><span aria-hidden="true">★</span> 7.9</span>
+      </a>
+      <div class="card-body">
+        <p class="card-meta"><span>腾讯视频</span><span>2019–2024</span><span>2 季</span></p>
+        <h3>庆余年</h3>
+        <p class="english-title" lang="en">Joy of Life</p>
+        <p class="description">范闲从儋州少年到京都权臣，查身世、斗权贵、揭开叶轻眉之死。</p>
+        <p class="card-details"><span>剧情 · 古装</span><span>22 位人物</span></p>
+        <p class="status">追更中</p>
+        <div class="card-links" aria-label="《庆余年》资料">
+          <a class="chart-link" href="archive/Joy-of-Life/%E5%BA%86%E4%BD%99%E5%B9%B4%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
+          <a href="archive/Joy-of-Life/joy-of-life-relationship.png">长图</a>
+          <a href="archive/Joy-of-Life/joy-of-life-relationship-text.md">文字版</a>
+        </div>
       </div>
-    </div>
-  </article>
+    </article>
 
-  <article class="card" data-title="末日地堡 silo" data-platform="Apple TV+" data-genres="剧情 科幻">
-    <a class="poster" href="archive/Silo/%E6%9C%AB%E6%97%A5%E5%9C%B0%E5%A0%A1%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">
-      <img src="cover/silo.jpg" alt="《末日地堡》海报" loading="lazy">
-      <span class="platform">Apple TV+</span>
-      <span class="status ongoing">追更中</span>
-    </a>
-    <div class="card-body">
-      <h2>末日地堡 <span>Silo</span></h2>
-      <p class="meta"><b>38</b> 位人物 · 2023– · 已播 3 季 · <span class="rating">★ 7.8</span></p>
-      <p class="desc">144 层地下地堡，朱丽叶追查真相、当上市长，S3 前传线揭开地堡起源与 1 号地堡之谜。</p>
-      <p class="genres"><span>剧情</span><span>科幻</span></p>
-      <div class="links">
-        <a class="web" href="archive/Silo/%E6%9C%AB%E6%97%A5%E5%9C%B0%E5%A0%A1%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.9 5.7 3.9 9s-1.4 6.4-3.9 9c-2.5-2.6-3.9-5.7-3.9-9S9.5 5.6 12 3z"/></svg>网页版</a>
-        <a class="alt" href="archive/Silo/silo-relationship.png"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>关系图长图</a>
-        <a class="alt" href="archive/Silo/silo-relationship-text.md"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6"/><path d="M9 17h6"/></svg>文字版</a>
+    <article class="card" data-title="黑帮领地 MobLand" data-platform="Paramount+" data-genres="[&quot;剧情&quot;, &quot;犯罪&quot;]" data-status="追更中">
+      <a class="poster" href="archive/MobLand/%E9%BB%91%E5%B8%AE%E9%A2%86%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《黑帮领地》人物关系图">
+        <img src="cover/mobland.jpg" width="500" height="750" alt="" loading="lazy" decoding="async">
+        <span class="rating" aria-label="第一季豆瓣评分 7.6"><span aria-hidden="true">★</span> 7.6</span>
+      </a>
+      <div class="card-body">
+        <p class="card-meta"><span>Paramount+</span><span>2025–</span><span>已播 1 季</span></p>
+        <h3>黑帮领地</h3>
+        <p class="english-title" lang="en">MobLand</p>
+        <p class="description">伦敦两大黑帮家族为芬太尼地盘开战，清道夫 Harry 在尸体与谎言之间替家族续命。</p>
+        <p class="card-details"><span>剧情 · 犯罪</span><span>25 位人物</span></p>
+        <p class="status">追更中</p>
+        <div class="card-links" aria-label="《黑帮领地》资料">
+          <a class="chart-link" href="archive/MobLand/%E9%BB%91%E5%B8%AE%E9%A2%86%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
+          <a href="archive/MobLand/mobland-relationship.png">长图</a>
+          <a href="archive/MobLand/mobland-relationship-text.md">文字版</a>
+        </div>
       </div>
-    </div>
-  </article>
+    </article>
 
-  <p class="empty" id="empty" hidden>没有找到匹配的剧，换个关键词试试。</p>
-</main>
+    <article class="card" data-title="末日地堡 Silo" data-platform="Apple TV+" data-genres="[&quot;剧情&quot;, &quot;科幻&quot;]" data-status="追更中">
+      <a class="poster" href="archive/Silo/%E6%9C%AB%E6%97%A5%E5%9C%B0%E5%A0%A1%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《末日地堡》人物关系图">
+        <img src="cover/silo.jpg" width="500" height="750" alt="" loading="lazy" decoding="async">
+        <span class="rating" aria-label="第一季豆瓣评分 7.8"><span aria-hidden="true">★</span> 7.8</span>
+      </a>
+      <div class="card-body">
+        <p class="card-meta"><span>Apple TV+</span><span>2023–</span><span>已播 3 季</span></p>
+        <h3>末日地堡</h3>
+        <p class="english-title" lang="en">Silo</p>
+        <p class="description">144 层地下地堡，朱丽叶追查真相、当上市长，S3 前传线揭开地堡起源与 1 号地堡之谜。</p>
+        <p class="card-details"><span>剧情 · 科幻</span><span>38 位人物</span></p>
+        <p class="status">追更中</p>
+        <div class="card-links" aria-label="《末日地堡》资料">
+          <a class="chart-link" href="archive/Silo/%E6%9C%AB%E6%97%A5%E5%9C%B0%E5%A0%A1%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
+          <a href="archive/Silo/silo-relationship.png">长图</a>
+          <a href="archive/Silo/silo-relationship-text.md">文字版</a>
+        </div>
+      </div>
+    </article>
+      </div>
+      <div class="empty" id="empty" hidden>
+        <p>没有找到符合条件的剧集。</p>
+        <button id="reset" type="button">清除搜索和筛选</button>
+      </div>
+    </section>
+  </main>
 
-<footer>
-  <p>每部剧的完整资料在 <a href="https://github.com/1990jtf/cinema-log">cinema-log</a> 仓库的 archive 文件夹中：网页版 HTML、关系图长图 PNG、文字版 .md，海报在 cover 文件夹中。</p>
-  <p>持续更新中 · 最近新增《末日地堡》（2026-11-14）</p>
-  <p>豆瓣评分为第一季评分（豆瓣按季打分，无整部剧总分）。</p>
-</footer>
-
-<script>
-  const cards = [...document.querySelectorAll('.card')];
-  const countEl = document.getElementById('count');
-  const emptyEl = document.getElementById('empty');
-  const qInput = document.getElementById('q');
-  let platform = 'all';
-  let genre = 'all';
-
-  function applyFilter() {
-    const q = qInput.value.trim().toLowerCase();
-    let shown = 0;
-    for (const card of cards) {
-      const okPlatform = platform === 'all' || card.dataset.platform === platform;
-      const okGenre = genre === 'all' || (card.dataset.genres || '').split(' ').includes(genre);
-      const okQuery = !q || card.dataset.title.includes(q);
-      const show = okPlatform && okGenre && okQuery;
-      card.style.display = show ? '' : 'none';
-      if (show) shown++;
-    }
-    emptyEl.hidden = shown > 0;
-    countEl.textContent = shown === cards.length ? '' : `共 ${shown} 部`;
-  }
-
-  document.getElementById('filters').addEventListener('click', (e) => {
-    const btn = e.target.closest('.chip');
-    if (!btn) return;
-    document.querySelectorAll('#filters .chip').forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-    platform = btn.dataset.platform;
-    applyFilter();
-  });
-  document.getElementById('genre-filters').addEventListener('click', (e) => {
-    const btn = e.target.closest('.chip');
-    if (!btn) return;
-    document.querySelectorAll('#genre-filters .chip').forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-    genre = btn.dataset.genre;
-    applyFilter();
-  });
-  qInput.addEventListener('input', applyFilter);
-  applyFilter();
-
-  const grid = document.getElementById('grid');
-  const colsControl = document.getElementById('cols-control');
-  function setCols(n) {
-    if (n === 'auto') { delete grid.dataset.cols; } else { grid.dataset.cols = n; }
-    colsControl.querySelectorAll('.cols-btn').forEach(b => b.classList.toggle('active', b.dataset.cols === n));
-    try { localStorage.setItem('cinema-log-cols', n); } catch (e) {}
-  }
-  colsControl.addEventListener('click', (e) => {
-    const btn = e.target.closest('.cols-btn');
-    if (!btn) return;
-    setCols(btn.dataset.cols);
-  });
-  try { const saved = localStorage.getItem('cinema-log-cols'); if (saved) setCols(saved); } catch (e) {}
-</script>
+  <footer class="footer wrap">
+    <p>豆瓣评分取自各剧第一季。</p>
+    <a href="https://github.com/1990jtf/cinema-log">查看项目仓库 <span aria-hidden="true">↗</span></a>
+  </footer>
 </body>
 </html>
