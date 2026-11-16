@@ -16,6 +16,7 @@ import json
 import sys
 import urllib.parse
 from datetime import datetime
+from hashlib import sha256
 from html import escape
 from pathlib import Path
 
@@ -70,6 +71,7 @@ def render_cards(shows):
     for show in shows:
         title = escape(show["title_cn"])
         cover = q(f"cover/{show['id'].lower()}.jpg")
+        poster = f'<img src="{cover}" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low">'
         chart = archive_url(show, show["html_file"])
         long_image = archive_url(show, show["png_file"])
         text = archive_url(show, show["text_file"])
@@ -91,7 +93,8 @@ def render_cards(shows):
             quiz_link = f'\n      <a class="quiz-link" href="{quiz_url}">{escape(quiz["label"])} <span aria-hidden="true">↗</span></a>'
         cards.append(f"""    <article class="card" data-title="{title} {english}" data-platform="{platform}" data-genres="{genre_data}" data-status="{status}">
       <a class="poster" href="{chart}" aria-label="查看《{title}》人物关系图">
-        <img src="{cover}" width="500" height="750" alt="" loading="lazy" decoding="async">
+        <template>{poster}</template>
+        <noscript>{poster}</noscript>
         {rating_badge}
       </a>
       <div class="card-body">
@@ -118,19 +121,33 @@ def render_options(values, preferred_order=()):
     return "\n".join(f'          <option value="{escape(value)}">{escape(value)}</option>' for value in ordered)
 
 
+def versioned_asset(path):
+    version = sha256((ROOT / path).read_bytes()).hexdigest()[:12]
+    return f"{path}?v={version}"
+
+
 def render_index(shows):
     latest = max(reversed(shows), key=lambda show: show["added"])
-    backdrop = f"archive/{latest['id']}/assets/backdrop.jpg"
-    if not (ROOT / backdrop).is_file():
-        backdrop = f"cover/{latest['id'].lower()}.jpg"
+    media_dir = ROOT / "archive" / latest["id"] / "assets"
+    backdrop = media_dir / "backdrop.jpg"
+    if not backdrop.is_file():
+        backdrop = ROOT / "cover" / f"{latest['id'].lower()}.jpg"
+    mobile_backdrop = media_dir / "backdrop-mobile.webp"
+    mobile_source = ""
+    if mobile_backdrop.is_file():
+        mobile_url = q(mobile_backdrop.relative_to(ROOT).as_posix())
+        mobile_source = f'<source media="(max-width: 680px)" srcset="{mobile_url}">\n        '
     replacements = {
+        "SITE_CSS": versioned_asset("assets/index.css"),
+        "SITE_SCRIPT": versioned_asset("assets/index.js"),
         "STAT_SHOWS": str(len(shows)),
         "STAT_CHARS": str(sum(show["characters"] for show in shows)),
         "STAT_SPAN": year_span(shows),
         "PLATFORM_OPTIONS": render_options((show["platform"] for show in shows), PLATFORM_ORDER),
         "GENRE_OPTIONS": render_options((genre for show in shows for genre in show.get("genres", [])), GENRE_ORDER),
         "STATUS_OPTIONS": render_options((show.get("status", "已完结") for show in shows), ("已完结", "追更中")),
-        "FEATURE_BACKDROP": q(backdrop),
+        "FEATURE_BACKDROP": q(backdrop.relative_to(ROOT).as_posix()),
+        "FEATURE_MOBILE_SOURCE": mobile_source,
         "FEATURE_TITLE": escape(latest["title_cn"]),
         "FEATURE_EN": escape(latest["title_en"]),
         "FEATURE_LINK": archive_url(latest, latest["html_file"]),

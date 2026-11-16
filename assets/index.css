@@ -75,11 +75,17 @@ button, input, select { font: inherit; }
   background: #14181e;
 }
 
-.hero-image {
+.hero-media {
   position: absolute;
   inset: 0 0 0 auto;
   z-index: -2;
   width: 78%;
+  height: 100%;
+}
+
+.hero-image {
+  display: block;
+  width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: 56% center;
@@ -241,6 +247,8 @@ select { padding: 0 10px; cursor: pointer; }
 .poster {
   position: relative;
   display: block;
+  flex-shrink: 0;
+  aspect-ratio: 5 / 6;
   overflow: hidden;
   border-radius: 12px 12px 0 0;
   background: #272932;
@@ -248,10 +256,11 @@ select { padding: 0 10px; cursor: pointer; }
 
 .poster:focus-visible { outline-offset: 2px; z-index: 1; }
 .poster img {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
-  height: auto;
-  aspect-ratio: 5 / 6;
+  height: 100%;
   object-fit: cover;
   object-position: center 30%;
   transition: transform .28s ease;
@@ -357,7 +366,8 @@ select { padding: 0 10px; cursor: pointer; }
   .masthead { min-height: 60px; }
   .hero { min-height: 0; flex-direction: column; align-items: flex-start; padding: 146px 20px 22px; border-radius: 14px; }
   .hero-copy { align-self: stretch; }
-  .hero-image { width: 100%; height: 235px; object-position: 54% 44%; }
+  .hero-media { width: 100%; height: 235px; }
+  .hero-image { object-position: 54% 44%; }
   .hero::before { background: linear-gradient(180deg, transparent 36px, #14181e36 97px, #14181eec 190px, #14181e 235px); }
   .hero h1 { font-size: clamp(2.6rem, 9vw, 3.6rem); }
   .hero-copy > p { margin-top: 10px; }
@@ -377,8 +387,7 @@ select { padding: 0 10px; cursor: pointer; }
   .brand { font-size: 16px; }
   .masthead nav { font-size: 12px; }
   .card { flex-direction: row; align-items: flex-start; padding: 10px 0 0 10px; }
-  .poster { width: clamp(78px, 27vw, 122px); flex-shrink: 0; border-radius: 8px; }
-  .poster img { aspect-ratio: 2 / 3; }
+  .poster { width: clamp(78px, 27vw, 122px); aspect-ratio: 2 / 3; border-radius: 8px; }
   .rating { top: 5px; right: 5px; padding: 2px 5px; font-size: .72rem; }
   .card-body { min-width: 0; padding: 0 10px 4px 12px; }
 }

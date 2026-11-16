@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#111319">
   <meta name="description" content="浏览观影日志收藏的剧集，查找可交互的人物关系图、高清长图和文字资料。">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/index.css">
-  <script src="assets/index.js" defer></script>
+  <link rel="stylesheet" href="__SITE_CSS__">
+  <script src="__SITE_SCRIPT__" defer></script>
   <title>观影日志 · Cinema Log</title>
 </head>
 <body>
@@ -24,7 +24,9 @@
 
   <main class="wrap">
     <section class="hero" aria-labelledby="page-title">
-      <img class="hero-image" src="__FEATURE_BACKDROP__" alt="" fetchpriority="high">
+      <picture class="hero-media">
+        __FEATURE_MOBILE_SOURCE__<img class="hero-image" src="__FEATURE_BACKDROP__" alt="" fetchpriority="high">
+      </picture>
       <div class="hero-copy">
         <h1 id="page-title">观影日志</h1>
         <p>剧集里的人物、阵营与关系。<br>收录可交互的关系图、高清长图和文字版。</p>

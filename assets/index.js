@@ -91,3 +91,28 @@ columns.addEventListener('change', () => {
   }
 });
 document.getElementById('layout').hidden = false;
+
+function observePosters() {
+  const posters = grid.querySelectorAll('.poster');
+  const reveal = poster => {
+    const template = poster.querySelector('template');
+    if (template) template.replaceWith(template.content);
+  };
+
+  if (!('IntersectionObserver' in window)) {
+    posters.forEach(reveal);
+    return;
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      reveal(entry.target);
+      observer.unobserve(entry.target);
+    }
+  }, {rootMargin: '0px 0px 120px'});
+  posters.forEach(poster => observer.observe(poster));
+}
+
+// Posters can fetch after the hero has decoded, even if the hero failed to load.
+document.querySelector('.hero-image').decode().catch(() => {}).then(observePosters);

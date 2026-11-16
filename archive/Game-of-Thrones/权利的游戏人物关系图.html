@@ -7,9 +7,6 @@
     <link rel="icon" href="../../favicon.svg" />
 <link rel="stylesheet" href="../../assets/archive.css">
     <title>权利的游戏人物关系图</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
     <style>
       button, [role="button"], select, summary, input:not([type="checkbox"], [type="radio"]) { min-height: 2rem; }
       :root{
@@ -19,13 +16,15 @@
         --court:#cf9ab5; --north:#8fc3ab;
         --dead:#c0564a; --alive:#3f7d5f;
         --shadow:0 2px 12px rgba(0,0,0,.45);
+        --font-sans:system-ui,"PingFang SC","Microsoft YaHei",sans-serif;
+        --font-serif:"Songti SC","Noto Serif CJK SC","SimSun",serif;
       }
       *{box-sizing:border-box}
       html{scroll-behavior:smooth}
       body{margin:0;background:var(--bg);color:var(--ink);
-        font-family:"Noto Sans SC",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+        font-family:var(--font-sans);
         line-height:1.65;-webkit-font-smoothing:antialiased}
-      h1,h2,h3,.serif{font-family:"Noto Serif SC","Songti SC",serif}
+      h1,h2,h3,.serif{font-family:var(--font-serif)}
 
       /* ---------- Hero ---------- */
       .hero{position:relative;color:#f3ead9;overflow:hidden;background:#0d0c0b}
@@ -64,7 +63,7 @@
       .group-head{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--gc,var(--line));padding-bottom:8px}
       .group-head h2{font-size:24px;font-weight:900;margin:0}
       .group-head .sigil{font-size:13px;color:var(--ink2)}
-      .group-head .motto{margin-left:auto;font-family:"Noto Serif SC",serif;font-size:13.5px;color:var(--gc);font-weight:700;white-space:nowrap}
+      .group-head .motto{margin-left:auto;font-family:var(--font-serif);font-size:13.5px;color:var(--gc);font-weight:700;white-space:nowrap}
       .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-top:16px}
       .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;
         box-shadow:var(--shadow);display:flex;flex-direction:column;scroll-margin-top:130px}
@@ -97,7 +96,7 @@
       .textver h3 .no{color:var(--accent);margin-right:8px}
       .tree{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;
         overflow-x:auto;margin:0 0 14px}
-      .tree h4{margin:0 0 8px;font-size:15.5px;font-family:"Noto Serif SC",serif}
+      .tree h4{margin:0 0 8px;font-size:15.5px;font-family:var(--font-serif)}
       .tree pre{margin:0;font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:13px;
         line-height:1.75;color:var(--ink);white-space:pre}
       .lines{list-style:none;counter-reset:ln;margin:0;padding:0;display:flex;flex-direction:column;gap:0}
@@ -131,7 +130,7 @@
 
       /* ============ 改版：近黑主题 + Hero + 主演横滑 + 档案（对齐 Silo / 人生切割术试点） ============ */
       body{background:#0B0B0D;color:#B3B3B3}
-      h1,h2,h3,h4{font-family:"Noto Sans SC",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;color:#FFFFFF}
+      h1,h2,h3,h4{font-family:var(--font-sans);color:#FFFFFF}
       main{max-width:1180px}
       footer{max-width:1180px}
       .toolbar-in{max-width:1180px}
@@ -145,7 +144,7 @@
       .hero-in{z-index:2;width:100%;max-width:1180px;padding:0 32px 38px}
       .hero-title-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
       .hero h1{font-size:52px;font-weight:800;letter-spacing:-0.01em;line-height:1.12;margin:0;color:#FFFFFF}
-      .hero .en{margin-top:10px;font-family:"Noto Sans SC",sans-serif;letter-spacing:.34em;
+      .hero .en{margin-top:10px;font-family:var(--font-sans);letter-spacing:.34em;
         font-size:13px;color:#B3B3B3;text-transform:uppercase}
       .hero-meta{margin:14px 0 0;font-size:14px;color:#B3B3B3}
       .hero p.sub{max-width:620px;color:#D8D8D8;font-size:14px;line-height:1.6;margin:10px 0 0}
@@ -245,6 +244,9 @@
         font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit}
       .fs-scroll{flex:1;overflow:auto;text-align:center;background:#000}
       .fs-scroll img{width:min(100%,860px);height:auto;display:block;margin:0 auto}
+      .fs-scroll img[hidden]{display:none}
+      .fs-status{margin:24px 16px;color:#B3B3B3}
+      img[data-portrait]{visibility:hidden}
 
       @media (max-width:640px){
         .hero{height:64vh;min-height:460px}
@@ -262,7 +264,7 @@
   <a href="../../#catalog">← 返回剧集目录</a>
 </nav>
     <header class="hero">
-      <img class="bg" src="assets/backdrop.jpg" alt="" />
+      <img class="bg" src="assets/backdrop.jpg" alt="" fetchpriority="high" />
       <div class="hero-in">
         <div class="hero-title-row">
           <h1>权利的游戏</h1>
@@ -460,7 +462,11 @@
         <button class="fs-close" id="fsClose" type="button">关闭 ✕</button>
       </div>
       <div class="fs-scroll">
-        <img loading="lazy" decoding="async" src="assets/relationship-2048.webp" alt="《权利的游戏》人物关系图长图" />
+        <p class="fs-status" id="fsStatus" role="status" hidden></p>
+        <picture>
+          <source media="(max-width: 600px)" data-srcset="assets/relationship-1280.webp">
+          <img id="fsImage" data-src="assets/relationship-2048.webp" alt="《权利的游戏》人物关系图长图" fetchpriority="high" decoding="async" hidden>
+        </picture>
       </div>
     </div>
 
@@ -612,7 +618,7 @@
           return '<li><button class="who" data-target="'+r[1]+'" type="button">'+r[0]+'</button><span>'+r[2]+'</span></li>';
         }).join("");
         return '<article class="card" id="card-'+p.id+'" data-g="'+p.g+'" style="--gc:'+g.color+'">' +
-          '<div class="ph"><img src="'+p.img+'" alt="'+p.name+'剧照" /></div>' +
+          '<div class="ph"><img data-portrait="'+p.img+'" alt="'+p.name+'剧照" decoding="async" fetchpriority="low" /></div>' +
           '<div class="bd">' +
             '<h3>'+p.name+'<span class="en-name">'+p.en+'</span></h3>' +
             '<div class="actor">'+p.actor+'</div>' +
@@ -706,7 +712,7 @@
       var castRow = document.getElementById("castRow");
       castRow.innerHTML = CAST.map(function(c){
         return '<button class="cast-card" type="button" data-cast="'+c.id+'" aria-label="跳到'+c.name+'的卡片">' +
-          '<span class="ava"><img src="'+c.img+'" alt="'+c.name+'头像" /></span>' +
+          '<span class="ava"><img data-portrait="'+c.img+'" alt="'+c.name+'头像" decoding="async" fetchpriority="low" /></span>' +
           '<span class="cname" style="display:block">'+c.name+'</span>' +
           '<span class="crole" style="display:block">'+c.role+'</span>' +
           '<span class="ceps" style="display:block">'+c.eps+'</span></button>';
@@ -732,9 +738,52 @@
       var fsViewer = document.getElementById("fsViewer");
       var fsBtn = document.getElementById("fsBtn");
       var fsClose = document.getElementById("fsClose");
+      var fsStatus = document.getElementById("fsStatus");
+      var fsImage = document.getElementById("fsImage");
+      var fsSource = fsViewer.querySelector("source");
+
+      function loadPortrait(img){
+        var src = img.dataset.portrait;
+        if (!src) return;
+        img.src = src;
+        img.removeAttribute("data-portrait");
+      }
+      var portraitObserver = "IntersectionObserver" in window ? new IntersectionObserver(function(entries){
+        if (!fsViewer.hidden) return;
+        entries.forEach(function(entry){
+          if (!entry.isIntersecting) return;
+          loadPortrait(entry.target);
+          portraitObserver.unobserve(entry.target);
+        });
+      }, {rootMargin:"0px 0px 80px"}) : null;
+      function observePortraits(){
+        document.querySelectorAll("img[data-portrait]").forEach(function(img){
+          if (portraitObserver) portraitObserver.observe(img);
+          else loadPortrait(img);
+        });
+      }
+
+      fsImage.addEventListener("load", function(){
+        fsImage.hidden = false;
+        fsStatus.hidden = true;
+      });
+      fsImage.addEventListener("error", function(){
+        fsImage.hidden = true;
+        fsImage.removeAttribute("src");
+        fsSource.removeAttribute("srcset");
+        fsStatus.hidden = false;
+        fsStatus.textContent = "关系图加载失败，关闭后可重试。";
+      });
       function openFS(){
+        if (portraitObserver) portraitObserver.disconnect();
         fsViewer.hidden = false;
         document.body.style.overflow = "hidden";
+        if (!fsImage.hasAttribute("src")){
+          fsStatus.hidden = false;
+          fsStatus.textContent = "正在加载关系图…";
+          fsSource.srcset = fsSource.dataset.srcset;
+          fsImage.src = fsImage.dataset.src;
+        }
         if (fsViewer.requestFullscreen) {
           fsViewer.requestFullscreen().catch(function(){});
         }
@@ -742,6 +791,7 @@
       function closeFS(){
         fsViewer.hidden = true;
         document.body.style.overflow = "";
+        observePortraits();
         if (document.fullscreenElement && document.exitFullscreen) {
           document.exitFullscreen().catch(function(){});
         }
@@ -753,10 +803,10 @@
       });
       document.addEventListener("fullscreenchange", function(){
         if (!document.fullscreenElement && !fsViewer.hidden) {
-          fsViewer.hidden = true;
-          document.body.style.overflow = "";
+          closeFS();
         }
       });
+      observePortraits();
     </script>
   </body>
 </html>
