@@ -16,6 +16,7 @@
     --line:#2B2B2B; --gold:#E3D68B; --gold-bg:rgba(227,214,139,.12);
     --chip:#1E1E21; --tag-bg:#26262B; --tag-ink:#D8D8DC;
     --shadow:0 1px 2px rgba(0,0,0,.45),0 10px 28px rgba(0,0,0,.35);
+    --page-max:2400px; --page-gutter:clamp(16px,4vw,72px);
     color-scheme:dark;
   }
   html{scroll-behavior:smooth}
@@ -23,14 +24,15 @@
     font-family:"Avenir Next","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
     line-height:1.65;-webkit-font-smoothing:antialiased}
   h1,h2,h3{color:var(--ink)}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 16px 64px}
+  .wrap,.hero-inner{width:100%;max-width:var(--page-max);margin-inline:auto;padding-inline:var(--page-gutter)}
+  .wrap{padding-bottom:64px}
   /* ===== full-width hero ===== */
   .hero-full{position:relative;min-height:66vh;display:flex;align-items:flex-end;overflow:hidden;background:#0B0B0D}
   .hero-bg{position:absolute;inset:0;background-position:center;background-size:cover;background-repeat:no-repeat}
   .hero-shade{position:absolute;inset:0;pointer-events:none;
     background:linear-gradient(180deg,transparent 40%,#0B0B0D 100%),
                linear-gradient(90deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 62%)}
-  .hero-inner{position:relative;width:100%;max-width:1120px;margin:0 auto;padding:72px 16px 30px}
+  .hero-inner{position:relative;padding-block:72px 30px}
   .hero-kicker{color:#CFCFD4;font-weight:600;letter-spacing:.16em;font-size:12.5px;text-transform:uppercase;margin-bottom:10px}
   .hero-title-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
   .hero-title{font-size:54px;font-weight:800;letter-spacing:-0.01em;line-height:1.08;margin:0;color:#fff;
@@ -53,7 +55,8 @@
     .hero-inner{padding-bottom:24px}
   }
   /* intro */
-  .lede{color:var(--body);max-width:48em;margin:24px 0 0;font-size:15.5px;line-height:1.65}
+  .summary{margin-top:24px}
+  .lede{color:var(--body);max-width:48em;margin:0;font-size:15.5px;line-height:1.65}
   .stats{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
   .stat{background:var(--surface);border:1px solid var(--line);border-radius:999px;
     padding:5px 12px;font-size:13px;color:var(--muted)}
@@ -63,7 +66,7 @@
   section.block{margin-top:48px}
   /* cast row */
   .cast-row{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;align-items:flex-start;
-    margin:0 -16px;padding:2px 16px 14px;scrollbar-width:thin}
+    margin-inline:calc(-1 * var(--page-gutter));padding:2px var(--page-gutter) 14px;scrollbar-width:thin}
   .cast-card{scroll-snap-align:start;flex:0 0 118px;background:none;border:0;padding:0;cursor:pointer;
     text-align:left;font-family:inherit;color:var(--body);
     display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start}
@@ -123,7 +126,7 @@
   .fs-close{background:#fff;color:#111;border:0;border-radius:999px;padding:0 16px;min-height:36px;
     font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit}
   .fs-scroll{flex:1;overflow:auto;-webkit-overflow-scrolling:touch}
-  .fs-scroll img{display:block;width:min(100%,880px);height:auto;margin:0 auto;
+  .fs-scroll img{display:block;width:min(100%,2048px);height:auto;margin:0 auto;
     filter:brightness(1.15) contrast(1.05) saturate(1.03)}
   /* controls */
   .controls{position:sticky;top:0;z-index:30;background:var(--bg);
@@ -178,7 +181,7 @@
   .ending .e-mask{display:none}
   .empty{display:none;text-align:center;color:var(--muted);padding:28px 0}
   /* text version */
-  .textver{margin-top:48px}
+  .textver{margin-top:48px;scroll-margin-top:160px}
   .textver>h2{font-size:24px;font-weight:700;margin:0 0 4px}
   .textver .sub{color:var(--muted);font-size:14.5px;margin:0 0 16px}
   .panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;
@@ -199,6 +202,46 @@
   .finale li{margin:5px 0;font-size:14.5px}
   footer{margin-top:36px;color:var(--muted);font-size:12.8px;border-top:1px solid var(--line);padding-top:14px}
   a{color:#EDEDEF}
+
+  @media(min-width:1280px){
+    .summary{display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
+    .summary .stats{justify-content:flex-end;margin:0}
+    .sec-title,.textver>h2{font-size:28px}
+    .cast-row{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:clamp(14px,1.3vw,24px);
+      margin:0;padding:4px 0 14px;overflow:visible;scroll-snap-type:none}
+    .cast-card{min-width:0;align-items:center;text-align:center}
+    .cast-card img{width:min(100%,112px);height:auto}
+    .c-name{font-size:15px}
+    .info-grid{gap:20px}
+    .facts{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .facts>div:nth-last-child(-n+3){border-bottom:0}
+    .dual>p,.season-card p{max-width:70em}
+    .chart-frame img{height:clamp(390px,40vw,740px);max-height:76vh}
+    .chart-frame::after{background:linear-gradient(180deg,transparent 64%,rgba(11,11,13,.78) 100%)}
+    .fs-scroll{padding-inline:var(--page-gutter)}
+    .grid{display:flex;flex-wrap:wrap;gap:18px}
+    .card{flex:1 1 225px;min-width:0;max-width:420px}
+    section.group>h2{font-size:23px}
+    .card-body{padding:14px 16px 16px}
+    .card h3{font-size:18px}
+    .bio{font-size:15px}
+    .tree{display:grid;grid-template-columns:1.2fr 1fr;gap:32px}
+    .lines{columns:2;column-gap:clamp(32px,4vw,72px)}
+    .lines li{break-inside:avoid}
+    .glossary{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .finale{max-width:74em}
+  }
+
+  @media(min-width:1600px){
+    .controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}
+    .controls-row{flex:1 1 450px}
+    .controls .pills,.controls .count{margin-top:0}
+    .card,.textver{scroll-margin-top:88px}
+    #groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px}
+    #groups>.group{grid-column:1/-1}
+    #groups:has([data-group="depts"]:not([hidden])):has([data-group="eagan"]:not([hidden]))
+      >:is([data-group="depts"],[data-group="eagan"]){grid-column:auto}
+  }
 </style>
 </head>
 <body class="hide-spoiler">
@@ -238,12 +281,14 @@
 
 <div class="wrap">
 
-  <p class="lede">Lumon（卢蒙）公司有一项手术：把员工的记忆一分为二——上班时是「里人格」，下班后是「外人格」，彼此互不知情。这张图按五组梳理 20 位主要人物：谁是谁的另一半人格、谁在监视谁、谁在拼命逃出去。覆盖第一、二季，第二季结局默认隐藏，打开开关再看。</p>
-  <div class="stats">
-    <span class="stat"><b>20</b> 位人物</span>
-    <span class="stat"><b>5</b> 个分组</span>
-    <span class="stat"><b>3</b> 组双重身份</span>
-    <span class="stat">资料截至 <b>第二季结局</b>（2025）</span>
+  <div class="summary">
+    <p class="lede">Lumon（卢蒙）公司有一项手术：把员工的记忆一分为二——上班时是「里人格」，下班后是「外人格」，彼此互不知情。这张图按五组梳理 20 位主要人物：谁是谁的另一半人格、谁在监视谁、谁在拼命逃出去。覆盖第一、二季，第二季结局默认隐藏，打开开关再看。</p>
+    <div class="stats">
+      <span class="stat"><b>20</b> 位人物</span>
+      <span class="stat"><b>5</b> 个分组</span>
+      <span class="stat"><b>3</b> 组双重身份</span>
+      <span class="stat">资料截至 <b>第二季结局</b>（2025）</span>
+    </div>
   </div>
 
   <section class="block" aria-label="主演">
@@ -635,7 +680,7 @@ function applyFilter(){
       card.style.display = show ? "" : "none";
       if(show){ any = true; shown++; }
     });
-    sec.style.display = any ? "" : "none";
+    sec.hidden = !any;
   });
   document.getElementById("count").textContent = "共 20 位人物，当前显示 " + shown + " 位";
   document.getElementById("empty").style.display = shown ? "none" : "block";
