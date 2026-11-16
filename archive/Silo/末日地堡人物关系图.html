@@ -226,6 +226,7 @@
   }
   @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
 </style>
+<link rel="stylesheet" href="../../assets/archive-wide.css" media="(min-width: 1280px)">
 </head>
 <body>
 <nav class="archive-nav" aria-label="观影日志导航">
@@ -234,7 +235,7 @@
 
 <header class="hero">
   <img class="hero-bg" src="assets/backdrop.jpg" alt="" width="3840" height="2160">
-  <div class="hero-inner">
+  <div class="hero-inner archive-wide-shell">
     <div class="hero-titlerow">
       <h1>末日地堡<span class="en">SILO · SEASON 1 – 3</span></h1>
       <div class="rating-ring" role="img" aria-label="豆瓣评分 7.8">
@@ -254,11 +255,11 @@
   </div>
 </header>
 
-<div class="wrap">
+<div class="wrap archive-wide-shell">
 
   <section class="cast-sec" aria-label="主演">
     <div class="cast-head"><h2>主演</h2><p>点头像，在下方关系图里定位这个人</p></div>
-    <div class="cast-row" id="castRow"></div>
+    <div class="cast-row archive-wide-cast" id="castRow"></div>
   </section>
 
   <section class="info-sec">
@@ -345,7 +346,7 @@
       <button class="btn ghost" id="dlBtn">下载 .txt</button>
       <span class="copy-msg" id="copyMsg" role="status"></span>
     </div>
-    <pre class="textver" id="textVer"></pre>
+    <pre class="textver archive-wide-transcript" id="textVer"></pre>
   </section>
 
   <footer>
@@ -676,7 +677,7 @@ var groupsBox=document.getElementById("cardGroups");
 Object.keys(FACTIONS).forEach(function(fk){
   var f=FACTIONS[fk];
   var g=document.createElement("div"); g.className="fgroup"; g.dataset.f=fk;
-  g.innerHTML='<div class="fgroup-head"><span class="fdot" style="background:'+f.color+'"></span><h3>'+esc(f.name)+'</h3><p>'+esc(f.desc)+'</p></div><div class="cards"></div>';
+  g.innerHTML='<div class="fgroup-head"><span class="fdot" style="background:'+f.color+'"></span><h3>'+esc(f.name)+'</h3><p>'+esc(f.desc)+'</p></div><div class="cards archive-wide-cards"></div>';
   var box=g.querySelector(".cards");
   CHARS.filter(function(c){return c.f===fk;}).forEach(function(c){
     var b=document.createElement("button"); b.className="card"; b.dataset.id=c.id;

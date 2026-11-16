@@ -176,6 +176,7 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding-top:14px;font-si
 }
 @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
 </style>
+<link rel="stylesheet" href="../../assets/archive-wide.css" media="(min-width: 1280px)">
 </head>
 <body>
 <nav class="archive-nav" aria-label="观影日志导航">
@@ -183,7 +184,7 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding-top:14px;font-si
 </nav>
 <header class="hero">
   <img class="hero-backdrop" src="assets/backdrop.webp" width="1280" height="720" alt="" fetchpriority="high">
-    <div class="hero-inner">
+    <div class="hero-inner archive-wide-shell">
       <div class="hero-title-row">
         <h1>庆余年</h1>
         <svg class="ring" width="56" height="56" viewBox="0 0 56 56" role="img" aria-label="豆瓣评分 7.9 分">
@@ -202,14 +203,14 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding-top:14px;font-si
     </div>
   </header>
 
-<div class="wrap">
+<div class="wrap archive-wide-shell">
 
   <p class="lead">猫腻同名小说改编，腾讯视频 / 央视播出。范围覆盖第一季（2019）与第二季（2024）：以范闲为中心，把皇室夺嫡、范家、鉴查院与北齐四条线一次理清。</p>
   <div class="spoiler"><b>含两季核心剧透：</b>本页会直接写明范闲的身世、长公主与太子的关系、战豆豆的真实身份等关键反转。还没看完 S2 的，先收藏、看完再回来对图。</div>
 
   <section id="castsec">
     <div class="sec-head"><h2>主演</h2><p>点头像，跳到下方人物卡，并在关系图中高亮</p></div>
-    <div class="cast-row" id="castRow"></div>
+    <div class="cast-row archive-wide-cast" id="castRow"></div>
     <p class="hint">季跨度为已核实口径；集数为季总集数（S1 46 集 · S2 36 集），单人出场集数无公开统计。</p>
   </section>
 
@@ -250,7 +251,7 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding-top:14px;font-si
         <span><i style="border-color:var(--gold)"></i>敌对 / 利用</span>
         <span>节点边框色 = 所属势力</span>
       </div>
-      <div id="graph" aria-label="庆余年人物关系网络图"></div>
+      <div class="archive-wide-network" id="graph" aria-label="庆余年人物关系网络图"></div>
     </div>
     <div class="detail" id="detail" aria-live="polite"></div>
     <p class="hint">手机上图太挤时，直接看下面的「人物卡」和「文字版」，内容完全一致。</p>
@@ -259,13 +260,13 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding-top:14px;font-si
   <section id="cards">
     <div class="sec-head"><h2>人物卡</h2><p>点卡片可跳到关系网中定位该人物</p></div>
     <div class="toolbar"><input id="q" type="search" placeholder="搜人物 / 演员，如：陈萍萍、吴刚、二皇子…" aria-label="搜索人物"></div>
-    <div class="grid" id="grid"></div>
+    <div class="grid archive-wide-cards" id="grid"></div>
     <p class="hint" id="noresult" hidden>没找到这个人物——本图只收录 S1+S2 的 22 位核心人物。</p>
   </section>
 
   <section id="textver">
     <div class="sec-head"><h2>文字版</h2><p>同一张图的纯文字梳理，适合存档和转发</p></div>
-    <div class="textver" id="textver"></div>
+    <div class="textver archive-wide-transcript" id="textver"></div>
   </section>
 
   <section id="threads">

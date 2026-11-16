@@ -139,6 +139,7 @@
   .fs-scroll img{display:block;width:100%;max-width:2048px;margin:0 auto;height:auto}
   @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
 </style>
+<link rel="stylesheet" href="../../assets/archive-wide.css" media="(min-width: 1280px)">
 </head>
 <body>
 <nav class="archive-nav" aria-label="观影日志导航">
@@ -149,7 +150,7 @@
   <div class="hero-shade-l"></div>
   <div class="hero-shade-b"></div>
   <div class="hero-shade-extra"></div>
-  <div class="hero-inner">
+  <div class="hero-inner archive-wide-shell">
     <div class="hero-titlerow">
       <h1>《硅谷》人物关系图</h1>
       <div class="ring" role="img" aria-label="豆瓣评分 9.1">
@@ -178,10 +179,10 @@
   </div>
 </section>
 
-<div class="wrap">
+<div class="wrap archive-wide-shell">
   <section class="block" aria-label="主演">
     <h2 class="secttl">主演<span class="hint">点头像，在下方分组卡片里定位这个人</span></h2>
-    <div class="castrow" id="castrow"></div>
+    <div class="castrow archive-wide-cast" id="castrow"></div>
   </section>
 
   <section class="block" aria-label="档案">
@@ -251,7 +252,7 @@ Hooli 虎力（巨头，处处与 Pied Piper 作对）
 └─ 菲奥娜：人形机器人，理查德的一次荒唐心动</pre></div>
 
     <h3>二、20 条核心关系线</h3>
-    <ol class="lines">
+    <ol class="lines archive-wide-lines">
       <li><b>理查德 × 埃利克</b>——创始人与房东合伙人。埃利克用骇客屋换走 Pied Piper 10% 股份，这笔账和两人的相爱相杀贯穿前四季。</li>
       <li><b>理查德 × 贾里德</b>——CEO 与最忠诚的运营。贾里德从 Hooli 跳槽过来后死心塌地，把理查德当家人护着。</li>
       <li><b>迪内什 × 吉尔弗伊尔</b>——全剧第一损友。每天互黑对方的代码和人格，关键时刻又只有对方靠得住。</li>
@@ -301,8 +302,8 @@ Hooli 虎力（巨头，处处与 Pied Piper 作对）
     <span class="t">《硅谷》人物关系图</span>
     <button class="close" id="fsClose" type="button">关闭 ✕</button>
   </div>
-  <div class="fs-scroll">
-    <img loading="lazy" decoding="async" src="assets/relationship-2048.webp" alt="《硅谷》人物关系图长图（18 人版）" />
+  <div class="fs-scroll archive-wide-viewer">
+    <img class="archive-wide-raster" loading="lazy" decoding="async" src="assets/relationship-2048.webp" alt="《硅谷》人物关系图长图（18 人版）" />
   </div>
 </div>
 
@@ -447,7 +448,7 @@ GROUPS.forEach(function(g){
   sec.className = "group"; sec.dataset.group = g.id; sec.style.setProperty("--gc", g.color);
   var cards = PEOPLE.filter(function(p){return p.g===g.id;});
   var html = '<div class="ghead"><h2>'+g.name+'</h2><span class="en">'+g.en+'</span><span class="n">'+cards.length+' 人</span></div>'
-    + '<p class="gdesc">'+g.desc+'</p><div class="grid">';
+    + '<p class="gdesc">'+g.desc+'</p><div class="grid archive-wide-cards">';
   cards.forEach(function(p){
     html += '<article class="card" id="card-'+p.id+'" data-name="'+(p.name+" "+p.en+" "+p.actor).toLowerCase()+'">'
       + '<button class="head" aria-expanded="false"><img src="'+p.img+'" alt="'+p.name+' 剧照" loading="lazy" />'

@@ -179,6 +179,7 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-si
   .archive-grid{grid-template-columns:1fr}
   .archive dl{grid-template-columns:1fr 1fr;gap:12px 18px}
   .cast-item{flex-basis:96px}
+  .graph-box{overflow-x:auto}
   #graph{min-height:430px}
   .node{font-size:11px;padding:4px 8px;min-height:34px}
   .node .av,.node .av-init{width:22px;height:22px}
@@ -197,6 +198,7 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-si
 }
 @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} .toast{transition:none} }
 </style>
+<link rel="stylesheet" href="../../assets/archive-wide.css" media="(min-width: 1280px)">
 </head>
 <body>
 <nav class="archive-nav" aria-label="观影日志导航">
@@ -206,7 +208,7 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-si
   <img class="backdrop" src="assets/backdrop.jpg" alt="《黑帮领地》MobLand 官方主视觉：哈里、康拉德与梅芙三人立于庄园草地前">
   <div class="shade-b" aria-hidden="true"></div>
   <div class="shade-l" aria-hidden="true"></div>
-  <div class="hero-inner">
+  <div class="hero-inner archive-wide-shell">
     <div class="hero-title-row">
       <h1>黑帮领地<span class="en">MobLand</span></h1>
       <div class="rating-ring" role="img" aria-label="豆瓣评分 7.6">
@@ -223,11 +225,11 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-si
   </div>
 </header>
 
-<div class="wrap">
+<div class="wrap archive-wide-shell">
 
 <section id="castsec" style="margin-top:34px">
   <div class="sec-head"><h2>主演</h2><p>点头像，在下方关系图里定位这个人</p></div>
-  <div class="cast-row" id="castRow">
+  <div class="cast-row archive-wide-cast" id="castRow">
     <button type="button" class="cast-item" data-cast="harry"><img loading="lazy" decoding="async" src="assets/avatars/harry-2.jpg" alt="哈里·达·索萨剧照"><span class="cname">哈里·达·索萨</span><span class="crole">哈里根家的清道夫</span><span class="ceps">S1–S2 · S1 10 集 · S2 播出中</span></button>
     <button type="button" class="cast-item" data-cast="conrad"><img loading="lazy" decoding="async" src="assets/avatars/conrad-2.jpg" alt="康拉德·哈里根剧照"><span class="cname">康拉德·哈里根</span><span class="crole">哈里根家族首领</span><span class="ceps">S1–S2 · S1 10 集 · S2 播出中</span></button>
     <button type="button" class="cast-item" data-cast="maeve"><img loading="lazy" decoding="async" src="assets/avatars/maeve-2.jpg" alt="梅芙·哈里根剧照"><span class="cname">梅芙·哈里根</span><span class="crole">家族女主人 · 幕后操盘手</span><span class="ceps">S1–S2 · S1 10 集 · S2 播出中</span></button>
@@ -285,7 +287,7 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-si
       <span><i style="border-color:var(--red);border-top-style:dashed"></i>背叛 / 暗通</span>
       <span><i style="border-color:var(--blue)"></i>调查 / 对立</span>
     </div>
-    <div id="graph" aria-label="黑帮领地第一季人物关系图"></div>
+    <div class="archive-wide-network" id="graph" aria-label="黑帮领地第一季人物关系图"></div>
   </div>
   <div class="detail" id="detail" aria-live="polite"></div>
 </section>
@@ -318,7 +320,7 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-si
     <button class="btn" id="copyText" type="button">复制文字版（Markdown）</button>
     <a class="btn" href="mobland-relationship-text.md">打开 .md 原文件</a>
   </div>
-  <article class="textver" id="textver"></article>
+  <article class="textver archive-wide-transcript" id="textver"></article>
 </section>
 
 <section id="roster">
@@ -475,7 +477,7 @@ var FNOTE={core:"伦敦老牌犯罪家族：族长好战、女主人主谋、第
 var cardsBox=document.getElementById("cards");
 FORDER.forEach(function(f){
 var g=document.createElement("div");g.className="fgroup";g.dataset.f=f;
-var html='<h3><span class="dot" style="background:'+({core:"var(--brass)",team:"var(--red)",stev:"var(--slate)",ext:"var(--teal)",law:"var(--blue)"})[f]+')"></span>'+FNAME[f]+'</h3><p class="fnote">'+FNOTE[f]+'</p><div class="cards">';
+var html='<h3><span class="dot" style="background:'+({core:"var(--brass)",team:"var(--red)",stev:"var(--slate)",ext:"var(--teal)",law:"var(--blue)"})[f]+')"></span>'+FNAME[f]+'</h3><p class="fnote">'+FNOTE[f]+'</p><div class="cards archive-wide-cards">';
 PEOPLE.filter(function(p){return p.f===f;}).forEach(function(p){
 html+='<button type="button" class="pcard" data-id="'+p.id+'" data-f="'+p.f+'"><span class="top">'+avHTML(p)+'<span><h4>'+p.cn+(p.dead?' <span class="dead">†</span>':"")+'</h4><span class="en">'+p.en+'</span><div class="actor">'+p.actor+' 饰</div></span></span><p class="role">'+p.role+'</p><p class="fate">'+p.fate+'</p></button>';
 });

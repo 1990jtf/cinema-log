@@ -157,6 +157,7 @@
       footer{margin-top:48px;color:var(--ink2);font-size:12.5px;border-top:1px solid var(--line);padding-top:16px}
       @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.card{transition:none}}
     </style>
+<link rel="stylesheet" href="../../assets/archive-wide.css" media="(min-width: 1280px)">
   </head>
   <body>
 <nav class="archive-nav" aria-label="观影日志导航">
@@ -166,7 +167,7 @@
       <img class="backdrop" src="assets/backdrop.jpg" alt="《亿万》第一季主视觉：Axe、Chuck、Wendy、Taylor 站在顶层公寓落地窗前，背后是夜晚的曼哈顿天际线" />
       <div class="shade"></div>
       <div class="shade2"></div>
-      <div class="hwrap">
+      <div class="hwrap archive-wide-shell">
         <p class="enline serif">Billions · 人物关系图</p>
         <div class="titlerow">
           <h1>亿万</h1>
@@ -195,11 +196,11 @@
       </div>
     </header>
 
-    <div class="wrap">
+    <div class="wrap archive-wide-shell">
       <section class="cast" aria-label="主演">
         <h2>主演</h2>
         <p class="hint">点头像，在下方定位这个人</p>
-        <div class="castrow" id="castrow"></div>
+        <div class="castrow archive-wide-cast" id="castrow"></div>
       </section>
 
       <div class="archive">
@@ -225,7 +226,7 @@
         <div class="fsbar"><b>亿万 · 人物关系图</b><button class="btn-icon" id="btnFsClose" type="button" aria-label="退出全屏">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg>
         </button></div>
-        <div class="fsscroll"><img loading="lazy" decoding="async" src="assets/relationship-2048.webp" alt="《亿万》人物关系图长图：22 位人物与核心关系线" /></div>
+        <div class="fsscroll archive-wide-viewer"><img class="archive-wide-raster" loading="lazy" decoding="async" src="assets/relationship-2048.webp" alt="《亿万》人物关系图长图：22 位人物与核心关系线" /></div>
       </section>
 
       <div class="controls">
@@ -269,7 +270,7 @@
 
         <div class="tblock">
           <h3>18 条核心关系线</h3>
-          <ol class="lines">
+          <ol class="lines archive-wide-lines">
             <li><span class="who">Axe ↔ Chuck</span> —— 宿敌。全剧引擎：一个用钱绕过规则，一个用规则围猎钱；斗到最后，两人甚至要联手对付更大的敌人。</li>
             <li><span class="who">Wendy ↔ Chuck</span> —— 夫妻。婚姻被 Chuck 的执念与两人的权力游戏慢慢掏空，从盟友、对手到离婚收场。</li>
             <li><span class="who">Wendy ↔ Axe</span> —— 知己。她是唯一能当面让 Axe 停下来的人；这份信任超过雇佣关系，也是 Chuck 最深的刺。</li>
@@ -468,7 +469,7 @@
           });
           if (!list.length) return;
           any = true;
-          html += '<section class="group"><h2>'+g.name+'<span class="cnt">'+list.length+' 人</span></h2><p class="gdesc">'+g.desc+'</p><div class="grid">';
+          html += '<section class="group"><h2>'+g.name+'<span class="cnt">'+list.length+' 人</span></h2><p class="gdesc">'+g.desc+'</p><div class="grid archive-wide-cards">';
           list.forEach(function(p){ html += cardHTML(p); });
           html += '</div></section>';
         });

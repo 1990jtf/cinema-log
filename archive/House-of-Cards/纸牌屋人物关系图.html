@@ -129,13 +129,14 @@
   .viewer-scroll img{width:100%;max-width:1024px;height:auto;filter:brightness(1.2) contrast(1.05)}
   @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
 </style>
+<link rel="stylesheet" href="../../assets/archive-wide.css" media="(min-width: 1280px)">
 </head>
 <body>
 <nav class="archive-nav" aria-label="观影日志导航">
   <a href="../../#catalog">← 返回剧集目录</a>
 </nav>
 <header class="hero">
-  <div class="hero-inner">
+  <div class="hero-inner archive-wide-shell">
     <div class="hero-title-row">
       <h1 class="hero-title">纸牌屋</h1>
       <div class="ring" role="img" aria-label="豆瓣评分 9.3">
@@ -164,12 +165,12 @@
   </div>
 </header>
 
-<div class="wrap">
+<div class="wrap archive-wide-shell">
   <p class="lead">弗兰克·安德伍德被总统食言的那一夜起，一张纸牌搭成的权力大厦开始往上垒——这是 26 个关键人物的关系全图：谁是同盟，谁是棋子，谁最后被推下了楼。点开任意卡片看身份、关系与结局。</p>
 
   <section class="block" aria-label="主演">
     <div class="sec-head"><h2 class="sec">主演</h2><span class="sec-hint">点头像，在下方分组卡片里定位这个人</span></div>
-    <div class="cast-row" id="castRow">
+    <div class="cast-row archive-wide-cast" id="castRow">
       <button class="cast" type="button" data-target="frank">
         <img src="assets/stills/still.jpg" alt="弗兰克·安德伍德 头像" loading="lazy" />
         <span class="cn">弗兰克·安德伍德</span>
@@ -311,7 +312,7 @@
 └─ 安妮特·谢泼德 ……… 克莱尔的发小，谢泼德财团的掌门</pre></div>
 
     <h3>二、22 条核心关系线</h3>
-    <ol class="lines">
+    <ol class="lines archive-wide-lines">
       <li><b>弗兰克 × 克莱尔</b>——全剧的轴心。不是先有爱情再有权力，是先有同盟：两人是彼此唯一的合伙人，也注定是最后的对手。「我们不是小白兔，我们是狮子」是这段婚姻的注脚。</li>
       <li><b>弗兰克 × 沃克</b>——被食言点燃的复仇。沃克当选后没按约给弗兰克国务卿之位，弗兰克用两年时间布局，逼他在丑闻中辞职，自己递补登顶。</li>
       <li><b>弗兰克 × 道格</b>——主仆与共生。道格替弗兰克干所有脏活，包括处理掉知道太多的人；弗兰克一死，道格的人生也失去了坐标。</li>
@@ -481,7 +482,7 @@ GROUPS.forEach(function(g){
   sec.className = "group"; sec.dataset.group = g.id; sec.style.setProperty("--gc", g.color);
   var cards = PEOPLE.filter(function(p){return p.g===g.id;});
   var html = '<div class="ghead"><h2>'+g.name+'</h2><span class="en">'+g.en+'</span><span class="n">'+cards.length+' 人</span></div>'
-    + '<p class="gdesc">'+g.desc+'</p><div class="grid">';
+    + '<p class="gdesc">'+g.desc+'</p><div class="grid archive-wide-cards">';
   cards.forEach(function(p){
     html += '<article class="card" id="card-'+p.id+'" data-name="'+(p.name+" "+p.en+" "+p.actor).toLowerCase()+'">'
       + '<button class="head" aria-expanded="false"><img src="'+p.img+'" alt="'+p.name+' 剧照" loading="lazy" />'
@@ -564,8 +565,8 @@ document.getElementById("nospoil").addEventListener("change", function(e){
     <span class="viewer-title">《纸牌屋》人物关系图</span>
     <button class="viewer-close" id="viewerClose" type="button">✕ 关闭</button>
   </div>
-  <div class="viewer-scroll">
-    <img loading="lazy" decoding="async" src="assets/relationship-2048.webp" alt="《纸牌屋》人物关系图长图" />
+  <div class="viewer-scroll archive-wide-viewer">
+    <img class="archive-wide-raster" loading="lazy" decoding="async" src="assets/relationship-2048.webp" alt="《纸牌屋》人物关系图长图" />
   </div>
 </div>
 

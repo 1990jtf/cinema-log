@@ -174,6 +174,7 @@
       .viewer-scroll img{max-width:100%;height:auto;display:inline-block;filter:brightness(1.05)}
       @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.card{transition:none}}
     </style>
+<link rel="stylesheet" href="../../assets/archive-wide.css" media="(min-width: 1280px)">
   </head>
   <body>
 <nav class="archive-nav" aria-label="观影日志导航">
@@ -183,7 +184,7 @@
       <img class="hero-bg" src="assets/backdrop.jpg" alt="《黑钱胜地》官方主视觉：Marty 与 Wendy 站在湖边别墅前" />
       <div class="hero-shade"></div>
       <div class="hero-shade2"></div>
-      <div class="hero-inner">
+      <div class="hero-inner archive-wide-shell">
         <div class="hero-kicker">Ozark · 人物关系图</div>
         <div class="hero-title-row">
           <h1>黑钱胜地</h1>
@@ -205,10 +206,10 @@
       </div>
     </header>
 
-    <div class="wrap">
+    <div class="wrap archive-wide-shell">
       <section class="sec" aria-label="主演">
         <div class="sec-head"><h2>主演</h2><span class="hint">点头像，在下方定位这个人</span></div>
-        <div class="cast-track" id="cast-track"></div>
+        <div class="cast-track archive-wide-cast" id="cast-track"></div>
       </section>
 
       <section class="sec info-grid" aria-label="档案与最新一季">
@@ -234,7 +235,7 @@
       <section class="sec" aria-label="人物关系图">
         <div class="sec-head"><h2>人物关系图</h2><span class="hint">21 位人物 · 5 个阵营 · 17 条核心关系线</span></div>
         <button class="graph-card" id="graph-open" type="button" aria-label="全屏查看人物关系图">
-          <img src="assets/relationship-2048.webp" alt="《黑钱胜地》人物关系图长图：21 位人物按阵营排布与关系连线" loading="lazy" />
+          <img class="archive-wide-preview" src="assets/relationship-2048.webp" alt="《黑钱胜地》人物关系图长图：21 位人物按阵营排布与关系连线" loading="lazy" />
           <span class="graph-cap"><span>点图全屏查看，可放大细看每个人与关系线</span><b>全屏查看 →</b></span>
         </button>
       </section>
@@ -303,7 +304,7 @@ Omar Navarro（首领）
 
         <div class="tblock">
           <h3>17 条核心关系线</h3>
-          <ol class="lines">
+          <ol class="lines archive-wide-lines">
             <li><span class="who">Marty —— Wendy</span> —— 夫妻。从濒临破裂到联手犯罪，Wendy 比 Marty 更早、更彻底地越过底线。</li>
             <li><span class="who">Marty → Ruth</span> —— 老板与左膀右臂。Marty 教 Ruth 洗钱，Ruth 是他最信任、也最亏欠的人。</li>
             <li><span class="who">Wendy † Cade</span> —— Wendy 下令灭口 Cade（S2），Ruth 多年不知情。</li>
@@ -344,7 +345,7 @@ Omar Navarro（首领）
           <button class="vbtn" id="viewer-close" type="button">关闭 ✕</button>
         </div>
       </div>
-      <div class="viewer-scroll"><img loading="lazy" decoding="async" src="assets/relationship-2048.webp" alt="《黑钱胜地》人物关系图长图" /></div>
+      <div class="viewer-scroll archive-wide-viewer"><img class="archive-wide-raster" loading="lazy" decoding="async" src="assets/relationship-2048.webp" alt="《黑钱胜地》人物关系图长图" /></div>
     </div>
 
     <script>
@@ -490,7 +491,7 @@ Omar Navarro（首领）
           });
           if (!list.length) return;
           any = true;
-          html += '<section class="group"><h2>'+g.name+'<span class="cnt">'+list.length+' 人</span></h2><p class="gdesc">'+g.desc+'</p><div class="grid">';
+          html += '<section class="group"><h2>'+g.name+'<span class="cnt">'+list.length+' 人</span></h2><p class="gdesc">'+g.desc+'</p><div class="grid archive-wide-cards">';
           list.forEach(function(p){ html += cardHTML(p); });
           html += '</div></section>';
         });

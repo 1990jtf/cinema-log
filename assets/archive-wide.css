@@ -1,0 +1,109 @@
+@media (min-width: 1280px) {
+  :root {
+    --archive-max-width: 2400px;
+    --archive-gutter: clamp(16px, 4vw, 72px);
+    --archive-column-gap: clamp(32px, 4vw, 72px);
+  }
+
+  .archive-wide-shell,
+  .hero .archive-wide-shell {
+    width: 100%;
+    max-width: var(--archive-max-width);
+    margin-inline: auto;
+    padding-inline: var(--archive-gutter);
+  }
+
+  .archive-wide-cast {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    align-items: start;
+    gap: clamp(14px, 1.3vw, 24px);
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .archive-wide-cast > button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+
+  .archive-wide-cast > button > :is(img, .av, .av-init, .ava, .cav, .cast-ava) {
+    width: min(100%, 112px);
+    height: auto;
+    min-width: 0;
+    min-height: 0;
+    max-width: none;
+    max-height: none;
+    flex: none;
+    aspect-ratio: 1;
+  }
+
+  .archive-wide-cast > button > :is(.av, .ava, .cav, .cast-ava) img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .archive-wide-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+
+  .archive-wide-cards > :is(.card, .pcard) {
+    flex: 1 1 225px;
+    min-width: 0;
+    max-width: 420px;
+  }
+
+  .archive-wide-lines,
+  .archive-wide-transcript {
+    columns: 2;
+    column-gap: var(--archive-column-gap);
+  }
+
+  .archive-wide-lines {
+    display: block;
+  }
+
+  .archive-wide-lines > li,
+  .archive-wide-transcript > :is(pre, ol, ul) {
+    break-inside: avoid;
+  }
+
+  .archive-wide-transcript > :is(h2, h3) {
+    break-after: avoid;
+  }
+
+  .archive-wide-viewer .archive-wide-raster,
+  .fullchart .archive-wide-raster {
+    display: block;
+    width: min(100%, 2048px);
+    max-width: 2048px;
+    height: auto;
+    margin-inline: auto;
+  }
+
+  .archive-wide-viewer,
+  .fullchart:fullscreen,
+  .fullchart.fs-fallback {
+    padding-inline: var(--archive-gutter);
+  }
+
+  .graph-card img.archive-wide-preview {
+    height: clamp(390px, 40vw, 740px);
+    max-height: 76vh;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .graph-box:not(:fullscreen, .fs-fallback) .archive-wide-network {
+    height: clamp(620px, 72vh, 940px);
+  }
+}

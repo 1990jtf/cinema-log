@@ -258,6 +258,7 @@
         main{padding-left:14px;padding-right:14px}
       }
     </style>
+<link rel="stylesheet" href="../../assets/archive-wide.css" media="(min-width: 1280px)">
   </head>
   <body>
 <nav class="archive-nav" aria-label="观影日志导航">
@@ -265,7 +266,7 @@
 </nav>
     <header class="hero">
       <img class="bg" src="assets/backdrop.jpg" alt="" fetchpriority="high" />
-      <div class="hero-in">
+      <div class="hero-in archive-wide-shell">
         <div class="hero-title-row">
           <h1>权利的游戏</h1>
           <div class="rating-ring" role="img" aria-label="豆瓣评分 9.5">
@@ -295,10 +296,10 @@
       </div>
     </header>
 
-    <div class="below-hero">
+    <div class="below-hero archive-wide-shell">
       <section class="cast-sec" aria-label="主演">
         <div class="sec-head"><h2>主演</h2><span class="hint">点头像，跳到下方分组里这个人的卡片</span></div>
-        <div class="cast-row" id="castRow"></div>
+        <div class="cast-row archive-wide-cast" id="castRow"></div>
       </section>
 
       <div class="info-grid">
@@ -322,7 +323,7 @@
     </div>
 
     <div class="toolbar">
-      <div class="toolbar-in">
+      <div class="toolbar-in archive-wide-shell">
         <label class="search">
           <span aria-hidden="true">🔍</span>
           <input id="q" type="search" placeholder="搜人物：琼恩、龙母、小恶魔、弑君者…" aria-label="搜索人物" />
@@ -332,7 +333,7 @@
       </div>
     </div>
 
-    <main>
+    <main class="archive-wide-shell">
       <p class="count" id="count"></p>
       <div id="groups"></div>
       <p class="empty" id="empty">没有找到这个人物，换个名字或称号试试。</p>
@@ -387,7 +388,7 @@
         </div>
 
         <h3><span class="no">二</span>核心关系线（20 条）</h3>
-        <ol class="lines">
+        <ol class="lines archive-wide-lines">
           <li><span><b>雷加与莱安娜</b> —— 全剧最大的秘密。世人以为雷加掳走了莱安娜、挑起篡夺者战争，真相是两人相爱成婚。他们的孩子就是琼恩，艾德用一生守住了这个秘密。</span></li>
           <li><span><b>艾德与劳勃</b> —— 一起长大的异姓兄弟。劳勃登门请艾德出任国王之手，把史塔克一家拖进了君临的绞肉机。</span></li>
           <li><span><b>瑟曦与詹姆</b> —— 孪生姐弟的乱伦是战争的导火索：布兰撞破私情被詹姆推下高塔，三个顶着「拜拉席恩」姓氏的孩子（乔佛里、弥赛菈、托曼）其实都是詹姆的孩子。</span></li>
@@ -452,7 +453,7 @@
       </section>
     </main>
 
-    <footer>
+    <footer class="archive-wide-shell">
       <p>人物剧照为《权利的游戏》（HBO，2011–2019）剧集画面，本页为个人观剧整理的非商业笔记。关系与结局以剧集播出版本为准，原著《冰与火之歌》尚未完结，部分人物命运可能不同。</p>
     </footer>
 
@@ -461,11 +462,11 @@
         <span class="fs-title">权利的游戏 · 人物关系图</span>
         <button class="fs-close" id="fsClose" type="button">关闭 ✕</button>
       </div>
-      <div class="fs-scroll">
+      <div class="fs-scroll archive-wide-viewer">
         <p class="fs-status" id="fsStatus" role="status" hidden></p>
         <picture>
           <source media="(max-width: 600px)" data-srcset="assets/relationship-1280.webp">
-          <img id="fsImage" data-src="assets/relationship-2048.webp" alt="《权利的游戏》人物关系图长图" fetchpriority="high" decoding="async" hidden>
+          <img class="archive-wide-raster" id="fsImage" data-src="assets/relationship-2048.webp" alt="《权利的游戏》人物关系图长图" fetchpriority="high" decoding="async" hidden>
         </picture>
       </div>
     </div>
@@ -631,7 +632,7 @@
       GROUPS.forEach(function(g){
         var sec = document.createElement("section");
         sec.className = "group"; sec.id = "grp-"+g.id; sec.style.setProperty("--gc", g.color);
-        sec.innerHTML = '<div class="group-head"><h2>'+g.name+'</h2><span class="sigil">'+g.sigil+'</span><span class="motto">「'+g.motto+'」</span></div><div class="grid"></div>';
+        sec.innerHTML = '<div class="group-head"><h2>'+g.name+'</h2><span class="sigil">'+g.sigil+'</span><span class="motto">「'+g.motto+'」</span></div><div class="grid archive-wide-cards"></div>';
         sec.querySelector(".grid").innerHTML = PEOPLE.filter(function(p){return p.g===g.id}).map(cardHTML).join("");
         groupsEl.appendChild(sec);
       });

@@ -226,18 +226,19 @@
   .close{position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:50%;
     border:1px solid var(--line);background:#222226;color:#fff;font-size:20px;cursor:pointer;line-height:1}
 </style>
+<link rel="stylesheet" href="../../assets/archive-wide.css" media="(min-width: 1280px)">
 </head>
 <body>
 <nav class="archive-nav" aria-label="观影日志导航">
   <a href="../../#catalog">← 返回剧集目录</a>
 </nav>
-<div class="wrap">
+<div class="wrap archive-wide-shell">
 
   <header class="hero-full">
     <img class="hero-bg" src="assets/backdrop.jpg" alt="《继承之战》HBO 官方群像主视觉：Logan 居中整理腕表，Kendall、Shiv、Roman、Tom、Greg 分列两侧，背后是玻璃幕墙摩天楼与倒影">
     <div class="hero-shade-l" aria-hidden="true"></div>
     <div class="hero-shade-b" aria-hidden="true"></div>
-    <div class="hero-inner">
+    <div class="hero-inner archive-wide-shell">
       <div class="hero-title-row">
         <h1>《继承之战》<span class="en-title">SUCCESSION</span></h1>
         <div class="ring" role="img" aria-label="豆瓣评分 8.4">
@@ -269,7 +270,7 @@
   <!-- ============ 主演 ============ -->
   <section aria-label="主演" style="margin-top:36px">
     <h2 class="sec">主演 <small>点头像，在下方分组卡片里定位这个人</small></h2>
-    <div class="cast-row" id="cast-row">
+    <div class="cast-row archive-wide-cast" id="cast-row">
       <button class="cast-item" type="button" data-target="kendall">
         <img loading="lazy" decoding="async" src="assets/avatars/kendall.jpg" alt="肯德尔·罗伊剧照">
         <div class="cast-name">肯德尔·罗伊</div><div class="cast-role">次子</div><div class="cast-eps">S1–S4 · 39 集</div>
@@ -390,7 +391,7 @@
       </article>
     </div>
     <div class="connector"><span>↓ &nbsp;Logan 的四个孩子&nbsp; ↓</span></div>
-    <div class="grid g4">
+    <div class="grid g4 archive-wide-cards">
       <article class="card" data-group="family" data-id="connor" data-name="康纳罗伊 connor roy alan ruck 长子" tabindex="0" role="button" aria-label="查看康纳·罗伊详情">
         <img loading="lazy" decoding="async" class="avatar" src="assets/avatars/connor.jpg" alt="康纳·罗伊（Alan Ruck 饰）剧照">
         <h3 class="name">康纳·罗伊</h3><p class="en">Connor Roy</p><p class="actor">Alan Ruck</p>
@@ -421,7 +422,7 @@
   <!-- ============ 配偶、情人与姻亲 ============ -->
   <section data-section="spouse" aria-label="配偶、情人与姻亲">
     <h2 class="sec">配偶、情人与姻亲</h2>
-    <div class="grid g5">
+    <div class="grid g5 archive-wide-cards">
       <article class="card" data-group="spouse" data-id="willa" data-name="薇拉 willa ferreyra justine lupe 康纳之妻" tabindex="0" role="button" aria-label="查看薇拉详情">
         <img loading="lazy" decoding="async" class="avatar top" src="assets/avatars/willa.jpg" alt="薇拉（Justine Lupe 饰）剧照">
         <h3 class="name">薇拉</h3><p class="en">Willa Ferreyra</p><p class="actor">Justine Lupe</p>
@@ -458,7 +459,7 @@
   <!-- ============ Waystar 高管 ============ -->
   <section data-section="exec" aria-label="Waystar Royco 核心高管">
     <h2 class="sec">Waystar Royco 核心高管 <small>—— Logan 的老臣与心腹</small></h2>
-    <div class="grid g3">
+    <div class="grid g3 archive-wide-cards">
       <article class="card blue" data-group="exec" data-id="frank" data-name="弗兰克弗农 frank vernon peter friedman 副董事长" tabindex="0" role="button" aria-label="查看弗兰克·弗农详情">
         <img loading="lazy" decoding="async" class="avatar" src="assets/avatars/frank.jpg" alt="弗兰克·弗农（Peter Friedman 饰）剧照">
         <h3 class="name">弗兰克·弗农</h3><p class="en">Frank Vernon</p><p class="actor">Peter Friedman</p>
@@ -501,7 +502,7 @@
   <!-- ============ 外部势力 ============ -->
   <section data-section="outside" aria-label="外部势力">
     <h2 class="sec">外部势力 <small>—— 收购者、对手与旧友</small></h2>
-    <div class="grid g5">
+    <div class="grid g5 archive-wide-cards">
       <article class="card orange" data-group="outside" data-id="matsson" data-name="卢卡斯马特森 lukas matsson alexander skarsgard gojo 收购" tabindex="0" role="button" aria-label="查看卢卡斯·马特森详情">
         <img loading="lazy" decoding="async" class="avatar" src="assets/avatars/matsson.jpg" alt="卢卡斯·马特森（Alexander Skarsgård 饰）剧照">
         <h3 class="name">卢卡斯·马特森</h3><p class="en">Lukas Matsson</p><p class="actor">Alexander Skarsgård</p>
@@ -615,7 +616,7 @@
   <section aria-label="原图">
     <h2 class="sec">原图 <small>—— 最初生成的整张关系图，可长按保存</small></h2>
     <figure class="fullchart" style="margin:0">
-      <img loading="lazy" decoding="async" src="succession-relationship.png" alt="《继承之战》人物关系全图原图：23 位人物带头像，按 Roy 家族核心、配偶情人、Waystar 高管、外部势力四组排列">
+      <img class="archive-wide-raster" loading="lazy" decoding="async" src="succession-relationship.png" alt="《继承之战》人物关系全图原图：23 位人物带头像，按 Roy 家族核心、配偶情人、Waystar 高管、外部势力四组排列">
       <figcaption>这就是前面做好的那张图本身；网页版在上方把同样 23 个人拆成了可搜索、可点开的卡片。</figcaption>
     </figure>
   </section>
@@ -634,8 +635,8 @@
       <button class="viewer-close" id="viewer-close" type="button" aria-label="退出全屏">×</button>
     </div>
   </div>
-  <div class="viewer-body">
-    <img loading="lazy" decoding="async" src="assets/relationship-2048.webp" alt="《继承之战》人物关系全图：23 位人物带头像，按 Roy 家族核心、配偶情人、Waystar 高管、外部势力四组排列，含核心关系线">
+  <div class="viewer-body archive-wide-viewer">
+    <img class="archive-wide-raster" loading="lazy" decoding="async" src="assets/relationship-2048.webp" alt="《继承之战》人物关系全图：23 位人物带头像，按 Roy 家族核心、配偶情人、Waystar 高管、外部势力四组排列，含核心关系线">
   </div>
 </div>
 

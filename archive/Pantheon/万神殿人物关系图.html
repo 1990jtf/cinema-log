@@ -373,6 +373,7 @@
   .fullchart figcaption a{color:#FFFFFF;font-weight:700}
   footer{color:var(--ink-3)}
 </style>
+<link rel="stylesheet" href="../../assets/archive-wide.css" media="(min-width: 1280px)">
 </head>
 <body>
 <nav class="archive-nav" aria-label="观影日志导航">
@@ -380,7 +381,7 @@
 </nav>
 <header class="hero">
   <img class="hero-bg" src="assets/backdrop.jpg" alt="" aria-hidden="true">
-  <div class="hero-inner">
+  <div class="hero-inner archive-wide-shell">
     <div class="hero-title-row">
       <h1>万神殿</h1>
       <div class="ring-wrap" role="img" aria-label="豆瓣评分 8.8">
@@ -409,12 +410,12 @@
   </div>
 </header>
 
-<div class="wrap">
+<div class="wrap archive-wide-shell">
 
   <!-- ============ 主演横滑 ============ -->
   <section aria-label="主演" style="margin-top:34px">
     <h2 class="sec">主演 <small class="cast-hint">点头像，跳到下方分组卡片里的这个人</small></h2>
-    <div class="cast-row" id="cast-row">
+    <div class="cast-row archive-wide-cast" id="cast-row">
       <button class="cast-item" type="button" data-cast="maddie" aria-pressed="false"><img loading="lazy" decoding="async" src="assets/avatars/maddie.jpg" alt="麦迪·金角色头像"><p class="c-name">麦迪·金</p><p class="c-role">Maddie Kim · 14 岁主角</p><p class="c-eps">S1–S2 · 16 集</p></button>
       <button class="cast-item" type="button" data-cast="caspian" aria-pressed="false"><img loading="lazy" decoding="async" src="assets/avatars/caspian.jpg" alt="卡斯皮安·凯斯角色头像"><p class="c-name">卡斯皮安·凯斯</p><p class="c-role">Caspian Keyes · Holstrom 克隆体</p><p class="c-eps">S1–S2 · 16 集</p></button>
       <button class="cast-item" type="button" data-cast="chanda" aria-pressed="false"><img loading="lazy" decoding="async" src="assets/avatars/chanda.jpg" alt="文诺德·钱达角色头像"><p class="c-name">文诺德·钱达</p><p class="c-role">Vinod Chanda · 第 3 个 UI</p><p class="c-eps">S1–S2 · 16 集</p></button>
@@ -498,7 +499,7 @@
   <!-- ============ 三位主角 ============ -->
   <section data-section="lead" aria-label="三位主角">
     <h2 class="sec">三位主角 <small>—— 三条线汇成一场全球阴谋</small></h2>
-    <div class="grid g3">
+    <div class="grid g3 archive-wide-cards">
       <article class="card" data-group="lead" data-id="maddie" data-name="麦迪金 maddie kim katie chang 主角 女儿" tabindex="0" role="button" aria-label="查看麦迪·金详情">
         <img loading="lazy" decoding="async" class="avatar" src="assets/avatars/maddie.jpg" alt="麦迪·金（配音 Katie Chang）角色图">
         <h3 class="name">麦迪·金</h3><p class="en">Maddie Kim</p><p class="actor">配音 Katie Chang</p>
@@ -523,7 +524,7 @@
   <!-- ============ Kim 一家 ============ -->
   <section data-section="kim" aria-label="Kim 一家">
     <h2 class="sec">Kim 一家 <small>—— 从家庭剧开始的故事</small></h2>
-    <div class="grid g4">
+    <div class="grid g4 archive-wide-cards">
       <article class="card" data-group="kim" data-id="david" data-name="大卫金 david kim daniel dae kim 父亲 ui" tabindex="0" role="button" aria-label="查看大卫·金详情">
         <img loading="lazy" decoding="async" class="avatar" src="assets/avatars/david.jpg" alt="大卫·金（配音 Daniel Dae Kim）角色图">
         <h3 class="name">大卫·金</h3><p class="en">David Kim</p><p class="actor">配音 Daniel Dae Kim</p>
@@ -554,7 +555,7 @@
   <!-- ============ Holstrom / Keyes 一家 ============ -->
   <section data-section="keyes" aria-label="Holstrom / Keyes 一家">
     <h2 class="sec">Holstrom / Keyes 一家 <small>—— 卡斯皮安被设计的人生</small></h2>
-    <div class="grid g4">
+    <div class="grid g4 archive-wide-cards">
       <article class="card" data-group="keyes" data-id="holstrom" data-name="斯蒂芬霍尔斯特罗姆 stephen holstrom william hurt 创始人" tabindex="0" role="button" aria-label="查看斯蒂芬·霍尔斯特罗姆详情">
         <img loading="lazy" decoding="async" class="avatar" src="assets/avatars/holstrom.jpg" alt="斯蒂芬·霍尔斯特罗姆（配音 William Hurt）角色图">
         <h3 class="name">斯蒂芬·霍尔斯特罗姆</h3><p class="en">Stephen Holstrom</p><p class="actor">配音 William Hurt</p>
@@ -585,7 +586,7 @@
   <!-- ============ Logorhythms 公司 ============ -->
   <section data-section="logo" aria-label="Logorhythms 公司">
     <h2 class="sec">Logorhythms 公司 <small>—— 上传技术的源头</small></h2>
-    <div class="grid g3">
+    <div class="grid g3 archive-wide-cards">
       <article class="card blue" data-group="logo" data-id="pope" data-name="朱利叶斯波普 julius pope chris diamantopoulos ceo" tabindex="0" role="button" aria-label="查看朱利叶斯·波普详情">
         <img loading="lazy" decoding="async" class="avatar" src="assets/avatars/pope.jpg" alt="朱利叶斯·波普（配音 Chris Diamantopoulos）角色图">
         <h3 class="name">朱利叶斯·波普</h3><p class="en">Julius Pope</p><p class="actor">配音 Chris Diamantopoulos</p>
@@ -611,7 +612,7 @@
   <section data-section="ui" aria-label="其他上传智能 UI">
     <h2 class="sec">其他上传智能 UI <small>—— 被上传的人，各有各的命</small></h2>
     <p class="note">UI 顺序要记住：<b>第 1 个是劳里，第 2 个是大卫，第 3 个是钱达。</b></p>
-    <div class="grid g5">
+    <div class="grid g5 archive-wide-cards">
       <article class="card purple" data-group="ui" data-id="laurie" data-name="劳里洛厄尔 laurie lowell heather lind 第一个ui" tabindex="0" role="button" aria-label="查看劳里·洛厄尔详情">
         <img loading="lazy" decoding="async" class="avatar" src="assets/avatars/laurie.jpg" alt="劳里·洛厄尔（配音 Heather Lind）角色图">
         <h3 class="name">劳里·洛厄尔</h3><p class="en">Laurie Lowell</p><p class="actor">配音 Heather Lind</p>
@@ -648,7 +649,7 @@
   <!-- ============ 政府与外部势力 ============ -->
   <section data-section="gov" aria-label="政府与外部势力">
     <h2 class="sec">政府与外部势力 <small>—— 军备竞赛的另一边</small></h2>
-    <div class="grid g4">
+    <div class="grid g4 archive-wide-cards">
       <article class="card orange" data-group="gov" data-id="ajit" data-name="阿吉特普拉萨德 ajit prasad ajay mehta alliance ceo 老板" tabindex="0" role="button" aria-label="查看阿吉特·普拉萨德详情">
         <img loading="lazy" decoding="async" class="avatar" src="assets/avatars/ajit.jpg" alt="阿吉特·普拉萨德（配音 Ajay Mehta）角色图">
         <h3 class="name">阿吉特·普拉萨德</h3><p class="en">Ajit Prasad</p><p class="actor">配音 Ajay Mehta</p>
@@ -775,7 +776,7 @@
   <section aria-label="原图">
     <h2 class="sec">原图 <small>—— 最初生成的整张关系图，可长按保存</small></h2>
     <figure class="fullchart" id="chartBox" style="margin:0">
-      <img loading="lazy" decoding="async" src="pantheon-relationship.png" alt="《万神殿》人物关系全图原图：23 位人物带动画角色头像，按三位主角、Kim 一家、Holstrom / Keyes 一家、Logorhythms、其他 UI、政府与外部势力六组排列">
+      <img class="archive-wide-raster" loading="lazy" decoding="async" src="pantheon-relationship.png" alt="《万神殿》人物关系全图原图：23 位人物带动画角色头像，按三位主角、Kim 一家、Holstrom / Keyes 一家、Logorhythms、其他 UI、政府与外部势力六组排列">
       <figcaption>这就是前面做好的那张图本身；网页版在上方把同样 23 个人拆成了可搜索、可点开的卡片，并在下方加了问题版自测题。也可以 <a href="assets/relationship-2048.webp" download="pantheon-relationship-2048.webp">下载 2048 宽长图（WebP）</a>。</figcaption>
     </figure>
   </section>
