@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c1115">
+  <meta name="description" content="《西部世界》四季人物关系图。按季查看 25 个角色与身份、40 条关系和四季时间线。">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/archive.css">
+  <link rel="stylesheet" href="assets/page.css">
+  <script src="assets/data.js" defer></script>
+  <script src="assets/page.js" defer></script>
+  <title>西部世界人物关系图 · Cinema Log</title>
+</head>
+<body>
+  <nav class="archive-nav" aria-label="观影日志导航">
+    <div class="archive-nav-inner">
+      <a class="archive-brand" href="../../" aria-label="观影日志首页">
+        <img src="../../favicon.svg" width="32" height="32" alt="">
+        <span lang="en">Cinema Log</span>
+      </a>
+      <div class="archive-nav-links">
+        <a href="../../#catalog"><span aria-hidden="true">←</span> 剧集目录</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <picture class="hero-art">
+      <source media="(max-width: 700px)" srcset="assets/backdrop-mobile.webp">
+      <img src="assets/backdrop.jpg" alt="" width="1600" height="900" fetchpriority="high">
+    </picture>
+    <div class="wrap hero-content">
+      <p class="eyebrow"><span lang="en">HBO</span><span>2016–2022</span></p>
+      <h1>西部世界</h1>
+      <p class="hero-wordmark" lang="en">Westworld</p>
+      <p class="hero-meta"><span>4 季 36 集</span><span>剧情 · 科幻 · 西部</span><span>豆瓣首季 ★ 8.9</span></p>
+      <p class="hero-description">在一座模拟美国西部的乐园里，仿生接待员每天重演同一段人生。直到一些被抹掉的记忆开始回来。</p>
+      <div class="hero-actions">
+        <a class="action primary" href="#relations">查看关系图 <span aria-hidden="true">↓</span></a>
+        <a class="action" href="westworld-relationship.png">高清长图 <span aria-hidden="true">↗</span></a>
+        <a class="action" href="westworld-relationship-text.md">文字版 <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="section" id="relations" aria-labelledby="relations-title">
+      <header class="section-head">
+        <div>
+          <h2 id="relations-title">人物关系图</h2>
+          <p>选择人物，查看与其直接相关的角色和故事。</p>
+        </div>
+        <p class="spoiler">含 S1–S4 剧透</p>
+      </header>
+      <noscript><p class="notice">交互图需要 JavaScript。也可以打开<a href="westworld-relationship.png">高清长图</a>或<a href="westworld-relationship-text.md">文字版</a>。</p></noscript>
+      <div id="interactive-map" hidden>
+        <div class="graph-controls">
+          <div class="season-filters" id="season-filters" role="group" aria-label="按季筛选人物关系"></div>
+          <p class="graph-count" id="graph-count" role="status"></p>
+        </div>
+        <div class="graph-layout">
+          <div class="map-shell">
+            <div class="map" id="map">
+              <svg id="network" role="group" aria-label="当前人物及其直接关系"></svg>
+            </div>
+            <ul class="map-legend" id="legend" aria-label="连线图例"></ul>
+          </div>
+          <aside class="detail" id="character-detail" aria-label="当前人物详情">
+            <div id="identity"></div>
+            <p class="bio" id="bio"></p>
+            <h3 class="connections-title">直接关系</h3>
+            <ul class="connections" id="connections"></ul>
+            <p class="notice" id="no-connections" hidden>本季未收录此角色的直接关系。切换到「全部」可以查看更多。</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="identity-guide" aria-labelledby="identity-guide-title">
+      <header class="section-head">
+        <h2 id="identity-guide-title">容易混淆的身份</h2>
+      </header>
+      <div class="identity-guide">
+        <article>
+          <h3>年轻威廉、黑衣人、接待员威廉</h3>
+          <p>年轻威廉与黑衣人是同一个人，第一季把两个时期交错呈现。后期由海尔制造的威廉接待员是另一个角色。</p>
+        </article>
+        <article>
+          <h3>阿诺德与伯纳德</h3>
+          <p>阿诺德是乐园的人类联合创立者。福特以他为原型造出伯纳德，二人由同一演员饰演。</p>
+        </article>
+        <article>
+          <h3>德洛丽丝、海尔接待员、克里斯蒂娜</h3>
+          <p>海尔接待员从德洛丽丝的副本发展出独立人格。第四季的克里斯蒂娜则在城市叙事系统中逐步认出自己的来历。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="timeline" aria-labelledby="timeline-title" hidden>
+      <header class="section-head"><h2 id="timeline-title">四季时间线</h2></header>
+      <div class="timeline" id="timeline-entries"></div>
+    </section>
+
+    <section class="section" id="characters" aria-labelledby="characters-title" hidden>
+      <header class="section-head">
+        <div>
+          <h2 id="characters-title">人物索引</h2>
+          <p>选中一张卡片，在图谱中查看这个角色。</p>
+        </div>
+        <p class="roster-count" id="roster-count" role="status"></p>
+      </header>
+      <div class="roster-controls">
+        <input id="character-search" type="search" placeholder="搜索角色、演员名" aria-label="搜索角色或演员" autocomplete="off">
+        <select id="group-filter" aria-label="按阵营筛选">
+          <option value="">全部阵营</option>
+        </select>
+      </div>
+      <div class="roster" id="roster"></div>
+      <p class="notice" id="empty-roster" hidden>当前季度和阵营下没有匹配的角色。</p>
+    </section>
+  </main>
+
+  <footer class="wrap footer">
+    <p>剧集由 Jonathan Nolan 与 Lisa Joy 创作，改编自 Michael Crichton 的 1973 年电影。HBO 在第四季后取消了剧集。</p>
+    <p>剧集资料参考 <a href="https://press.wbd.com/us/property/westworld">HBO 新闻资料</a>、<a href="https://www.tvmaze.com/shows/1371/westworld/episodes">TVmaze 剧集表</a>与<a href="https://www.thewrap.com/westworld-season-4-episode-8-questions-ending-explained/">Lisa Joy 的季终访谈</a>。<a href="https://movie.douban.com/subject/2338055/">豆瓣评分</a>为第一季分数。</p>
+    <p>海报与剧照为 HBO 宣传素材，经 <a href="https://www.tvmaze.com/shows/1371/westworld/gallery">TVmaze</a>、<a href="https://www.digitalspy.com/tv/ustv/a40642937/westworld-season-4-aurora-perrineau-character-reveal/">Digital Spy</a> 与 <a href="https://www.wmagazine.com/culture/westworld-costume-designer-debra-beebe-interview-characters-cast-season-4">W Magazine</a> 收录。</p>
+  </footer>
+</body>
+</html>

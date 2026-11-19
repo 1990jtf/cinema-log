@@ -245,5 +245,26 @@
       "科幻"
     ],
     "status": "追更中"
+  },
+  {
+    "added": "2026-11-19",
+    "characters": 25,
+    "desc": "仿生接待员在西部主题乐园反复扮演同一角色，直到被抹掉的记忆开始回来。",
+    "html_file": "西部世界人物关系图.html",
+    "id": "Westworld",
+    "platform": "HBO",
+    "png_file": "westworld-relationship.png",
+    "seasons": "4 季",
+    "text_file": "westworld-relationship-text.md",
+    "title_cn": "西部世界",
+    "title_en": "Westworld",
+    "years": "2016–2022",
+    "douban": 8.9,
+    "genres": [
+      "剧情",
+      "科幻",
+      "西部"
+    ],
+    "status": "已完结"
   }
 ]

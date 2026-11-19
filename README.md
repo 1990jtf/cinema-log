@@ -6,7 +6,7 @@
 
 | 📺 剧集 | 👥 人物 | 🗓️ 跨度 |
 | --- | --- | --- |
-| **12 部** | **287 位** | 2011–2026 |
+| **13 部** | **312 位** | 2011–2026 |
 
 ---
 
@@ -26,6 +26,7 @@
 | <img src="cover/joy-of-life.jpg" width="54" alt="庆余年"> | **庆余年** · Joy of Life<br>★ 7.9 | 腾讯视频 | 2019–2024 | 2 季 · 追更中 | 22 | [网页版](archive/Joy-of-Life/%E5%BA%86%E4%BD%99%E5%B9%B4%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html) · [长图](archive/Joy-of-Life/joy-of-life-relationship.png) · [文字版](archive/Joy-of-Life/joy-of-life-relationship-text.md) |
 | <img src="cover/mobland.jpg" width="54" alt="黑帮领地"> | **黑帮领地** · MobLand<br>★ 7.6 | Paramount+ | 2025– | 已播 1 季 · 追更中 | 25 | [网页版](archive/MobLand/%E9%BB%91%E5%B8%AE%E9%A2%86%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html) · [长图](archive/MobLand/mobland-relationship.png) · [文字版](archive/MobLand/mobland-relationship-text.md) |
 | <img src="cover/silo.jpg" width="54" alt="末日地堡"> | **末日地堡** · Silo<br>★ 7.8 | Apple TV+ | 2023– | 已播 3 季 · 追更中 | 38 | [网页版](archive/Silo/%E6%9C%AB%E6%97%A5%E5%9C%B0%E5%A0%A1%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html) · [长图](archive/Silo/silo-relationship.png) · [文字版](archive/Silo/silo-relationship-text.md) |
+| <img src="cover/westworld.jpg" width="54" alt="西部世界"> | **西部世界** · Westworld<br>★ 8.9 | HBO | 2016–2022 | 4 季 · 已完结 | 25 | [网页版](archive/Westworld/%E8%A5%BF%E9%83%A8%E4%B8%96%E7%95%8C%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html) · [长图](archive/Westworld/westworld-relationship.png) · [文字版](archive/Westworld/westworld-relationship-text.md) |
 
 > 豆瓣评分为第一季评分（豆瓣按季打分，无整部剧总分）。
 
@@ -45,6 +46,7 @@
 - **庆余年**（剧情 / 古装） — 范闲从儋州少年到京都权臣，查身世、斗权贵、揭开叶轻眉之死。
 - **黑帮领地**（剧情 / 犯罪） — 伦敦两大黑帮家族为芬太尼地盘开战，清道夫 Harry 在尸体与谎言之间替家族续命。
 - **末日地堡**（剧情 / 科幻） — 144 层地下地堡，朱丽叶追查真相、当上市长，S3 前传线揭开地堡起源与 1 号地堡之谜。
+- **西部世界**（剧情 / 科幻 / 西部） — 仿生接待员在西部主题乐园反复扮演同一角色，直到被抹掉的记忆开始回来。
 
 ---
 
@@ -72,7 +74,8 @@ cinema-log/
     ├── Mandalorian/ # 曼达洛人：网页版 HTML、关系图 PNG、文字版
     ├── Joy-of-Life/ # 庆余年：网页版 HTML、关系图 PNG、文字版
     ├── MobLand/ # 黑帮领地：网页版 HTML、关系图 PNG、文字版
-    └── Silo/ # 末日地堡：网页版 HTML、关系图 PNG、文字版
+    ├── Silo/ # 末日地堡：网页版 HTML、关系图 PNG、文字版
+    └── Westworld/ # 西部世界：网页版 HTML、关系图 PNG、文字版
 ```
 
 ## 新增一部剧
