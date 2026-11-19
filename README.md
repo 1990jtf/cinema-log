@@ -58,7 +58,7 @@ cinema-log/
 ├── favicon.svg         # 网站图标（场记板）
 ├── README.md           # 本文件
 ├── shows.json          # 各剧信息：唯一数据源，改这里再跑 tools/sync.py
-├── tools/              # 首页模板与同步脚本
+├── tools/              # 首页、文字阅读页的模板与生成脚本
 ├── assets/             # 首页与存档页的公共样式、脚本
 ├── cover/              # 各剧官方海报
 ├── .nojekyll           # GitHub Pages 配置：不使用 Jekyll
@@ -82,6 +82,8 @@ cinema-log/
 
 1. 在 `archive/<新剧>/` 放入网页版 HTML、关系图 PNG、文字版 `.md`，海报放进 `cover/`；
 2. 在 `shows.json` 里按已有格式加一行（剧名、平台、年份、季数、人物数、一句话简介、文件名、加入日期、豆瓣评分、类型、追更状态）；
-3. 运行 `python3 tools/sync.py`，首页统计数字、剧集卡片、筛选选项和 README 表格会自动同步；
-4. 检查脚本输出的提示，确认没有缺失文件；
-5. 提交推送（或告诉 Muse 推送）。
+3. 运行 `python3 tools/render_readers.py` 生成文字阅读页。首次生成时在虚拟环境中安装 `tools/requirements-readers.txt`；
+4. 将关系图里的「文字版」链接指向同目录下新生成的 `*-relationship-text.html`；
+5. 运行 `python3 tools/sync.py` 同步首页和 README，检查脚本输出后提交推送。
+
+修改 Markdown 后，重新运行 `python3 tools/render_readers.py`。使用 `python3 tools/render_readers.py --check` 可以检查生成的阅读页是否与源文件一致。

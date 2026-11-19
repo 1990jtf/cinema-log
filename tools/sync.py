@@ -8,7 +8,7 @@
 新增一部剧的流程：
     1. 在 archive/<新剧>/ 放入网页版 HTML、关系图 PNG、文字版 .md，海报放进 cover/；
     2. 在 shows.json 里按已有格式加一行；
-    3. 运行本脚本，首页统计数字、剧集卡片、筛选选项和 README 表格会自动同步；
+    3. 运行 tools/render_readers.py 生成阅读页，再运行本脚本同步首页和 README；
     4. 提交推送。
 """
 
@@ -46,6 +46,10 @@ def year_span(shows):
     return f"{min(starts)}–{max(ends)}"
 
 
+def reader_filename(show):
+    return Path(show["text_file"]).with_suffix(".html").as_posix()
+
+
 def check_files(shows):
     """校验每部剧引用的文件是否都存在，返回缺失列表。"""
     missing = []
@@ -54,13 +58,11 @@ def check_files(shows):
             f"archive/{s['id']}/{s['html_file']}",
             f"archive/{s['id']}/{s['png_file']}",
             f"archive/{s['id']}/{s['text_file']}",
+            f"archive/{s['id']}/{reader_filename(s)}",
             f"cover/{s['id'].lower()}.jpg",
         ]:
             if not (ROOT / rel).exists():
                 missing.append(rel)
-        text_html = s.get("text_html_file")
-        if text_html and not (ROOT / f"archive/{s['id']}/{text_html}").is_file():
-            missing.append(f"archive/{s['id']}/{text_html}")
         quiz = s.get("quiz")
         if quiz and not (ROOT / f"archive/{s['id']}/{quiz['file']}").exists():
             missing.append(f"archive/{s['id']}/{quiz['file']}")
@@ -79,7 +81,7 @@ def render_cards(shows):
         poster = f'<img src="{cover}" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low">'
         chart = archive_url(show, show["html_file"])
         long_image = archive_url(show, show["png_file"])
-        text = archive_url(show, show.get("text_html_file", show["text_file"]))
+        text = archive_url(show, reader_filename(show))
         status = escape(show.get("status", "已完结"))
         genres = show.get("genres", [])
         tags = " · ".join(escape(genre) for genre in genres)
@@ -308,7 +310,7 @@ cinema-log/
 ├── favicon.svg         # 网站图标（场记板）
 ├── README.md           # 本文件
 ├── shows.json          # 各剧信息：唯一数据源，改这里再跑 tools/sync.py
-├── tools/              # 首页模板与同步脚本
+├── tools/              # 首页、文字阅读页的模板与生成脚本
 ├── assets/             # 首页与存档页的公共样式、脚本
 ├── cover/              # 各剧官方海报
 ├── .nojekyll           # GitHub Pages 配置：不使用 Jekyll
@@ -320,9 +322,11 @@ __TREE__
 
 1. 在 `archive/<新剧>/` 放入网页版 HTML、关系图 PNG、文字版 `.md`，海报放进 `cover/`；
 2. 在 `shows.json` 里按已有格式加一行（剧名、平台、年份、季数、人物数、一句话简介、文件名、加入日期、豆瓣评分、类型、追更状态）；
-3. 运行 `python3 tools/sync.py`，首页统计数字、剧集卡片、筛选选项和 README 表格会自动同步；
-4. 检查脚本输出的提示，确认没有缺失文件；
-5. 提交推送（或告诉 Muse 推送）。
+3. 运行 `python3 tools/render_readers.py` 生成文字阅读页。首次生成时在虚拟环境中安装 `tools/requirements-readers.txt`；
+4. 将关系图里的「文字版」链接指向同目录下新生成的 `*-relationship-text.html`；
+5. 运行 `python3 tools/sync.py` 同步首页和 README，检查脚本输出后提交推送。
+
+修改 Markdown 后，重新运行 `python3 tools/render_readers.py`。使用 `python3 tools/render_readers.py --check` 可以检查生成的阅读页是否与源文件一致。
 """
 
 

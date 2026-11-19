@@ -258,7 +258,7 @@
     <div class="hero-actions">
       <button class="hero-cta" id="heroFs" aria-label="全屏看关系图"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>全屏看关系图</button>
       <a class="hero-ic" href="assets/relationship-2048.webp" download="末日地堡-人物关系图-长图.webp" aria-label="下载关系图长图" title="下载长图"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 11l5 5 5-5M4.5 20h15"/></svg></a>
-      <button class="hero-ic" id="heroText" aria-label="下载文字版" title="下载文字版"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 5h14M5 10h14M5 15h9M5 20h9"/></svg></button>
+      <a class="hero-ic" href="silo-relationship-text.html" aria-label="文字版" title="文字版"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 5h14M5 10h14M5 15h9M5 20h9"/></svg></a>
     </div>
   </div>
 </header>
@@ -783,8 +783,6 @@ CAST.forEach(function(m){
 /* ---- Hero 按钮 ---- */
 var heroFs=document.getElementById("heroFs");
 if(heroFs && fsBtn){ heroFs.addEventListener("click",function(){ document.getElementById("graph-sec").scrollIntoView({behavior:"smooth"}); setTimeout(function(){ if(!isGraphFS()) fsBtn.click(); },350); }); }
-var heroText=document.getElementById("heroText");
-if(heroText){ heroText.addEventListener("click",function(){ document.getElementById("dlBtn").click(); }); }
 
 /* 初始选中朱丽叶 */
 selectChar("juliette",false);
