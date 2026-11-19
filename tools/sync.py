@@ -58,6 +58,9 @@ def check_files(shows):
         ]:
             if not (ROOT / rel).exists():
                 missing.append(rel)
+        text_html = s.get("text_html_file")
+        if text_html and not (ROOT / f"archive/{s['id']}/{text_html}").is_file():
+            missing.append(f"archive/{s['id']}/{text_html}")
         quiz = s.get("quiz")
         if quiz and not (ROOT / f"archive/{s['id']}/{quiz['file']}").exists():
             missing.append(f"archive/{s['id']}/{quiz['file']}")
@@ -76,7 +79,7 @@ def render_cards(shows):
         poster = f'<img src="{cover}" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low">'
         chart = archive_url(show, show["html_file"])
         long_image = archive_url(show, show["png_file"])
-        text = archive_url(show, show["text_file"])
+        text = archive_url(show, show.get("text_html_file", show["text_file"]))
         status = escape(show.get("status", "已完结"))
         genres = show.get("genres", [])
         tags = " · ".join(escape(genre) for genre in genres)

@@ -186,6 +186,51 @@ button { cursor: pointer; }
 .footer { padding-block: 15px 28px; border-top: 1px solid var(--line); color: var(--muted); font-size: .78rem; }
 .footer p + p { margin-top: 5px; }
 
+.text-reader { max-width: 960px; padding-block: clamp(24px, 5vw, 64px); }
+.text-header h1 {
+  font-size: clamp(1.85rem, 4vw, 3.15rem);
+  line-height: 1.2;
+  letter-spacing: -.04em;
+}
+.text-header h1 span { display: inline-block; }
+.text-header blockquote {
+  margin: 15px 0 0;
+  padding: 10px 14px;
+  border-left: 2px solid var(--warm);
+  background: var(--panel);
+  color: var(--muted);
+}
+.text-toc {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 18px;
+  margin-block: 22px;
+  border-block: 1px solid var(--line);
+  color: var(--accent);
+}
+.text-toc a { display: inline-flex; align-items: center; min-height: 44px; font-size: .87rem; text-decoration: none; }
+.text-toc a:hover { text-decoration: underline; }
+.text-content { color: #d3dcdf; }
+.text-content h2, .text-content h3, .text-content strong { color: var(--ink); }
+.text-content h2 { margin: 32px 0 10px; font-size: clamp(1.35rem, 2.7vw, 1.85rem); scroll-margin-top: 16px; }
+.text-content h3 { margin: 20px 0 8px; font-size: 1.04rem; }
+.text-content p + p { margin-top: 8px; }
+.text-content a { color: var(--accent); text-underline-offset: 3px; }
+.text-content ul { padding-left: 1.25em; }
+.text-content li + li { margin-top: 7px; }
+.text-content table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: .86rem; }
+.text-content th, .text-content td {
+  padding: clamp(4px, 1.2vw, 10px);
+  border: 1px solid var(--line);
+  overflow-wrap: anywhere;
+  text-align: left;
+  vertical-align: top;
+}
+.text-content th { background: var(--panel-raised); color: var(--ink); }
+.text-content th:nth-child(1) { width: 31%; }
+.text-content th:nth-child(2) { width: 23%; }
+.text-content th:nth-child(3) { width: 15%; }
+
 @media (max-width: 850px) {
   .identity-guide { grid-template-columns: 1fr; }
   .detail { max-height: 66vh; }
@@ -206,6 +251,7 @@ button { cursor: pointer; }
 }
 
 @media (max-width: 480px) {
+  .text-header h1 span { display: block; }
   .season-filters button { padding-inline: 10px; }
   .map .graph-character text { font-size: 13.5px; }
   .roster { grid-template-columns: repeat(2, minmax(0, 1fr)); }
