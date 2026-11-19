@@ -50,6 +50,7 @@
   .btn-icon:hover{border-color:#fff}
   @media(max-width:560px){
     .hero-full{min-height:62vh}
+    .hero-bg{background-position:left center}
     .hero-title{font-size:38px}
     .hero-title .hero-sub{display:block;margin:6px 0 0;font-size:17px}
     .hero-inner{padding-bottom:24px}
@@ -246,7 +247,15 @@
 </head>
 <body class="hide-spoiler">
 <nav class="archive-nav" aria-label="观影日志导航">
-  <a href="../../#catalog">← 返回剧集目录</a>
+  <div class="archive-nav-inner">
+    <a class="archive-brand" href="../../" aria-label="观影日志首页">
+      <img src="../../favicon.svg" width="32" height="32" alt="">
+      <span lang="en">Cinema Log</span>
+    </a>
+    <div class="archive-nav-links">
+      <a href="../../#catalog"><span aria-hidden="true">←</span> 剧集目录</a>
+    </div>
+  </div>
 </nav>
 
 <header class="hero-full">

@@ -173,6 +173,7 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-si
 @media (max-width:760px){
   .textver .tree{white-space:pre-wrap;word-break:break-all;font-size:12.5px}
   .hero-full{height:62vh;min-height:400px}
+  .hero-full .backdrop{object-position:94% 28%}
   .hero-inner{padding:0 16px 24px}
   h1{font-size:32px}
   .hero-meta{font-size:13px}
@@ -202,7 +203,15 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding-top:16px;font-si
 </head>
 <body>
 <nav class="archive-nav" aria-label="观影日志导航">
-  <a href="../../#catalog">← 返回剧集目录</a>
+  <div class="archive-nav-inner">
+    <a class="archive-brand" href="../../" aria-label="观影日志首页">
+      <img src="../../favicon.svg" width="32" height="32" alt="">
+      <span lang="en">Cinema Log</span>
+    </a>
+    <div class="archive-nav-links">
+      <a href="../../#catalog"><span aria-hidden="true">←</span> 剧集目录</a>
+    </div>
+  </div>
 </nav>
 <header class="hero-full">
   <img class="backdrop" src="assets/backdrop.jpg" alt="《黑帮领地》MobLand 官方主视觉：哈里、康拉德与梅芙三人立于庄园草地前">

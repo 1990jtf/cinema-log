@@ -52,6 +52,8 @@
       .btn-ico svg{width:18px;height:18px}
       @media (max-width:720px){
         .hero{min-height:62vh}
+        .hero-bg{object-position:82% 30%}
+        .hero-shade{background:linear-gradient(180deg,transparent 12%,#0b0b0dd6 68%,#0b0b0d 100%)}
         .hero h1{font-size:40px}
         .hero-inner{padding-top:96px;padding-bottom:26px}
       }
@@ -178,7 +180,15 @@
   </head>
   <body>
 <nav class="archive-nav" aria-label="观影日志导航">
-  <a href="../../#catalog">← 返回剧集目录</a>
+  <div class="archive-nav-inner">
+    <a class="archive-brand" href="../../" aria-label="观影日志首页">
+      <img src="../../favicon.svg" width="32" height="32" alt="">
+      <span lang="en">Cinema Log</span>
+    </a>
+    <div class="archive-nav-links">
+      <a href="../../#catalog"><span aria-hidden="true">←</span> 剧集目录</a>
+    </div>
+  </div>
 </nav>
 <header class="hero">
       <img class="hero-bg" src="assets/backdrop.jpg" alt="《黑钱胜地》官方主视觉：Marty 与 Wendy 站在湖边别墅前" />

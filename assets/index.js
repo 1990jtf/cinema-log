@@ -6,6 +6,27 @@ const controls = [search, platform, genre, status];
 const columns = document.getElementById('columns');
 const results = document.getElementById('results');
 const empty = document.getElementById('empty');
+const panels = document.getElementById('spotlight-panels');
+const picker = document.getElementById('spotlight-picker');
+const spotlightButtons = [...picker.querySelectorAll('[data-spotlight]')];
+let activeSpotlight = spotlightButtons[0];
+
+for (const button of spotlightButtons) {
+  button.addEventListener('click', () => {
+    if (button === activeSpotlight) return;
+
+    const id = button.dataset.spotlight;
+    const template = panels.querySelector(`template[data-panel="${id}"]`);
+    if (template) template.replaceWith(template.content);
+
+    document.getElementById(activeSpotlight.dataset.spotlight).hidden = true;
+    document.getElementById(id).hidden = false;
+    activeSpotlight.setAttribute('aria-pressed', 'false');
+    button.setAttribute('aria-pressed', 'true');
+    activeSpotlight = button;
+  });
+}
+picker.hidden = spotlightButtons.length < 2;
 
 function normalize(text) {
   return text.normalize('NFKC').toLowerCase().trim();
@@ -74,6 +95,13 @@ document.getElementById('reset').addEventListener('click', () => {
 window.addEventListener('popstate', restoreFilters);
 restoreFilters();
 filters.hidden = false;
+
+document.querySelector('.jump-search').addEventListener('click', event => {
+  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  event.preventDefault();
+  document.getElementById('catalog').scrollIntoView();
+  search.focus({preventScroll: true});
+});
 
 try {
   const saved = localStorage.getItem('cinema-log-cols');

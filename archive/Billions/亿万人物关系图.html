@@ -44,7 +44,12 @@
       .btn-icon{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;min-height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.45);background:rgba(0,0,0,.35);color:#fff;cursor:pointer;text-decoration:none;padding:0}
       .btn-icon svg{width:18px;height:18px}
       .btn-icon:hover{border-color:var(--gold);color:var(--gold)}
-      @media (max-width:720px){.hero h1{font-size:40px}.hero{min-height:62vh}}
+      @media (max-width:720px){
+        .hero h1{font-size:40px}
+        .hero{min-height:62vh}
+        .hero .backdrop{object-position:12% 30%}
+        .hero .shade{background:linear-gradient(180deg,transparent 12%,#0b0b0dd6 68%,#0b0b0d 100%)}
+      }
 
       /* 主演横滑 */
       section.cast{margin-top:48px}
@@ -161,7 +166,15 @@
   </head>
   <body>
 <nav class="archive-nav" aria-label="观影日志导航">
-  <a href="../../#catalog">← 返回剧集目录</a>
+  <div class="archive-nav-inner">
+    <a class="archive-brand" href="../../" aria-label="观影日志首页">
+      <img src="../../favicon.svg" width="32" height="32" alt="">
+      <span lang="en">Cinema Log</span>
+    </a>
+    <div class="archive-nav-links">
+      <a href="../../#catalog"><span aria-hidden="true">←</span> 剧集目录</a>
+    </div>
+  </div>
 </nav>
     <header class="hero">
       <img class="backdrop" src="assets/backdrop.jpg" alt="《亿万》第一季主视觉：Axe、Chuck、Wendy、Taylor 站在顶层公寓落地窗前，背后是夜晚的曼哈顿天际线" />

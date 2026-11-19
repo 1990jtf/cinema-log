@@ -3,75 +3,179 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#111319">
+  <meta name="theme-color" content="#0b0c0f">
   <meta name="description" content="浏览观影日志收藏的剧集，查找可交互的人物关系图、高清长图和文字资料。">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/index.css?v=e5ed1f3d1f91">
-  <script src="assets/index.js?v=ef01376c3022" defer></script>
+  <link rel="stylesheet" href="assets/index.css?v=502647ab2358">
+  <script src="assets/index.js?v=809efc47fe13" defer></script>
   <title>观影日志 · Cinema Log</title>
 </head>
 <body>
-  <header class="masthead wrap">
-    <a class="brand" href="./">
-      <img src="favicon.svg" width="32" height="32" alt="">
-      <span lang="en">Cinema Log</span>
-    </a>
-    <nav aria-label="主导航">
-      <a href="#catalog">剧集目录</a>
-      <a href="https://github.com/1990jtf/cinema-log">GitHub <span aria-hidden="true">↗</span></a>
-    </nav>
+  <header class="masthead">
+    <div class="masthead-inner wrap">
+      <a class="brand" href="./">
+        <img src="favicon.svg" width="34" height="34" alt="">
+        <span lang="en">Cinema Log</span>
+        <span class="brand-subtitle">观影日志</span>
+      </a>
+      <nav aria-label="主导航">
+        <a href="#catalog">剧集目录</a>
+        <a class="jump-search" href="#catalog" aria-label="搜索剧集">
+          <span class="search-icon" aria-hidden="true"></span>
+          <span class="jump-search-label">搜索</span>
+        </a>
+      </nav>
+    </div>
   </header>
 
-  <main class="wrap">
-    <section class="hero" aria-labelledby="page-title">
-      <picture class="hero-media">
-        <source media="(max-width: 680px)" srcset="archive/Silo/assets/backdrop-mobile.webp">
-        <img class="hero-image" src="archive/Silo/assets/backdrop.jpg" alt="" fetchpriority="high">
-      </picture>
-      <div class="hero-copy">
-        <h1 id="page-title">观影日志</h1>
-        <p>剧集里的人物、阵营与关系。<br>收录可交互的关系图、高清长图和文字版。</p>
-        <a class="hero-button" href="#catalog">浏览剧集 <span aria-hidden="true">↓</span></a>
+  <main>
+    <h1 class="sr-only">观影日志</h1>
+    <section class="hero" aria-label="焦点剧集">
+      <div id="spotlight-panels">
+        <div class="hero-panel" id="spotlight-0">
+          <picture class="hero-media">
+            <source media="(max-width: 700px)" srcset="archive/Silo/assets/backdrop-mobile.webp">
+              <img class="hero-image" src="archive/Silo/assets/backdrop.jpg" alt="" fetchpriority="high">
+          </picture>
+          <div class="hero-content wrap">
+            <div class="hero-copy">
+              <p class="hero-kicker">最近收录</p>
+              <h2>末日地堡</h2>
+              <p class="hero-en" lang="en">Silo</p>
+              <div class="hero-meta">
+                <span class="hero-platform">Apple TV+</span>
+                <span>2023–</span>
+                <span>已播 3 季</span>
+                <span class="hero-rating" role="img" aria-label="第一季豆瓣评分 7.8"><span aria-hidden="true">★</span> 7.8</span>
+              </div>
+              <p class="hero-description">上万人生活在深埋地下的地堡里。机械工朱丽叶追查一起命案，逐渐发现地堡的规则背后藏着秘密。</p>
+              <div class="hero-actions">
+                <a class="hero-button" href="archive/Silo/%E6%9C%AB%E6%97%A5%E5%9C%B0%E5%A0%A1%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">查看人物关系图 <span aria-hidden="true">↗</span></a>
+                <a class="hero-button secondary" href="#catalog">浏览剧集 <span aria-hidden="true">↓</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <template data-panel="spotlight-1">
+        <div class="hero-panel" id="spotlight-1">
+          <picture class="hero-media" style="--art-preview: url(archive/Succession/assets/spotlight.webp)">
+            <img class="hero-image" src="archive/Succession/assets/backdrop.jpg" alt="">
+          </picture>
+          <div class="hero-content wrap">
+            <div class="hero-copy">
+              <p class="hero-kicker">焦点剧集</p>
+              <h2>继承之战</h2>
+              <p class="hero-en" lang="en">Succession</p>
+              <div class="hero-meta">
+                <span class="hero-platform">HBO</span>
+                <span>2018–2023</span>
+                <span>4 季</span>
+                <span class="hero-rating" role="img" aria-label="第一季豆瓣评分 8.4"><span aria-hidden="true">★</span> 8.4</span>
+              </div>
+              <p class="hero-description">传媒帝国 Roy 家族的继承权争夺，权力的游戏没有赢家。</p>
+              <div class="hero-actions">
+                <a class="hero-button" href="archive/Succession/%E7%BB%A7%E6%89%BF%E4%B9%8B%E6%88%98%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">查看人物关系图 <span aria-hidden="true">↗</span></a>
+                <a class="hero-button secondary" href="#catalog">浏览剧集 <span aria-hidden="true">↓</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        </template>
+        <template data-panel="spotlight-2">
+        <div class="hero-panel" id="spotlight-2">
+          <picture class="hero-media" style="--art-preview: url(archive/Mandalorian/assets/spotlight.webp)">
+            <img class="hero-image" src="archive/Mandalorian/assets/backdrop.jpg" alt="">
+          </picture>
+          <div class="hero-content wrap">
+            <div class="hero-copy">
+              <p class="hero-kicker">焦点剧集</p>
+              <h2>曼达洛人</h2>
+              <p class="hero-en" lang="en">The Mandalorian</p>
+              <div class="hero-meta">
+                <span class="hero-platform">Disney+</span>
+                <span>2019–2023</span>
+                <span>3 季</span>
+                <span class="hero-rating" role="img" aria-label="第一季豆瓣评分 9.2"><span aria-hidden="true">★</span> 9.2</span>
+              </div>
+              <p class="hero-description">赏金猎人与一个孩子的旅程，信条即道路。</p>
+              <div class="hero-actions">
+                <a class="hero-button" href="archive/Mandalorian/%E6%9B%BC%E8%BE%BE%E6%B4%9B%E4%BA%BA%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">查看人物关系图 <span aria-hidden="true">↗</span></a>
+                <a class="hero-button secondary" href="#catalog">浏览剧集 <span aria-hidden="true">↓</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        </template>
+        <template data-panel="spotlight-3">
+        <div class="hero-panel" id="spotlight-3">
+          <picture class="hero-media" style="--art-preview: url(archive/Pantheon/assets/spotlight.webp)">
+            <img class="hero-image" src="archive/Pantheon/assets/backdrop.jpg" alt="">
+          </picture>
+          <div class="hero-content wrap">
+            <div class="hero-copy">
+              <p class="hero-kicker">焦点剧集</p>
+              <h2>万神殿</h2>
+              <p class="hero-en" lang="en">Pantheon</p>
+              <div class="hero-meta">
+                <span class="hero-platform">AMC</span>
+                <span>2022–2023</span>
+                <span>2 季</span>
+                <span class="hero-rating" role="img" aria-label="第一季豆瓣评分 8.8"><span aria-hidden="true">★</span> 8.8</span>
+              </div>
+              <p class="hero-description">意识上传成 AI 之后，人还是人吗？</p>
+              <div class="hero-actions">
+                <a class="hero-button" href="archive/Pantheon/%E4%B8%87%E7%A5%9E%E6%AE%BF%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">查看人物关系图 <span aria-hidden="true">↗</span></a>
+                <a class="hero-button secondary" href="#catalog">浏览剧集 <span aria-hidden="true">↓</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        </template>
+      </div>
+      <div class="hero-lower wrap">
         <dl class="stats">
           <div><dt>收录剧集</dt><dd>12</dd></div>
           <div><dt>剧中人物</dt><dd>287</dd></div>
           <div><dt>年份跨度</dt><dd>2011–2026</dd></div>
         </dl>
+        <div class="spotlight" id="spotlight-picker" hidden>
+          <p id="spotlight-label">切换焦点剧集</p>
+          <div class="spotlight-picker" role="group" aria-labelledby="spotlight-label">
+            <button type="button" data-spotlight="spotlight-0" aria-pressed="true">
+              <img src="archive/Silo/assets/spotlight.webp" width="168" height="94" alt="" loading="lazy" decoding="async" fetchpriority="low">
+              <span>末日地堡</span>
+            </button>
+            <button type="button" data-spotlight="spotlight-1" aria-pressed="false">
+              <img src="archive/Succession/assets/spotlight.webp" width="168" height="94" alt="" loading="lazy" decoding="async" fetchpriority="low">
+              <span>继承之战</span>
+            </button>
+            <button type="button" data-spotlight="spotlight-2" aria-pressed="false">
+              <img src="archive/Mandalorian/assets/spotlight.webp" width="168" height="94" alt="" loading="lazy" decoding="async" fetchpriority="low">
+              <span>曼达洛人</span>
+            </button>
+            <button type="button" data-spotlight="spotlight-3" aria-pressed="false">
+              <img src="archive/Pantheon/assets/spotlight.webp" width="168" height="94" alt="" loading="lazy" decoding="async" fetchpriority="low">
+              <span>万神殿</span>
+            </button>
+          </div>
+        </div>
       </div>
-      <a class="featured" href="archive/Silo/%E6%9C%AB%E6%97%A5%E5%9C%B0%E5%A0%A1%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">
-        <span>
-          <span class="featured-label">最近收录</span>
-          <strong>末日地堡</strong> <span class="featured-en" lang="en">Silo</span>
-        </span>
-        <span class="featured-arrow" aria-hidden="true">↗</span>
-      </a>
     </section>
 
-    <section class="catalog" id="catalog" aria-labelledby="catalog-title">
+    <section class="catalog wrap" id="catalog" aria-labelledby="catalog-title">
       <header class="catalog-heading">
-        <div>
-          <h2 id="catalog-title">剧集目录</h2>
-          <p class="results" id="results" role="status">共 12 部剧集</p>
-        </div>
-        <label class="layout" id="layout" hidden>
-          <span>每行</span>
-          <select id="columns">
-            <option value="auto">自动</option>
-            <option value="2">2 列</option>
-            <option value="3">3 列</option>
-            <option value="4">4 列</option>
-            <option value="5">5 列</option>
-          </select>
-        </label>
+        <h2 id="catalog-title">剧集目录</h2>
+        <p class="results" id="results" role="status">共 12 部剧集</p>
       </header>
 
-      <form class="toolbar" id="filters" aria-label="筛选剧集" hidden>
-        <label class="search">
-          <span class="search-icon" aria-hidden="true"></span>
-          <input id="q" name="q" type="search" placeholder="搜索中文或英文剧名" aria-label="搜索剧名" autocomplete="off">
-        </label>
-        <select name="platform" aria-label="播出平台">
-          <option value="">全部平台</option>
+      <div class="catalog-controls">
+        <form class="toolbar" id="filters" aria-label="筛选剧集" hidden>
+          <label class="search">
+            <span class="search-icon" aria-hidden="true"></span>
+            <input id="q" name="q" type="search" placeholder="搜索中文或英文剧名" aria-label="搜索剧名" autocomplete="off">
+          </label>
+          <select name="platform" aria-label="播出平台">
+            <option value="">全部平台</option>
           <option value="HBO">HBO</option>
           <option value="Netflix">Netflix</option>
           <option value="Disney+">Disney+</option>
@@ -80,9 +184,9 @@
           <option value="Showtime">Showtime</option>
           <option value="腾讯视频">腾讯视频</option>
           <option value="Paramount+">Paramount+</option>
-        </select>
-        <select name="genre" aria-label="剧集类型">
-          <option value="">全部类型</option>
+          </select>
+          <select name="genre" aria-label="剧集类型">
+            <option value="">全部类型</option>
           <option value="剧情">剧情</option>
           <option value="喜剧">喜剧</option>
           <option value="科幻">科幻</option>
@@ -94,267 +198,279 @@
           <option value="冒险">冒险</option>
           <option value="动作">动作</option>
           <option value="悬疑">悬疑</option>
-        </select>
-        <select name="status" aria-label="追更状态">
-          <option value="">全部状态</option>
+          </select>
+          <select name="status" aria-label="追更状态">
+            <option value="">全部状态</option>
           <option value="已完结">已完结</option>
           <option value="追更中">追更中</option>
-        </select>
-      </form>
+          </select>
+        </form>
+        <label class="layout" id="layout" hidden>
+          <span class="layout-icon" aria-hidden="true"></span>
+          <span class="sr-only">每行列数</span>
+          <select id="columns">
+            <option value="auto">自动列数</option>
+            <option value="2">2 列</option>
+            <option value="3">3 列</option>
+            <option value="4">4 列</option>
+            <option value="5">5 列</option>
+          </select>
+        </label>
+      </div>
 
       <div class="grid" id="grid">
-    <article class="card" data-title="继承之战 Succession" data-platform="HBO" data-genres="[&quot;剧情&quot;]" data-status="已完结">
-      <a class="poster" href="archive/Succession/%E7%BB%A7%E6%89%BF%E4%B9%8B%E6%88%98%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《继承之战》人物关系图">
-        <template><img src="cover/succession.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
-        <noscript><img src="cover/succession.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
-        <span class="rating" aria-label="第一季豆瓣评分 8.4"><span aria-hidden="true">★</span> 8.4</span>
-      </a>
-      <div class="card-body">
-        <p class="card-meta"><span>HBO</span><span>2018–2023</span><span>4 季</span></p>
-        <h3>继承之战</h3>
-        <p class="english-title" lang="en">Succession</p>
-        <p class="description">传媒帝国 Roy 家族的继承权争夺，权力的游戏没有赢家。</p>
-        <p class="card-details"><span>剧情</span><span>23 位人物</span></p>
-        <p class="status">已完结</p>
-        <div class="card-links" aria-label="《继承之战》资料">
-          <a class="chart-link" href="archive/Succession/%E7%BB%A7%E6%89%BF%E4%B9%8B%E6%88%98%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
-          <a href="archive/Succession/succession-relationship.png">长图</a>
-          <a href="archive/Succession/succession-relationship-text.md">文字版</a>
-        </div>
-      </div>
-    </article>
+        <article class="card" data-title="继承之战 Succession" data-platform="HBO" data-genres="[&quot;剧情&quot;]" data-status="已完结">
+          <a class="poster" href="archive/Succession/%E7%BB%A7%E6%89%BF%E4%B9%8B%E6%88%98%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《继承之战》人物关系图">
+            <template><img src="cover/succession.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
+            <noscript><img src="cover/succession.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
+            <span class="poster-platform">HBO</span>
+            <span class="rating" aria-label="第一季豆瓣评分 8.4"><span aria-hidden="true">★</span> 8.4</span>
+          </a>
+          <div class="card-body">
+            <h3>继承之战</h3>
+            <p class="english-title" lang="en">Succession</p>
+            <p class="card-meta"><span>2018–2023</span><span>4 季</span><span class="status">已完结</span></p>
+            <p class="description">传媒帝国 Roy 家族的继承权争夺，权力的游戏没有赢家。</p>
+            <p class="card-details"><span>剧情</span><span>23 位人物</span></p>
+            <div class="card-links" role="group" aria-label="《继承之战》资料">
+              <a class="chart-link" href="archive/Succession/%E7%BB%A7%E6%89%BF%E4%B9%8B%E6%88%98%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">关系图 <span aria-hidden="true">↗</span></a>
+              <a href="archive/Succession/succession-relationship.png">长图</a>
+              <a href="archive/Succession/succession-relationship-text.md">文字版</a>
+            </div>
+          </div>
+        </article>
 
-    <article class="card" data-title="万神殿 Pantheon" data-platform="AMC" data-genres="[&quot;剧情&quot;, &quot;动作&quot;, &quot;科幻&quot;, &quot;动画&quot;]" data-status="已完结">
-      <a class="poster" href="archive/Pantheon/%E4%B8%87%E7%A5%9E%E6%AE%BF%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《万神殿》人物关系图">
-        <template><img src="cover/pantheon.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
-        <noscript><img src="cover/pantheon.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
-        <span class="rating" aria-label="第一季豆瓣评分 8.8"><span aria-hidden="true">★</span> 8.8</span>
-      </a>
-      <div class="card-body">
-        <p class="card-meta"><span>AMC</span><span>2022–2023</span><span>2 季</span></p>
-        <h3>万神殿</h3>
-        <p class="english-title" lang="en">Pantheon</p>
-        <p class="description">意识上传成 AI 之后，人还是人吗？</p>
-        <p class="card-details"><span>剧情 · 动作 · 科幻 · 动画</span><span>23 位人物</span></p>
-        <p class="status">已完结</p>
-        <div class="card-links" aria-label="《万神殿》资料">
-          <a class="chart-link" href="archive/Pantheon/%E4%B8%87%E7%A5%9E%E6%AE%BF%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
-          <a href="archive/Pantheon/pantheon-relationship.png">长图</a>
-          <a href="archive/Pantheon/pantheon-relationship-text.md">文字版</a>
-        </div>
-      <a class="quiz-link" href="archive/Pantheon/%E4%B8%87%E7%A5%9E%E6%AE%BF%E9%80%89%E6%8B%A9%E9%A2%98%E6%B5%8B%E9%AA%8C.html">选择题测验 · 20 道 <span aria-hidden="true">↗</span></a>
-      </div>
-    </article>
+        <article class="card" data-title="万神殿 Pantheon" data-platform="AMC" data-genres="[&quot;剧情&quot;, &quot;动作&quot;, &quot;科幻&quot;, &quot;动画&quot;]" data-status="已完结">
+          <a class="poster" href="archive/Pantheon/%E4%B8%87%E7%A5%9E%E6%AE%BF%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《万神殿》人物关系图">
+            <template><img src="cover/pantheon.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
+            <noscript><img src="cover/pantheon.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
+            <span class="poster-platform">AMC</span>
+            <span class="rating" aria-label="第一季豆瓣评分 8.8"><span aria-hidden="true">★</span> 8.8</span>
+          </a>
+          <div class="card-body">
+            <h3>万神殿</h3>
+            <p class="english-title" lang="en">Pantheon</p>
+            <p class="card-meta"><span>2022–2023</span><span>2 季</span><span class="status">已完结</span></p>
+            <p class="description">意识上传成 AI 之后，人还是人吗？</p>
+            <p class="card-details"><span>剧情 · 动作 · 科幻 · 动画</span><span>23 位人物</span></p>
+            <div class="card-links" role="group" aria-label="《万神殿》资料">
+              <a class="chart-link" href="archive/Pantheon/%E4%B8%87%E7%A5%9E%E6%AE%BF%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">关系图 <span aria-hidden="true">↗</span></a>
+              <a href="archive/Pantheon/pantheon-relationship.png">长图</a>
+              <a href="archive/Pantheon/pantheon-relationship-text.md">文字版</a>
+              <a class="quiz-link" href="archive/Pantheon/%E4%B8%87%E7%A5%9E%E6%AE%BF%E9%80%89%E6%8B%A9%E9%A2%98%E6%B5%8B%E9%AA%8C.html">选择题测验 · 20 道 <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
 
-    <article class="card" data-title="权利的游戏 Game of Thrones" data-platform="HBO" data-genres="[&quot;剧情&quot;, &quot;奇幻&quot;, &quot;冒险&quot;]" data-status="已完结">
-      <a class="poster" href="archive/Game-of-Thrones/%E6%9D%83%E5%88%A9%E7%9A%84%E6%B8%B8%E6%88%8F%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《权利的游戏》人物关系图">
-        <template><img src="cover/game-of-thrones.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
-        <noscript><img src="cover/game-of-thrones.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
-        <span class="rating" aria-label="第一季豆瓣评分 9.5"><span aria-hidden="true">★</span> 9.5</span>
-      </a>
-      <div class="card-body">
-        <p class="card-meta"><span>HBO</span><span>2011–2019</span><span>8 季</span></p>
-        <h3>权利的游戏</h3>
-        <p class="english-title" lang="en">Game of Thrones</p>
-        <p class="description">七大家族争夺铁王座，凛冬将至。</p>
-        <p class="card-details"><span>剧情 · 奇幻 · 冒险</span><span>27 位人物</span></p>
-        <p class="status">已完结</p>
-        <div class="card-links" aria-label="《权利的游戏》资料">
-          <a class="chart-link" href="archive/Game-of-Thrones/%E6%9D%83%E5%88%A9%E7%9A%84%E6%B8%B8%E6%88%8F%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
-          <a href="archive/Game-of-Thrones/game-of-thrones-relationship.png">长图</a>
-          <a href="archive/Game-of-Thrones/game-of-thrones-relationship-text.md">文字版</a>
-        </div>
-      </div>
-    </article>
+        <article class="card" data-title="权利的游戏 Game of Thrones" data-platform="HBO" data-genres="[&quot;剧情&quot;, &quot;奇幻&quot;, &quot;冒险&quot;]" data-status="已完结">
+          <a class="poster" href="archive/Game-of-Thrones/%E6%9D%83%E5%88%A9%E7%9A%84%E6%B8%B8%E6%88%8F%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《权利的游戏》人物关系图">
+            <template><img src="cover/game-of-thrones.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
+            <noscript><img src="cover/game-of-thrones.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
+            <span class="poster-platform">HBO</span>
+            <span class="rating" aria-label="第一季豆瓣评分 9.5"><span aria-hidden="true">★</span> 9.5</span>
+          </a>
+          <div class="card-body">
+            <h3>权利的游戏</h3>
+            <p class="english-title" lang="en">Game of Thrones</p>
+            <p class="card-meta"><span>2011–2019</span><span>8 季</span><span class="status">已完结</span></p>
+            <p class="description">七大家族争夺铁王座，凛冬将至。</p>
+            <p class="card-details"><span>剧情 · 奇幻 · 冒险</span><span>27 位人物</span></p>
+            <div class="card-links" role="group" aria-label="《权利的游戏》资料">
+              <a class="chart-link" href="archive/Game-of-Thrones/%E6%9D%83%E5%88%A9%E7%9A%84%E6%B8%B8%E6%88%8F%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">关系图 <span aria-hidden="true">↗</span></a>
+              <a href="archive/Game-of-Thrones/game-of-thrones-relationship.png">长图</a>
+              <a href="archive/Game-of-Thrones/game-of-thrones-relationship-text.md">文字版</a>
+            </div>
+          </div>
+        </article>
 
-    <article class="card" data-title="硅谷 Silicon Valley" data-platform="HBO" data-genres="[&quot;喜剧&quot;]" data-status="已完结">
-      <a class="poster" href="archive/Silicon-Valley/%E7%A1%85%E8%B0%B7%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《硅谷》人物关系图">
-        <template><img src="cover/silicon-valley.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
-        <noscript><img src="cover/silicon-valley.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
-        <span class="rating" aria-label="第一季豆瓣评分 9.1"><span aria-hidden="true">★</span> 9.1</span>
-      </a>
-      <div class="card-body">
-        <p class="card-meta"><span>HBO</span><span>2014–2019</span><span>6 季</span></p>
-        <h3>硅谷</h3>
-        <p class="english-title" lang="en">Silicon Valley</p>
-        <p class="description">Pied Piper 创业团队的荒诞创业路。</p>
-        <p class="card-details"><span>喜剧</span><span>20 位人物</span></p>
-        <p class="status">已完结</p>
-        <div class="card-links" aria-label="《硅谷》资料">
-          <a class="chart-link" href="archive/Silicon-Valley/%E7%A1%85%E8%B0%B7%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
-          <a href="archive/Silicon-Valley/silicon-valley-relationship.png">长图</a>
-          <a href="archive/Silicon-Valley/silicon-valley-relationship-text.md">文字版</a>
-        </div>
-      </div>
-    </article>
+        <article class="card" data-title="硅谷 Silicon Valley" data-platform="HBO" data-genres="[&quot;喜剧&quot;]" data-status="已完结">
+          <a class="poster" href="archive/Silicon-Valley/%E7%A1%85%E8%B0%B7%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《硅谷》人物关系图">
+            <template><img src="cover/silicon-valley.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
+            <noscript><img src="cover/silicon-valley.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
+            <span class="poster-platform">HBO</span>
+            <span class="rating" aria-label="第一季豆瓣评分 9.1"><span aria-hidden="true">★</span> 9.1</span>
+          </a>
+          <div class="card-body">
+            <h3>硅谷</h3>
+            <p class="english-title" lang="en">Silicon Valley</p>
+            <p class="card-meta"><span>2014–2019</span><span>6 季</span><span class="status">已完结</span></p>
+            <p class="description">Pied Piper 创业团队的荒诞创业路。</p>
+            <p class="card-details"><span>喜剧</span><span>20 位人物</span></p>
+            <div class="card-links" role="group" aria-label="《硅谷》资料">
+              <a class="chart-link" href="archive/Silicon-Valley/%E7%A1%85%E8%B0%B7%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">关系图 <span aria-hidden="true">↗</span></a>
+              <a href="archive/Silicon-Valley/silicon-valley-relationship.png">长图</a>
+              <a href="archive/Silicon-Valley/silicon-valley-relationship-text.md">文字版</a>
+            </div>
+          </div>
+        </article>
 
-    <article class="card" data-title="纸牌屋 House of Cards" data-platform="Netflix" data-genres="[&quot;剧情&quot;, &quot;惊悚&quot;]" data-status="已完结">
-      <a class="poster" href="archive/House-of-Cards/%E7%BA%B8%E7%89%8C%E5%B1%8B%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《纸牌屋》人物关系图">
-        <template><img src="cover/house-of-cards.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
-        <noscript><img src="cover/house-of-cards.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
-        <span class="rating" aria-label="第一季豆瓣评分 9.3"><span aria-hidden="true">★</span> 9.3</span>
-      </a>
-      <div class="card-body">
-        <p class="card-meta"><span>Netflix</span><span>2013–2018</span><span>6 季</span></p>
-        <h3>纸牌屋</h3>
-        <p class="english-title" lang="en">House of Cards</p>
-        <p class="description">Frank 与 Claire 的夺权之路，一切为了权力。</p>
-        <p class="card-details"><span>剧情 · 惊悚</span><span>26 位人物</span></p>
-        <p class="status">已完结</p>
-        <div class="card-links" aria-label="《纸牌屋》资料">
-          <a class="chart-link" href="archive/House-of-Cards/%E7%BA%B8%E7%89%8C%E5%B1%8B%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
-          <a href="archive/House-of-Cards/house-of-cards-relationship.png">长图</a>
-          <a href="archive/House-of-Cards/house-of-cards-relationship-text.md">文字版</a>
-        </div>
-      </div>
-    </article>
+        <article class="card" data-title="纸牌屋 House of Cards" data-platform="Netflix" data-genres="[&quot;剧情&quot;, &quot;惊悚&quot;]" data-status="已完结">
+          <a class="poster" href="archive/House-of-Cards/%E7%BA%B8%E7%89%8C%E5%B1%8B%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《纸牌屋》人物关系图">
+            <template><img src="cover/house-of-cards.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
+            <noscript><img src="cover/house-of-cards.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
+            <span class="poster-platform">Netflix</span>
+            <span class="rating" aria-label="第一季豆瓣评分 9.3"><span aria-hidden="true">★</span> 9.3</span>
+          </a>
+          <div class="card-body">
+            <h3>纸牌屋</h3>
+            <p class="english-title" lang="en">House of Cards</p>
+            <p class="card-meta"><span>2013–2018</span><span>6 季</span><span class="status">已完结</span></p>
+            <p class="description">Frank 与 Claire 的夺权之路，一切为了权力。</p>
+            <p class="card-details"><span>剧情 · 惊悚</span><span>26 位人物</span></p>
+            <div class="card-links" role="group" aria-label="《纸牌屋》资料">
+              <a class="chart-link" href="archive/House-of-Cards/%E7%BA%B8%E7%89%8C%E5%B1%8B%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">关系图 <span aria-hidden="true">↗</span></a>
+              <a href="archive/House-of-Cards/house-of-cards-relationship.png">长图</a>
+              <a href="archive/House-of-Cards/house-of-cards-relationship-text.md">文字版</a>
+            </div>
+          </div>
+        </article>
 
-    <article class="card" data-title="人生切割术 Severance" data-platform="Apple TV+" data-genres="[&quot;剧情&quot;, &quot;科幻&quot;, &quot;悬疑&quot;]" data-status="追更中">
-      <a class="poster" href="archive/Severance/%E4%BA%BA%E7%94%9F%E5%88%87%E5%89%B2%E6%9C%AF%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《人生切割术》人物关系图">
-        <template><img src="cover/severance.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
-        <noscript><img src="cover/severance.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
-        <span class="rating" aria-label="第一季豆瓣评分 9.1"><span aria-hidden="true">★</span> 9.1</span>
-      </a>
-      <div class="card-body">
-        <p class="card-meta"><span>Apple TV+</span><span>2022–</span><span>已播 2 季</span></p>
-        <h3>人生切割术</h3>
-        <p class="english-title" lang="en">Severance</p>
-        <p class="description">切割手术把人生劈成里外两个人。</p>
-        <p class="card-details"><span>剧情 · 科幻 · 悬疑</span><span>20 位人物</span></p>
-        <p class="status">追更中</p>
-        <div class="card-links" aria-label="《人生切割术》资料">
-          <a class="chart-link" href="archive/Severance/%E4%BA%BA%E7%94%9F%E5%88%87%E5%89%B2%E6%9C%AF%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
-          <a href="archive/Severance/severance-relationship.png">长图</a>
-          <a href="archive/Severance/severance-relationship-text.md">文字版</a>
-        </div>
-      </div>
-    </article>
+        <article class="card" data-title="人生切割术 Severance" data-platform="Apple TV+" data-genres="[&quot;剧情&quot;, &quot;科幻&quot;, &quot;悬疑&quot;]" data-status="追更中">
+          <a class="poster" href="archive/Severance/%E4%BA%BA%E7%94%9F%E5%88%87%E5%89%B2%E6%9C%AF%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《人生切割术》人物关系图">
+            <template><img src="cover/severance.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
+            <noscript><img src="cover/severance.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
+            <span class="poster-platform">Apple TV+</span>
+            <span class="rating" aria-label="第一季豆瓣评分 9.1"><span aria-hidden="true">★</span> 9.1</span>
+          </a>
+          <div class="card-body">
+            <h3>人生切割术</h3>
+            <p class="english-title" lang="en">Severance</p>
+            <p class="card-meta"><span>2022–</span><span>已播 2 季</span><span class="status">追更中</span></p>
+            <p class="description">切割手术把人生劈成里外两个人。</p>
+            <p class="card-details"><span>剧情 · 科幻 · 悬疑</span><span>20 位人物</span></p>
+            <div class="card-links" role="group" aria-label="《人生切割术》资料">
+              <a class="chart-link" href="archive/Severance/%E4%BA%BA%E7%94%9F%E5%88%87%E5%89%B2%E6%9C%AF%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">关系图 <span aria-hidden="true">↗</span></a>
+              <a href="archive/Severance/severance-relationship.png">长图</a>
+              <a href="archive/Severance/severance-relationship-text.md">文字版</a>
+            </div>
+          </div>
+        </article>
 
-    <article class="card" data-title="亿万 Billions" data-platform="Showtime" data-genres="[&quot;剧情&quot;]" data-status="已完结">
-      <a class="poster" href="archive/Billions/%E4%BA%BF%E4%B8%87%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《亿万》人物关系图">
-        <template><img src="cover/billions.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
-        <noscript><img src="cover/billions.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
-        <span class="rating" aria-label="第一季豆瓣评分 8.9"><span aria-hidden="true">★</span> 8.9</span>
-      </a>
-      <div class="card-body">
-        <p class="card-meta"><span>Showtime</span><span>2016–2023</span><span>7 季</span></p>
-        <h3>亿万</h3>
-        <p class="english-title" lang="en">Billions</p>
-        <p class="description">对冲基金大佬与联邦检察官的金钱战争，财富即战争。</p>
-        <p class="card-details"><span>剧情</span><span>22 位人物</span></p>
-        <p class="status">已完结</p>
-        <div class="card-links" aria-label="《亿万》资料">
-          <a class="chart-link" href="archive/Billions/%E4%BA%BF%E4%B8%87%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
-          <a href="archive/Billions/billions-relationship.png">长图</a>
-          <a href="archive/Billions/billions-relationship-text.md">文字版</a>
-        </div>
-      </div>
-    </article>
+        <article class="card" data-title="亿万 Billions" data-platform="Showtime" data-genres="[&quot;剧情&quot;]" data-status="已完结">
+          <a class="poster" href="archive/Billions/%E4%BA%BF%E4%B8%87%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《亿万》人物关系图">
+            <template><img src="cover/billions.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
+            <noscript><img src="cover/billions.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
+            <span class="poster-platform">Showtime</span>
+            <span class="rating" aria-label="第一季豆瓣评分 8.9"><span aria-hidden="true">★</span> 8.9</span>
+          </a>
+          <div class="card-body">
+            <h3>亿万</h3>
+            <p class="english-title" lang="en">Billions</p>
+            <p class="card-meta"><span>2016–2023</span><span>7 季</span><span class="status">已完结</span></p>
+            <p class="description">对冲基金大佬与联邦检察官的金钱战争，财富即战争。</p>
+            <p class="card-details"><span>剧情</span><span>22 位人物</span></p>
+            <div class="card-links" role="group" aria-label="《亿万》资料">
+              <a class="chart-link" href="archive/Billions/%E4%BA%BF%E4%B8%87%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">关系图 <span aria-hidden="true">↗</span></a>
+              <a href="archive/Billions/billions-relationship.png">长图</a>
+              <a href="archive/Billions/billions-relationship-text.md">文字版</a>
+            </div>
+          </div>
+        </article>
 
-    <article class="card" data-title="黑钱胜地 Ozark" data-platform="Netflix" data-genres="[&quot;剧情&quot;, &quot;惊悚&quot;, &quot;犯罪&quot;]" data-status="已完结">
-      <a class="poster" href="archive/Ozark/%E9%BB%91%E9%92%B1%E8%83%9C%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《黑钱胜地》人物关系图">
-        <template><img src="cover/ozark.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
-        <noscript><img src="cover/ozark.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
-        <span class="rating" aria-label="第一季豆瓣评分 8.4"><span aria-hidden="true">★</span> 8.4</span>
-      </a>
-      <div class="card-body">
-        <p class="card-meta"><span>Netflix</span><span>2017–2022</span><span>4 季</span></p>
-        <h3>黑钱胜地</h3>
-        <p class="english-title" lang="en">Ozark</p>
-        <p class="description">财务顾问为毒枭洗钱，一家人在湖畔小镇越陷越深。</p>
-        <p class="card-details"><span>剧情 · 惊悚 · 犯罪</span><span>21 位人物</span></p>
-        <p class="status">已完结</p>
-        <div class="card-links" aria-label="《黑钱胜地》资料">
-          <a class="chart-link" href="archive/Ozark/%E9%BB%91%E9%92%B1%E8%83%9C%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
-          <a href="archive/Ozark/ozark-relationship.png">长图</a>
-          <a href="archive/Ozark/ozark-relationship-text.md">文字版</a>
-        </div>
-      </div>
-    </article>
+        <article class="card" data-title="黑钱胜地 Ozark" data-platform="Netflix" data-genres="[&quot;剧情&quot;, &quot;惊悚&quot;, &quot;犯罪&quot;]" data-status="已完结">
+          <a class="poster" href="archive/Ozark/%E9%BB%91%E9%92%B1%E8%83%9C%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《黑钱胜地》人物关系图">
+            <template><img src="cover/ozark.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
+            <noscript><img src="cover/ozark.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
+            <span class="poster-platform">Netflix</span>
+            <span class="rating" aria-label="第一季豆瓣评分 8.4"><span aria-hidden="true">★</span> 8.4</span>
+          </a>
+          <div class="card-body">
+            <h3>黑钱胜地</h3>
+            <p class="english-title" lang="en">Ozark</p>
+            <p class="card-meta"><span>2017–2022</span><span>4 季</span><span class="status">已完结</span></p>
+            <p class="description">财务顾问为毒枭洗钱，一家人在湖畔小镇越陷越深。</p>
+            <p class="card-details"><span>剧情 · 惊悚 · 犯罪</span><span>21 位人物</span></p>
+            <div class="card-links" role="group" aria-label="《黑钱胜地》资料">
+              <a class="chart-link" href="archive/Ozark/%E9%BB%91%E9%92%B1%E8%83%9C%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">关系图 <span aria-hidden="true">↗</span></a>
+              <a href="archive/Ozark/ozark-relationship.png">长图</a>
+              <a href="archive/Ozark/ozark-relationship-text.md">文字版</a>
+            </div>
+          </div>
+        </article>
 
-    <article class="card" data-title="曼达洛人 The Mandalorian" data-platform="Disney+" data-genres="[&quot;科幻&quot;, &quot;奇幻&quot;]" data-status="已完结">
-      <a class="poster" href="archive/Mandalorian/%E6%9B%BC%E8%BE%BE%E6%B4%9B%E4%BA%BA%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《曼达洛人》人物关系图">
-        <template><img src="cover/mandalorian.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
-        <noscript><img src="cover/mandalorian.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
-        <span class="rating" aria-label="第一季豆瓣评分 9.2"><span aria-hidden="true">★</span> 9.2</span>
-      </a>
-      <div class="card-body">
-        <p class="card-meta"><span>Disney+</span><span>2019–2023</span><span>3 季</span></p>
-        <h3>曼达洛人</h3>
-        <p class="english-title" lang="en">The Mandalorian</p>
-        <p class="description">赏金猎人与一个孩子的旅程，信条即道路。</p>
-        <p class="card-details"><span>科幻 · 奇幻</span><span>20 位人物</span></p>
-        <p class="status">已完结</p>
-        <div class="card-links" aria-label="《曼达洛人》资料">
-          <a class="chart-link" href="archive/Mandalorian/%E6%9B%BC%E8%BE%BE%E6%B4%9B%E4%BA%BA%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
-          <a href="archive/Mandalorian/mandalorian-relationship.png">长图</a>
-          <a href="archive/Mandalorian/mandalorian-relationship-text.md">文字版</a>
-        </div>
-      </div>
-    </article>
+        <article class="card" data-title="曼达洛人 The Mandalorian" data-platform="Disney+" data-genres="[&quot;科幻&quot;, &quot;奇幻&quot;]" data-status="已完结">
+          <a class="poster" href="archive/Mandalorian/%E6%9B%BC%E8%BE%BE%E6%B4%9B%E4%BA%BA%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《曼达洛人》人物关系图">
+            <template><img src="cover/mandalorian.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
+            <noscript><img src="cover/mandalorian.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
+            <span class="poster-platform">Disney+</span>
+            <span class="rating" aria-label="第一季豆瓣评分 9.2"><span aria-hidden="true">★</span> 9.2</span>
+          </a>
+          <div class="card-body">
+            <h3>曼达洛人</h3>
+            <p class="english-title" lang="en">The Mandalorian</p>
+            <p class="card-meta"><span>2019–2023</span><span>3 季</span><span class="status">已完结</span></p>
+            <p class="description">赏金猎人与一个孩子的旅程，信条即道路。</p>
+            <p class="card-details"><span>科幻 · 奇幻</span><span>20 位人物</span></p>
+            <div class="card-links" role="group" aria-label="《曼达洛人》资料">
+              <a class="chart-link" href="archive/Mandalorian/%E6%9B%BC%E8%BE%BE%E6%B4%9B%E4%BA%BA%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">关系图 <span aria-hidden="true">↗</span></a>
+              <a href="archive/Mandalorian/mandalorian-relationship.png">长图</a>
+              <a href="archive/Mandalorian/mandalorian-relationship-text.md">文字版</a>
+            </div>
+          </div>
+        </article>
 
-    <article class="card" data-title="庆余年 Joy of Life" data-platform="腾讯视频" data-genres="[&quot;剧情&quot;, &quot;古装&quot;]" data-status="追更中">
-      <a class="poster" href="archive/Joy-of-Life/%E5%BA%86%E4%BD%99%E5%B9%B4%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《庆余年》人物关系图">
-        <template><img src="cover/joy-of-life.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
-        <noscript><img src="cover/joy-of-life.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
-        <span class="rating" aria-label="第一季豆瓣评分 7.9"><span aria-hidden="true">★</span> 7.9</span>
-      </a>
-      <div class="card-body">
-        <p class="card-meta"><span>腾讯视频</span><span>2019–2024</span><span>2 季</span></p>
-        <h3>庆余年</h3>
-        <p class="english-title" lang="en">Joy of Life</p>
-        <p class="description">范闲从儋州少年到京都权臣，查身世、斗权贵、揭开叶轻眉之死。</p>
-        <p class="card-details"><span>剧情 · 古装</span><span>22 位人物</span></p>
-        <p class="status">追更中</p>
-        <div class="card-links" aria-label="《庆余年》资料">
-          <a class="chart-link" href="archive/Joy-of-Life/%E5%BA%86%E4%BD%99%E5%B9%B4%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
-          <a href="archive/Joy-of-Life/joy-of-life-relationship.png">长图</a>
-          <a href="archive/Joy-of-Life/joy-of-life-relationship-text.md">文字版</a>
-        </div>
-      </div>
-    </article>
+        <article class="card" data-title="庆余年 Joy of Life" data-platform="腾讯视频" data-genres="[&quot;剧情&quot;, &quot;古装&quot;]" data-status="追更中">
+          <a class="poster" href="archive/Joy-of-Life/%E5%BA%86%E4%BD%99%E5%B9%B4%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《庆余年》人物关系图">
+            <template><img src="cover/joy-of-life.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
+            <noscript><img src="cover/joy-of-life.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
+            <span class="poster-platform">腾讯视频</span>
+            <span class="rating" aria-label="第一季豆瓣评分 7.9"><span aria-hidden="true">★</span> 7.9</span>
+          </a>
+          <div class="card-body">
+            <h3>庆余年</h3>
+            <p class="english-title" lang="en">Joy of Life</p>
+            <p class="card-meta"><span>2019–2024</span><span>2 季</span><span class="status">追更中</span></p>
+            <p class="description">范闲从儋州少年到京都权臣，查身世、斗权贵、揭开叶轻眉之死。</p>
+            <p class="card-details"><span>剧情 · 古装</span><span>22 位人物</span></p>
+            <div class="card-links" role="group" aria-label="《庆余年》资料">
+              <a class="chart-link" href="archive/Joy-of-Life/%E5%BA%86%E4%BD%99%E5%B9%B4%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">关系图 <span aria-hidden="true">↗</span></a>
+              <a href="archive/Joy-of-Life/joy-of-life-relationship.png">长图</a>
+              <a href="archive/Joy-of-Life/joy-of-life-relationship-text.md">文字版</a>
+            </div>
+          </div>
+        </article>
 
-    <article class="card" data-title="黑帮领地 MobLand" data-platform="Paramount+" data-genres="[&quot;剧情&quot;, &quot;犯罪&quot;]" data-status="追更中">
-      <a class="poster" href="archive/MobLand/%E9%BB%91%E5%B8%AE%E9%A2%86%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《黑帮领地》人物关系图">
-        <template><img src="cover/mobland.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
-        <noscript><img src="cover/mobland.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
-        <span class="rating" aria-label="第一季豆瓣评分 7.6"><span aria-hidden="true">★</span> 7.6</span>
-      </a>
-      <div class="card-body">
-        <p class="card-meta"><span>Paramount+</span><span>2025–</span><span>已播 1 季</span></p>
-        <h3>黑帮领地</h3>
-        <p class="english-title" lang="en">MobLand</p>
-        <p class="description">伦敦两大黑帮家族为芬太尼地盘开战，清道夫 Harry 在尸体与谎言之间替家族续命。</p>
-        <p class="card-details"><span>剧情 · 犯罪</span><span>25 位人物</span></p>
-        <p class="status">追更中</p>
-        <div class="card-links" aria-label="《黑帮领地》资料">
-          <a class="chart-link" href="archive/MobLand/%E9%BB%91%E5%B8%AE%E9%A2%86%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
-          <a href="archive/MobLand/mobland-relationship.png">长图</a>
-          <a href="archive/MobLand/mobland-relationship-text.md">文字版</a>
-        </div>
-      </div>
-    </article>
+        <article class="card" data-title="黑帮领地 MobLand" data-platform="Paramount+" data-genres="[&quot;剧情&quot;, &quot;犯罪&quot;]" data-status="追更中">
+          <a class="poster" href="archive/MobLand/%E9%BB%91%E5%B8%AE%E9%A2%86%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《黑帮领地》人物关系图">
+            <template><img src="cover/mobland.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
+            <noscript><img src="cover/mobland.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
+            <span class="poster-platform">Paramount+</span>
+            <span class="rating" aria-label="第一季豆瓣评分 7.6"><span aria-hidden="true">★</span> 7.6</span>
+          </a>
+          <div class="card-body">
+            <h3>黑帮领地</h3>
+            <p class="english-title" lang="en">MobLand</p>
+            <p class="card-meta"><span>2025–</span><span>已播 1 季</span><span class="status">追更中</span></p>
+            <p class="description">伦敦两大黑帮家族为芬太尼地盘开战，清道夫 Harry 在尸体与谎言之间替家族续命。</p>
+            <p class="card-details"><span>剧情 · 犯罪</span><span>25 位人物</span></p>
+            <div class="card-links" role="group" aria-label="《黑帮领地》资料">
+              <a class="chart-link" href="archive/MobLand/%E9%BB%91%E5%B8%AE%E9%A2%86%E5%9C%B0%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">关系图 <span aria-hidden="true">↗</span></a>
+              <a href="archive/MobLand/mobland-relationship.png">长图</a>
+              <a href="archive/MobLand/mobland-relationship-text.md">文字版</a>
+            </div>
+          </div>
+        </article>
 
-    <article class="card" data-title="末日地堡 Silo" data-platform="Apple TV+" data-genres="[&quot;剧情&quot;, &quot;科幻&quot;]" data-status="追更中">
-      <a class="poster" href="archive/Silo/%E6%9C%AB%E6%97%A5%E5%9C%B0%E5%A0%A1%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《末日地堡》人物关系图">
-        <template><img src="cover/silo.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
-        <noscript><img src="cover/silo.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
-        <span class="rating" aria-label="第一季豆瓣评分 7.8"><span aria-hidden="true">★</span> 7.8</span>
-      </a>
-      <div class="card-body">
-        <p class="card-meta"><span>Apple TV+</span><span>2023–</span><span>已播 3 季</span></p>
-        <h3>末日地堡</h3>
-        <p class="english-title" lang="en">Silo</p>
-        <p class="description">144 层地下地堡，朱丽叶追查真相、当上市长，S3 前传线揭开地堡起源与 1 号地堡之谜。</p>
-        <p class="card-details"><span>剧情 · 科幻</span><span>38 位人物</span></p>
-        <p class="status">追更中</p>
-        <div class="card-links" aria-label="《末日地堡》资料">
-          <a class="chart-link" href="archive/Silo/%E6%9C%AB%E6%97%A5%E5%9C%B0%E5%A0%A1%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">人物关系图 <span aria-hidden="true">↗</span></a>
-          <a href="archive/Silo/silo-relationship.png">长图</a>
-          <a href="archive/Silo/silo-relationship-text.md">文字版</a>
-        </div>
-      </div>
-    </article>
+        <article class="card" data-title="末日地堡 Silo" data-platform="Apple TV+" data-genres="[&quot;剧情&quot;, &quot;科幻&quot;]" data-status="追更中">
+          <a class="poster" href="archive/Silo/%E6%9C%AB%E6%97%A5%E5%9C%B0%E5%A0%A1%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html" aria-label="查看《末日地堡》人物关系图">
+            <template><img src="cover/silo.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></template>
+            <noscript><img src="cover/silo.jpg" width="500" height="750" alt="" loading="lazy" decoding="async" fetchpriority="low"></noscript>
+            <span class="poster-platform">Apple TV+</span>
+            <span class="rating" aria-label="第一季豆瓣评分 7.8"><span aria-hidden="true">★</span> 7.8</span>
+          </a>
+          <div class="card-body">
+            <h3>末日地堡</h3>
+            <p class="english-title" lang="en">Silo</p>
+            <p class="card-meta"><span>2023–</span><span>已播 3 季</span><span class="status">追更中</span></p>
+            <p class="description">144 层地下地堡，朱丽叶追查真相、当上市长，S3 前传线揭开地堡起源与 1 号地堡之谜。</p>
+            <p class="card-details"><span>剧情 · 科幻</span><span>38 位人物</span></p>
+            <div class="card-links" role="group" aria-label="《末日地堡》资料">
+              <a class="chart-link" href="archive/Silo/%E6%9C%AB%E6%97%A5%E5%9C%B0%E5%A0%A1%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%9B%BE.html">关系图 <span aria-hidden="true">↗</span></a>
+              <a href="archive/Silo/silo-relationship.png">长图</a>
+              <a href="archive/Silo/silo-relationship-text.md">文字版</a>
+            </div>
+          </div>
+        </article>
       </div>
       <div class="empty" id="empty" hidden>
         <p>没有找到符合条件的剧集。</p>
@@ -364,8 +480,8 @@
   </main>
 
   <footer class="footer wrap">
-    <p>豆瓣评分取自各剧第一季。</p>
-    <a href="https://github.com/1990jtf/cinema-log">查看项目仓库 <span aria-hidden="true">↗</span></a>
+    <p>豆瓣评分取自各剧第一季</p>
+    <a href="https://github.com/1990jtf/cinema-log">GitHub <span aria-hidden="true">↗</span></a>
   </footer>
 </body>
 </html>

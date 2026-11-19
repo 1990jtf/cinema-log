@@ -28,6 +28,8 @@ PLATFORM_ORDER = ["HBO", "Netflix", "Disney+", "Apple TV+", "AMC", "Showtime"]
 # 类型筛选的固定顺序，新类型会自动追加在后面。
 GENRE_ORDER = ["剧情", "喜剧", "科幻", "犯罪", "惊悚", "奇幻", "动画", "古装", "冒险", "动作", "战争"]
 
+SPOTLIGHT_IDS = ("Succession", "Mandalorian", "Pantheon")
+
 
 def q(path: str) -> str:
     """把仓库相对路径转成 URL 编码形式（中文文件名在链接里需要编码）。"""
@@ -90,27 +92,27 @@ def render_cards(shows):
         quiz_link = ""
         if quiz:
             quiz_url = archive_url(show, quiz["file"])
-            quiz_link = f'\n      <a class="quiz-link" href="{quiz_url}">{escape(quiz["label"])} <span aria-hidden="true">↗</span></a>'
-        cards.append(f"""    <article class="card" data-title="{title} {english}" data-platform="{platform}" data-genres="{genre_data}" data-status="{status}">
-      <a class="poster" href="{chart}" aria-label="查看《{title}》人物关系图">
-        <template>{poster}</template>
-        <noscript>{poster}</noscript>
-        {rating_badge}
-      </a>
-      <div class="card-body">
-        <p class="card-meta"><span>{platform}</span><span>{escape(show['years'])}</span><span>{escape(show['seasons'])}</span></p>
-        <h3>{title}</h3>
-        <p class="english-title" lang="en">{english}</p>
-        <p class="description">{escape(show['desc'])}</p>
-        <p class="card-details"><span>{tags}</span><span>{show['characters']} 位人物</span></p>
-        <p class="status">{status}</p>
-        <div class="card-links" aria-label="《{title}》资料">
-          <a class="chart-link" href="{chart}">人物关系图 <span aria-hidden="true">↗</span></a>
-          <a href="{long_image}">长图</a>
-          <a href="{text}">文字版</a>
-        </div>{quiz_link}
-      </div>
-    </article>""")
+            quiz_link = f'\n              <a class="quiz-link" href="{quiz_url}">{escape(quiz["label"])} <span aria-hidden="true">↗</span></a>'
+        cards.append(f"""        <article class="card" data-title="{title} {english}" data-platform="{platform}" data-genres="{genre_data}" data-status="{status}">
+          <a class="poster" href="{chart}" aria-label="查看《{title}》人物关系图">
+            <template>{poster}</template>
+            <noscript>{poster}</noscript>
+            <span class="poster-platform">{platform}</span>
+            {rating_badge}
+          </a>
+          <div class="card-body">
+            <h3>{title}</h3>
+            <p class="english-title" lang="en">{english}</p>
+            <p class="card-meta"><span>{escape(show['years'])}</span><span>{escape(show['seasons'])}</span><span class="status">{status}</span></p>
+            <p class="description">{escape(show['desc'])}</p>
+            <p class="card-details"><span>{tags}</span><span>{show['characters']} 位人物</span></p>
+            <div class="card-links" role="group" aria-label="《{title}》资料">
+              <a class="chart-link" href="{chart}">关系图 <span aria-hidden="true">↗</span></a>
+              <a href="{long_image}">长图</a>
+              <a href="{text}">文字版</a>{quiz_link}
+            </div>
+          </div>
+        </article>""")
     return "\n\n".join(cards)
 
 
@@ -126,17 +128,79 @@ def versioned_asset(path):
     return f"{path}?v={version}"
 
 
-def render_index(shows):
-    latest = max(reversed(shows), key=lambda show: show["added"])
-    media_dir = ROOT / "archive" / latest["id"] / "assets"
+def spotlight_media(show):
+    media_dir = ROOT / "archive" / show["id"] / "assets"
     backdrop = media_dir / "backdrop.jpg"
     if not backdrop.is_file():
-        backdrop = ROOT / "cover" / f"{latest['id'].lower()}.jpg"
-    mobile_backdrop = media_dir / "backdrop-mobile.webp"
+        backdrop = ROOT / "cover" / f"{show['id'].lower()}.jpg"
+    return backdrop, media_dir / "backdrop-mobile.webp", media_dir / "spotlight.webp"
+
+
+def render_spotlight_panel(show, panel_id, is_latest, backdrop, mobile_backdrop, thumb_url):
     mobile_source = ""
     if mobile_backdrop.is_file():
         mobile_url = q(mobile_backdrop.relative_to(ROOT).as_posix())
-        mobile_source = f'<source media="(max-width: 680px)" srcset="{mobile_url}">\n        '
+        mobile_source = f'<source media="(max-width: 700px)" srcset="{mobile_url}">\n              '
+    backdrop_url = q(backdrop.relative_to(ROOT).as_posix())
+    priority = ' fetchpriority="high"' if is_latest else ''
+    preview_style = '' if is_latest else f' style="--art-preview: url({thumb_url})"'
+    label = "最近收录" if is_latest else "焦点剧集"
+    chart = archive_url(show, show["html_file"])
+    rating = show.get("douban")
+    rating_text = (
+        f'<span class="hero-rating" role="img" aria-label="第一季豆瓣评分 {rating}"><span aria-hidden="true">★</span> {rating}</span>'
+        if rating is not None else ""
+    )
+    return f"""        <div class="hero-panel" id="{panel_id}">
+          <picture class="hero-media"{preview_style}>
+            {mobile_source}<img class="hero-image" src="{backdrop_url}" alt=""{priority}>
+          </picture>
+          <div class="hero-content wrap">
+            <div class="hero-copy">
+              <p class="hero-kicker">{label}</p>
+              <h2>{escape(show['title_cn'])}</h2>
+              <p class="hero-en" lang="en">{escape(show['title_en'])}</p>
+              <div class="hero-meta">
+                <span class="hero-platform">{escape(show['platform'])}</span>
+                <span>{escape(show['years'])}</span>
+                <span>{escape(show['seasons'])}</span>
+                {rating_text}
+              </div>
+              <p class="hero-description">{escape(show.get('spotlight_desc', show['desc']))}</p>
+              <div class="hero-actions">
+                <a class="hero-button" href="{chart}">查看人物关系图 <span aria-hidden="true">↗</span></a>
+                <a class="hero-button secondary" href="#catalog">浏览剧集 <span aria-hidden="true">↓</span></a>
+              </div>
+            </div>
+          </div>
+        </div>"""
+
+
+def render_spotlight(shows):
+    latest = max(reversed(shows), key=lambda show: show["added"])
+    by_id = {show["id"]: show for show in shows}
+    selection = [latest] + [by_id[show_id] for show_id in SPOTLIGHT_IDS if show_id in by_id and show_id != latest["id"]]
+    panels, buttons = [], []
+    for index, show in enumerate(selection):
+        panel_id = f"spotlight-{index}"
+        active = index == 0
+        backdrop, mobile_backdrop, thumbnail = spotlight_media(show)
+        if not thumbnail.is_file():
+            thumbnail = ROOT / "cover" / f"{show['id'].lower()}.jpg"
+        thumb_url = q(thumbnail.relative_to(ROOT).as_posix())
+        panel = render_spotlight_panel(show, panel_id, active, backdrop, mobile_backdrop, thumb_url)
+        if not active:
+            panel = f'        <template data-panel="{panel_id}">\n{panel}\n        </template>'
+        panels.append(panel)
+        buttons.append(f"""            <button type="button" data-spotlight="{panel_id}" aria-pressed="{str(active).lower()}">
+              <img src="{thumb_url}" width="168" height="94" alt="" loading="lazy" decoding="async" fetchpriority="low">
+              <span>{escape(show['title_cn'])}</span>
+            </button>""")
+    return "\n".join(panels), "\n".join(buttons) if len(buttons) > 1 else ""
+
+
+def render_index(shows):
+    spotlight_panels, spotlight_buttons = render_spotlight(shows)
     replacements = {
         "SITE_CSS": versioned_asset("assets/index.css"),
         "SITE_SCRIPT": versioned_asset("assets/index.js"),
@@ -146,11 +210,8 @@ def render_index(shows):
         "PLATFORM_OPTIONS": render_options((show["platform"] for show in shows), PLATFORM_ORDER),
         "GENRE_OPTIONS": render_options((genre for show in shows for genre in show.get("genres", [])), GENRE_ORDER),
         "STATUS_OPTIONS": render_options((show.get("status", "已完结") for show in shows), ("已完结", "追更中")),
-        "FEATURE_BACKDROP": q(backdrop.relative_to(ROOT).as_posix()),
-        "FEATURE_MOBILE_SOURCE": mobile_source,
-        "FEATURE_TITLE": escape(latest["title_cn"]),
-        "FEATURE_EN": escape(latest["title_en"]),
-        "FEATURE_LINK": archive_url(latest, latest["html_file"]),
+        "SPOTLIGHT_PANELS": spotlight_panels,
+        "SPOTLIGHT_BUTTONS": spotlight_buttons,
         "CARDS": render_cards(shows),
     }
     template = (ROOT / "tools" / "index.template.html").read_text(encoding="utf-8")
