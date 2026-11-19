@@ -108,7 +108,9 @@ button, input, select { font: inherit; }
   position: absolute;
   z-index: -1;
   inset: 0 max(0px, calc((100% - 2100px) / 2)) 0 24%;
-  background: var(--art-preview, none) var(--art-position) / cover no-repeat;
+  background-position: var(--art-position);
+  background-size: cover;
+  background-repeat: no-repeat;
   pointer-events: none;
 }
 

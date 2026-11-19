@@ -143,7 +143,7 @@ def render_spotlight_panel(show, panel_id, is_latest, backdrop, mobile_backdrop,
         mobile_source = f'<source media="(max-width: 700px)" srcset="{mobile_url}">\n              '
     backdrop_url = q(backdrop.relative_to(ROOT).as_posix())
     priority = ' fetchpriority="high"' if is_latest else ''
-    preview_style = '' if is_latest else f' style="--art-preview: url({thumb_url})"'
+    preview_style = '' if is_latest else f' style="background-image: url({thumb_url})"'
     label = "最近收录" if is_latest else "焦点剧集"
     chart = archive_url(show, show["html_file"])
     rating = show.get("douban")
